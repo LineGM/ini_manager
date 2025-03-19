@@ -16,7 +16,7 @@ endif()
 
 add_executable(ini_manager_test source/ini_manager_test.cpp)
 target_link_libraries(ini_manager_test PRIVATE ini_manager::ini_manager)
-target_compile_features(ini_manager_test PRIVATE cxx_std_20)
+target_compile_features(ini_manager_test PRIVATE cxx_std_23)
 
 add_test(NAME ini_manager_test COMMAND ini_manager_test)
 

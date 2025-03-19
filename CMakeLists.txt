@@ -29,7 +29,7 @@ target_include_directories(
     "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
 )
 
-target_compile_features(ini_manager_ini_manager INTERFACE cxx_std_20)
+target_compile_features(ini_manager_ini_manager INTERFACE cxx_std_23)
 
 # ---- Install rules ----
 
