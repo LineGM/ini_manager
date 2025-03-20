@@ -9,15 +9,36 @@
     {
       "name": "dev-common",
       "hidden": true,
-      "inherits": ["dev-mode", "clang-tidy", "cppcheck"],
+      "inherits": [
+        "dev-mode",
+        "clang-tidy",
+        "cppcheck"
+      ],
       "cacheVariables": {
-        "BUILD_MCSS_DOCS": "ON"
+        "BUILD_DOCS": "ON"
       }
     },
     {
-      "name": "dev-linux",
+      "name": "dev-linux-gcc",
       "binaryDir": "${sourceDir}/build/dev-linux",
-      "inherits": ["dev-common", "ci-linux"],
+      "inherits": [
+        "dev-common",
+        "ci-linux",
+        "compiler-gcc"
+      ],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "dev-linux-clang",
+      "binaryDir": "${sourceDir}/build/dev-linux",
+      "inherits": [
+        "dev-common",
+        "ci-linux",
+        "compiler-clang"
+      ],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
@@ -26,46 +47,150 @@
     {
       "name": "dev-darwin",
       "binaryDir": "${sourceDir}/build/dev-darwin",
-      "inherits": ["dev-common", "ci-darwin"]
+      "inherits": [
+        "dev-common",
+        "ci-darwin"
+      ]
     },
     {
       "name": "dev-win64",
       "binaryDir": "${sourceDir}/build/dev-win64",
-      "inherits": ["dev-common", "ci-win64"],
+      "inherits": [
+        "dev-common",
+        "ci-win64"
+      ],
       "environment": {
         "UseMultiToolTask": "true",
         "EnforceProcessCountAcrossBuilds": "true"
       }
     },
     {
-      "name": "dev",
-      "binaryDir": "${sourceDir}/build/dev",
-      "inherits": "dev-linux"
+      "name": "dev-from-linux-to-win64",
+      "description": "Настройки для разработки для Windows с использованием MinGW под Linux",
+      "binaryDir": "${sourceDir}/build/dev-from-linux-to-win64",
+      "inherits": [
+        "dev-common",
+        "ci-win64-linux-mingw"
+      ],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_SYSTEM_NAME": "Windows",
+        "CMAKE_COMPILER_PREFIX": "x86_64-w64-mingw32",
+        "CMAKE_C_COMPILER": "x86_64-w64-mingw32-gcc",
+        "CMAKE_CXX_COMPILER": "x86_64-w64-mingw32-g++",
+        "CMAKE_RC_COMPILER": "x86_64-w64-mingw32-windres",
+        "CMAKE_FIND_ROOT_PATH": "/usr/x86_64-w64-mingw32",
+        "CMAKE_FIND_ROOT_PATH_MODE_PROGRAM": "NEVER",
+        "CMAKE_FIND_ROOT_PATH_MODE_LIBRARY": "ONLY",
+        "CMAKE_FIND_ROOT_PATH_MODE_INCLUDE": "ONLY"
+      }
     },
     {
       "name": "dev-coverage",
       "binaryDir": "${sourceDir}/build/coverage",
-      "inherits": ["dev-mode", "coverage-linux"]
+      "inherits": [
+        "dev-mode",
+        "coverage-linux"
+      ]
     }
   ],
   "buildPresets": [
     {
-      "name": "dev",
-      "configurePreset": "dev",
-      "configuration": "Debug",
-      "jobs": 12
+      "name": "dev-linux-gcc",
+      "configurePreset": "dev-linux-gcc",
+      "configuration": "Debug"
+    },
+    {
+      "name": "dev-linux-clang",
+      "configurePreset": "dev-linux-clang",
+      "configuration": "Debug"
+    },
+    {
+      "name": "dev-darwin",
+      "configurePreset": "dev-darwin",
+      "configuration": "Debug"
+    },
+    {
+      "name": "dev-win64",
+      "configurePreset": "dev-win64",
+      "configuration": "Debug"
+    },
+    {
+      "name": "dev-from-linux-to-win64",
+      "configurePreset": "dev-from-linux-to-win64",
+      "configuration": "Debug"
+    },
+    {
+      "name": "dev-coverage",
+      "configurePreset": "dev-coverage",
+      "configuration": "Release"
     }
   ],
   "testPresets": [
     {
-      "name": "dev",
-      "configurePreset": "dev",
+      "name": "dev-linux-gcc",
+      "configurePreset": "dev-linux-gcc",
       "configuration": "Debug",
       "output": {
         "outputOnFailure": true
       },
       "execution": {
-        "jobs": 12,
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "dev-linux-clang",
+      "configurePreset": "dev-linux-clang",
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "dev-darwin",
+      "configurePreset": "dev-darwin",
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "dev-win64",
+      "configurePreset": "dev-win64",
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "dev-from-linux-to-win64",
+      "configurePreset": "dev-from-linux-to-win64",
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "dev-coverage",
+      "configurePreset": "dev-coverage",
+      "configuration": "Release",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
         "noTestsAction": "error"
       }
     }

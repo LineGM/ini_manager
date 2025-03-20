@@ -1,9 +1,9 @@
 if(PROJECT_IS_TOP_LEVEL)
-  set(
-      CMAKE_INSTALL_INCLUDEDIR "include/ini_manager-${PROJECT_VERSION}"
-      CACHE STRING ""
-  )
-  set_property(CACHE CMAKE_INSTALL_INCLUDEDIR PROPERTY TYPE PATH)
+	set(
+		CMAKE_INSTALL_INCLUDEDIR "include/ini_manager-${PROJECT_VERSION}"
+		CACHE STRING ""
+	)
+	set_property(CACHE CMAKE_INSTALL_INCLUDEDIR PROPERTY TYPE PATH)
 endif()
 
 # Project is configured with no languages, so tell GNUInstallDirs the lib dir
@@ -16,51 +16,51 @@ include(GNUInstallDirs)
 set(package ini_manager)
 
 install(
-    DIRECTORY include/
-    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-    COMPONENT ini_manager_Development
+	DIRECTORY include/
+	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+	COMPONENT ini_manager_Development
 )
 
 install(
-    TARGETS ini_manager_ini_manager
-    EXPORT ini_managerTargets
-    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+	TARGETS ini_manager_ini_manager
+	EXPORT ini_managerTargets
+	INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
 )
 
 write_basic_package_version_file(
-    "${package}ConfigVersion.cmake"
-    COMPATIBILITY SameMajorVersion
-    ARCH_INDEPENDENT
+	"${package}ConfigVersion.cmake"
+	COMPATIBILITY SameMajorVersion
+	ARCH_INDEPENDENT
 )
 
 # Allow package maintainers to freely override the path for the configs
 set(
-    ini_manager_INSTALL_CMAKEDIR "${CMAKE_INSTALL_DATADIR}/${package}"
-    CACHE STRING "CMake package config location relative to the install prefix"
+	ini_manager_INSTALL_CMAKEDIR "${CMAKE_INSTALL_DATADIR}/${package}"
+	CACHE STRING "CMake package config location relative to the install prefix"
 )
 set_property(CACHE ini_manager_INSTALL_CMAKEDIR PROPERTY TYPE PATH)
 mark_as_advanced(ini_manager_INSTALL_CMAKEDIR)
 
 install(
-    FILES cmake/install-config.cmake
-    DESTINATION "${ini_manager_INSTALL_CMAKEDIR}"
-    RENAME "${package}Config.cmake"
-    COMPONENT ini_manager_Development
+	FILES cmake/install-config.cmake
+	DESTINATION "${ini_manager_INSTALL_CMAKEDIR}"
+	RENAME "${package}Config.cmake"
+	COMPONENT ini_manager_Development
 )
 
 install(
-    FILES "${PROJECT_BINARY_DIR}/${package}ConfigVersion.cmake"
-    DESTINATION "${ini_manager_INSTALL_CMAKEDIR}"
-    COMPONENT ini_manager_Development
+	FILES "${PROJECT_BINARY_DIR}/${package}ConfigVersion.cmake"
+	DESTINATION "${ini_manager_INSTALL_CMAKEDIR}"
+	COMPONENT ini_manager_Development
 )
 
 install(
-    EXPORT ini_managerTargets
-    NAMESPACE ini_manager::
-    DESTINATION "${ini_manager_INSTALL_CMAKEDIR}"
-    COMPONENT ini_manager_Development
+	EXPORT ini_managerTargets
+	NAMESPACE ini_manager::
+	DESTINATION "${ini_manager_INSTALL_CMAKEDIR}"
+	COMPONENT ini_manager_Development
 )
 
 if(PROJECT_IS_TOP_LEVEL)
-  include(CPack)
+	include(CPack)
 endif()

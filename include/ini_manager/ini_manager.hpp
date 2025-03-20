@@ -38,7 +38,11 @@ struct key
 class ini_manager
 {
   public:
-	ini_manager() = default;
+	ini_manager()
+		: m_data(std::make_shared<
+				 std::map<std::string, std::map<std::string, std::string>>>())
+	{
+	}
 
 	static auto from_file(const std::string &file_path)
 		-> std::expected<ini_manager, std::error_code>
@@ -234,6 +238,25 @@ class ini_manager
 		return load(file_path);
 	}
 
+	auto load_stream(std::istream &istream) -> std::expected<void, std::error_code>
+	{
+		m_data =
+			std::make_shared<std::map<std::string, std::map<std::string, std::string>>>();
+		m_file_path.clear();
+		return parse(istream);
+	}
+
+	auto add_from_stream(std::istream &istream) -> std::expected<void, std::error_code>
+	{
+		return parse(istream); // Просто добавляем данные к существующим
+	}
+
+	auto add_from_file(const std::string &file_path)
+		-> std::expected<void, std::error_code>
+	{
+		return load(file_path);
+	}
+
 	auto write_file(const std::string &file_path) const
 		-> std::expected<void, std::error_code>
 	{
@@ -256,8 +279,7 @@ class ini_manager
 	}
 
   private:
-	std::shared_ptr<std::map<std::string, std::map<std::string, std::string>>> m_data =
-		std::make_shared<std::map<std::string, std::map<std::string, std::string>>>();
+	std::shared_ptr<std::map<std::string, std::map<std::string, std::string>>> m_data;
 	std::string m_file_path;
 
 	auto load(const std::string &file_path) -> std::expected<void, std::error_code>
