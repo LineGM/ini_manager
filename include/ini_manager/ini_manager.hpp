@@ -146,12 +146,16 @@ class ini_manager
 	template <typename T>
 	auto get_value(section section, key key) const noexcept -> std::optional<T>
 	{
-		if (const auto value_str = get_value(section, key); value_str.has_value())
+		if (const auto value_str = (*this)[section.value][key.value];
+			value_str.has_value())
 		{
-			std::istringstream iss(*value_str);
-			T value;
-			if constexpr (std::is_same_v<T, bool>)
+			if constexpr (std::is_same_v<T, std::string>)
 			{
+				return value_str;
+			}
+			else if constexpr (std::is_same_v<T, bool>)
+			{
+				std::istringstream iss(*value_str);
 				std::string lower_value;
 				iss >> lower_value;
 				std::ranges::transform(lower_value, lower_value.begin(), ::tolower);
@@ -165,9 +169,14 @@ class ini_manager
 				}
 				return std::nullopt;
 			}
-			else if (iss >> value && iss.eof())
+			else
 			{
-				return value;
+				std::istringstream iss(*value_str);
+				T value;
+				if (iss >> value && iss.eof())
+				{
+					return value;
+				}
 			}
 		}
 		return std::nullopt;
@@ -207,12 +216,17 @@ class ini_manager
 
 	void set_value(std::string_view section, std::string_view key, double value) noexcept
 	{
-		(*m_data)[std::string{section}][std::string{key}] = std::to_string(value);
+		(*m_data)[std::string{section}][std::string{key}] = std::format("{}", value);
 	}
 
-	void set_section(std::string_view section) noexcept
+	void set_section(const std::string &section) noexcept
 	{
-		(*m_data)[std::string{section}] = {};
+		if (m_data->find(section) == m_data->end())
+		{
+			(*m_data)[section] =
+				{}; // Create a new empty section only if it doesn't exist
+		}
+		// If the section already exists, do nothing.
 	}
 
 	auto remove_value(section section, key key) noexcept -> bool
