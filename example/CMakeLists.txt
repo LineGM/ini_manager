@@ -50,5 +50,6 @@ add_example(4_load_file_example)
 add_example(5_add_from_stream_example)
 add_example(6_load_stream_example)
 add_example(7_add_from_file_example)
+add_example(8_operator_example)
 
 add_folders(Example)

@@ -248,7 +248,7 @@ class ini_manager
 
 	auto add_from_stream(std::istream &istream) -> std::expected<void, std::error_code>
 	{
-		return parse(istream); // Просто добавляем данные к существующим
+		return parse(istream);
 	}
 
 	auto add_from_file(const std::string &file_path)
@@ -276,6 +276,27 @@ class ini_manager
 				static_cast<int>(std::errc::invalid_argument), std::generic_category()));
 		}
 		return write_file(m_file_path);
+	}
+
+	friend auto operator<<(std::ostream &ostream, const ini_manager &manager)
+		-> std::ostream &
+	{
+		auto result = manager.write(ostream);
+		if (!result.has_value())
+		{
+			ostream.setstate(std::ios::failbit);
+		}
+		return ostream;
+	}
+
+	friend auto operator>>(std::istream &istream, ini_manager &manager) -> std::istream &
+	{
+		auto result = manager.parse(istream);
+		if (!result.has_value())
+		{
+			istream.setstate(std::ios::failbit);
+		}
+		return istream;
 	}
 
   private:
