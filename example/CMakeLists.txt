@@ -20,6 +20,9 @@ function(add_example NAME)
   add_dependencies(run-examples "run_${NAME}")
 endfunction()
 
+add_example(load_example)
+add_example(stream_example)
+add_example(path_example)
 add_example(empty_example)
 
 add_folders(Example)

@@ -31,6 +31,14 @@ target_include_directories(
 
 target_compile_features(ini_manager_ini_manager INTERFACE cxx_std_23)
 
+# Copy compile_commands.json from current build directory to build/
+# (for clangd extension)
+execute_process(
+  COMMAND ${CMAKE_COMMAND} -E create_symlink
+    "${CMAKE_BINARY_DIR}/compile_commands.json"
+    "${CMAKE_BINARY_DIR}/../compile_commands.json"
+)
+
 # ---- Install rules ----
 
 if(NOT CMAKE_SKIP_INSTALL_RULES)
