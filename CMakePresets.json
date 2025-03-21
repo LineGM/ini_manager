@@ -199,7 +199,8 @@
         "ci-linux",
         "clang-tidy",
         "cppcheck",
-        "dev-mode"
+        "dev-mode",
+        "compiler-clang"
       ]
     },
     {
