@@ -104,6 +104,8 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
+    env: { CXX: clang++-19 }
+
     steps:
     - uses: actions/checkout@v4
 
