@@ -124,6 +124,11 @@ jobs:
       run: |
         Add-Content "$env:GITHUB_ENV" 'UseMultiToolTask=true'
         Add-Content "$env:GITHUB_ENV" 'EnforceProcessCountAcrossBuilds=true'
+    
+    - name: Add clang path to $PATH env
+      shell: bash
+      if: matrix.os == 'windows-2025'
+      run: echo "PATH=$PATH:C:\msys64\mingw64\bin" >> $GITHUB_ENV
 
     - name: Configure
       shell: pwsh
