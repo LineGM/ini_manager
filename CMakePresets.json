@@ -50,7 +50,8 @@
       "cacheVariables": {
         "CMAKE_CXX_EXTENSIONS": "OFF",
         "CMAKE_CXX_STANDARD": "23",
-        "CMAKE_CXX_STANDARD_REQUIRED": "ON"
+        "CMAKE_CXX_STANDARD_REQUIRED": "ON",
+        "BOOST_UT_DISABLE_MODULE": "ON"
       }
     },
     {
@@ -124,10 +125,7 @@
       ],
       "generator": "Visual Studio 17 2022",
       "architecture": "x64",
-      "hidden": true,
-      "cacheVariables": {
-        "BOOST_UT_DISABLE_MODULE": "ON",
-      }
+      "hidden": true
     },
     {
       "name": "ci-win64-linux-mingw",
