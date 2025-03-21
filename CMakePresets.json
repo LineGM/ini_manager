@@ -127,6 +127,17 @@
       "hidden": true
     },
     {
+      "name": "ci-win64-clang",
+      "inherits": [
+        "flags-gcc-clang",
+        "ci-std",
+        "compiler-clang"
+      ],
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "hidden": true
+    },
+    {
       "name": "ci-win64-linux-mingw",
       "inherits": [
         "flags-gcc-clang",
@@ -204,7 +215,7 @@
       "name": "ci-windows",
       "inherits": [
         "ci-build",
-        "ci-win64",
+        "ci-win64-clang",
         "dev-mode",
         "ci-multi-config"
       ]
