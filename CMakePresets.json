@@ -200,7 +200,6 @@
         "clang-tidy",
         "cppcheck",
         "dev-mode",
-        "compiler-clang"
       ]
     },
     {
