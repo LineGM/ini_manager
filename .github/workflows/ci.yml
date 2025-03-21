@@ -71,16 +71,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    #- name: Setup Cpp
-    #  uses: aminya/setup-cpp@v1
-    #  with:
-    #    compiler: llvm
-    #    cmake: true
-    #    ninja: true
-
     - name: Install Clang
       run: sudo apt-get update -q
-        && sudo apt-get install clang-19 clang-format-19 clang-tidy-19 clang-tools-19 clangd-19 -q -y
+        && sudo apt-get install clang-tools-19 -q -y
 
     - name: Configure
       run: cmake --preset=ci-sanitize
@@ -116,7 +109,7 @@ jobs:
     - name: Install static analyzers
       if: matrix.os == 'ubuntu-24.04'
       run: >-
-        sudo apt-get install clang clang-tidy cppcheck -y -q
+        sudo apt-get install clang-tools-19 clang-tidy-19 cppcheck -y -q
 
     - name: Setup MultiToolTask
       if: matrix.os == 'windows-2022'
