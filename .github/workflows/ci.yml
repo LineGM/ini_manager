@@ -71,9 +71,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install Clang
-      run: sudo apt-get update -q
-        && sudo apt-get install clang -q -y
+    - name: Setup Cpp
+      uses: aminya/setup-cpp@v1
+      with:
+        compiler: llvm
+        cmake: true
+        ninja: true
 
     - name: Configure
       run: cmake --preset=ci-sanitize
