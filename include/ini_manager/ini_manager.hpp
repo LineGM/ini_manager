@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <expected> // C++23
+#include <format>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -13,6 +14,10 @@
 
 namespace ini
 {
+
+template <typename T>
+concept StreamExtractable =
+	requires(std::istream &istream, T &value) { istream >> value; };
 
 constexpr auto trim(std::string_view str) noexcept -> std::string_view
 {
@@ -146,8 +151,7 @@ class ini_manager
 	template <typename T>
 	auto get_value(section section, key key) const noexcept -> std::optional<T>
 	{
-		if (const auto value_str = (*this)[section.value][key.value];
-			value_str.has_value())
+		if (auto value_str = (*this)[section.value][key.value]; value_str.has_value())
 		{
 			if constexpr (std::is_same_v<T, std::string>)
 			{
@@ -169,7 +173,7 @@ class ini_manager
 				}
 				return std::nullopt;
 			}
-			else
+			else if constexpr (StreamExtractable<T>)
 			{
 				std::istringstream iss(*value_str);
 				T value;
@@ -203,18 +207,9 @@ class ini_manager
 		return default_value;
 	}
 
-	void set_value(std::string_view section, std::string_view key,
-				   std::string_view value) noexcept
-	{
-		(*m_data)[std::string{section}][std::string{key}] = std::string{value};
-	}
-
-	void set_value(std::string_view section, std::string_view key, int value) noexcept
-	{
-		(*m_data)[std::string{section}][std::string{key}] = std::to_string(value);
-	}
-
-	void set_value(std::string_view section, std::string_view key, double value) noexcept
+	template <typename T>
+		requires std::formattable<T, char>
+	void set_value(std::string_view section, std::string_view key, T value) noexcept
 	{
 		(*m_data)[std::string{section}][std::string{key}] = std::format("{}", value);
 	}
@@ -223,8 +218,8 @@ class ini_manager
 	{
 		if (m_data->find(section) == m_data->end())
 		{
-			(*m_data)[section] =
-				{}; // Create a new empty section only if it doesn't exist
+			// Create a new empty section only if it doesn't exist
+			(*m_data)[section] = {};
 		}
 		// If the section already exists, do nothing.
 	}

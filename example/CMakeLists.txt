@@ -29,7 +29,7 @@ function(add_example NAME)
 
 	add_custom_target(
 		"run_${NAME}"
-		COMMAND "${NAME}" VERBATIM
+		COMMAND $<TARGET_FILE:${NAME}> VERBATIM
 	)
 
 	add_dependencies(
