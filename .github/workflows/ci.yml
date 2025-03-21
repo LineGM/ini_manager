@@ -71,12 +71,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup Cpp
-      uses: aminya/setup-cpp@v1
-      with:
-        compiler: llvm
-        cmake: true
-        ninja: true
+    #- name: Setup Cpp
+    #  uses: aminya/setup-cpp@v1
+    #  with:
+    #    compiler: llvm
+    #    cmake: true
+    #    ninja: true
+
+    - name: Install Clang
+      run: sudo apt-get update -q
+        && sudo apt-get install clang-19 clang-format-19 clang-tidy-19 clang-tools-19 clangd-19 -q -y
 
     - name: Configure
       run: cmake --preset=ci-sanitize
