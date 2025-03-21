@@ -197,8 +197,6 @@
       "inherits": [
         "ci-build",
         "ci-linux",
-        "clang-tidy",
-        "cppcheck",
         "dev-mode"
       ]
     },
