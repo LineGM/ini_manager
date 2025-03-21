@@ -126,14 +126,14 @@ jobs:
       run: cmake --preset=ci-$("${{ matrix.os }}".split("-")[0])
 
     - name: Build
-      run: cmake --build build/ -j 2
+      run: cmake --build build/ --config Release -j 2
 
     - name: Install
-      run: cmake --install build/ --prefix prefix
+      run: cmake --install build/ --config Release --prefix prefix
 
     - name: Test
       working-directory: build
-      run: ctest --output-on-failure --no-tests=error -j 2
+      run: ctest --output-on-failure --no-tests=error -C Release -j 2
 
   docs:
     # Deploy docs only when builds succeed
