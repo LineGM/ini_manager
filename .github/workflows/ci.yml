@@ -161,7 +161,7 @@ jobs:
     - name: Build docs
       #run: cmake "-DPROJECT_SOURCE_DIR=$PWD" "-DPROJECT_BINARY_DIR=$PWD/build"
         #-P cmake/docs.cmake
-      run: sudo mkdir ./build; cmake --build --config Release -t docs
+      run: sudo mkdir ./build; cmake --build build/ --config Release -t docs
 
     - name: Deploy docs
       uses: peaceiris/actions-gh-pages@v4
