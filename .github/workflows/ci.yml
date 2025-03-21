@@ -70,8 +70,6 @@ jobs:
 
     runs-on: ubuntu-24.04
 
-    env: { CXX: clang++-19 }
-
     steps:
     - uses: actions/checkout@v4
 
@@ -106,8 +104,6 @@ jobs:
         os: [macos-15, ubuntu-24.04, windows-2025]
 
     runs-on: ${{ matrix.os }}
-
-    env: { CXX: clang++-19 }
 
     steps:
     - uses: actions/checkout@v4
