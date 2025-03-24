@@ -83,6 +83,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Manages INI file data, allowing reading, writing, and manipulation of configuration settings.  
+ <a href="../../d4/d05/classini_1_1ini__manager.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="../../dd/d3f/ini__manager_8hpp_source.html">ini_manager.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for ini::ini_manager:</div>
@@ -93,24 +96,31 @@ Collaboration diagram for ini::ini_manager:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5f/classini_1_1ini__manager_1_1const__section__accessor.html">const_section_accessor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides const access to keys within a specific section.  <a href="../../d4/d5f/classini_1_1ini__manager_1_1const__section__accessor.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6f/classini_1_1ini__manager_1_1section__accessor.html">section_accessor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides non-const access to keys within a specific section.  <a href="../../d6/d6f/classini_1_1ini__manager_1_1section__accessor.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aeb80d305184a00b43174d7a55b99f0ba" id="r_aeb80d305184a00b43174d7a55b99f0ba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#aeb80d305184a00b43174d7a55b99f0ba">ini_manager</a> ()</td></tr>
+<tr class="memdesc:aeb80d305184a00b43174d7a55b99f0ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor for the <a class="el" href="../../d4/d05/classini_1_1ini__manager.html" title="Manages INI file data, allowing reading, writing, and manipulation of configuration settings.">ini_manager</a> class.  <br /></td></tr>
 <tr class="separator:aeb80d305184a00b43174d7a55b99f0ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9013d15ff084b970180f36171e08614b" id="r_a9013d15ff084b970180f36171e08614b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a9013d15ff084b970180f36171e08614b">operator[]</a> (std::string_view <a class="el" href="../../da/d7b/structini_1_1section.html">section</a>) -&gt; <a class="el" href="../../d6/d6f/classini_1_1ini__manager_1_1section__accessor.html">section_accessor</a></td></tr>
+<tr class="memdesc:a9013d15ff084b970180f36171e08614b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides non-const access to a specific section.  <br /></td></tr>
 <tr class="separator:a9013d15ff084b970180f36171e08614b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf33fbcc709efa80979117920caa9e50" id="r_aaf33fbcc709efa80979117920caa9e50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#aaf33fbcc709efa80979117920caa9e50">operator[]</a> (std::string_view <a class="el" href="../../da/d7b/structini_1_1section.html">section</a>) <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> -&gt; <a class="el" href="../../d4/d5f/classini_1_1ini__manager_1_1const__section__accessor.html">const_section_accessor</a></td></tr>
+<tr class="memdesc:aaf33fbcc709efa80979117920caa9e50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides const access to a specific section.  <br /></td></tr>
 <tr class="separator:aaf33fbcc709efa80979117920caa9e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b9d25a0d7860fe2f089b2347268d4a3" id="r_a5b9d25a0d7860fe2f089b2347268d4a3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">get_value</a> (<a class="el" href="../../da/d7b/structini_1_1section.html">section</a> <a class="el" href="../../da/d7b/structini_1_1section.html">section</a>, <a class="el" href="../../dd/dad/structini_1_1key.html">key</a> <a class="el" href="../../dd/dad/structini_1_1key.html">key</a>) const noexcept -&gt; std::optional&lt; std::string &gt;</td></tr>
+<tr class="memdesc:a5b9d25a0d7860fe2f089b2347268d4a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a string value for a given section and key.  <br /></td></tr>
 <tr class="separator:a5b9d25a0d7860fe2f089b2347268d4a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39558157153c6c8322cf8745b70fdee5" id="r_a39558157153c6c8322cf8745b70fdee5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a39558157153c6c8322cf8745b70fdee5"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a39558157153c6c8322cf8745b70fdee5">get_value</a> (<a class="el" href="../../da/d7b/structini_1_1section.html">section</a> <a class="el" href="../../da/d7b/structini_1_1section.html">section</a>, <a class="el" href="../../dd/dad/structini_1_1key.html">key</a> <a class="el" href="../../dd/dad/structini_1_1key.html">key</a>) const noexcept -&gt; std::optional&lt; T &gt;</td></tr>
 <tr class="separator:a39558157153c6c8322cf8745b70fdee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac88f0d28eb415b59bf7dff771222df0e" id="r_ac88f0d28eb415b59bf7dff771222df0e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#ac88f0d28eb415b59bf7dff771222df0e">get_value_or_default</a> (<a class="el" href="../../da/d7b/structini_1_1section.html">section</a> <a class="el" href="../../da/d7b/structini_1_1section.html">section</a>, <a class="el" href="../../dd/dad/structini_1_1key.html">key</a> <a class="el" href="../../dd/dad/structini_1_1key.html">key</a>, std::string <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">default_value</a>) <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">noexcept</a> -&gt; std::string</td></tr>
+<tr class="memdesc:ac88f0d28eb415b59bf7dff771222df0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a string value for a given section and key, or a default value if not found.  <br /></td></tr>
 <tr class="separator:ac88f0d28eb415b59bf7dff771222df0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87fcd332ea821ea96964f728ac1e5b66" id="r_a87fcd332ea821ea96964f728ac1e5b66"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">typename</a> <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">T</a> &gt; </td></tr>
 <tr class="memitem:a87fcd332ea821ea96964f728ac1e5b66"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a87fcd332ea821ea96964f728ac1e5b66">get_value_or_default</a> (<a class="el" href="../../da/d7b/structini_1_1section.html">section</a> <a class="el" href="../../da/d7b/structini_1_1section.html">section</a>, <a class="el" href="../../dd/dad/structini_1_1key.html">key</a> <a class="el" href="../../dd/dad/structini_1_1key.html">key</a>, <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">T</a> <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">default_value</a>) <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">noexcept</a> -&gt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">T</a></td></tr>
@@ -118,41 +128,57 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a85d06e07c18e04eaee981edb38e60993" id="r_a85d06e07c18e04eaee981edb38e60993"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">typename</a> <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">T</a> &gt; <br />
 requires std::formattable&lt;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">T</a>, <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">char</a>&gt;</td></tr>
 <tr class="memitem:a85d06e07c18e04eaee981edb38e60993"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">void</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a85d06e07c18e04eaee981edb38e60993">set_value</a> (std::string_view <a class="el" href="../../da/d7b/structini_1_1section.html">section</a>, std::string_view <a class="el" href="../../dd/dad/structini_1_1key.html">key</a>, <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">T</a> value) <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">noexcept</a></td></tr>
+<tr class="memdesc:a85d06e07c18e04eaee981edb38e60993"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a value for a given section and key.  <br /></td></tr>
 <tr class="separator:a85d06e07c18e04eaee981edb38e60993"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae86279dd28a7f5a6e246c7b74eee6072" id="r_ae86279dd28a7f5a6e246c7b74eee6072"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#ae86279dd28a7f5a6e246c7b74eee6072">set_section</a> (<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> std::string &amp;<a class="el" href="../../da/d7b/structini_1_1section.html">section</a>) <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">noexcept</a></td></tr>
+<tr class="memdesc:ae86279dd28a7f5a6e246c7b74eee6072"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a section in the INI data. If the section does not exist, it is created.  <br /></td></tr>
 <tr class="separator:ae86279dd28a7f5a6e246c7b74eee6072"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c2bca7b39a8e4454fc3e885bedd9687" id="r_a2c2bca7b39a8e4454fc3e885bedd9687"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a2c2bca7b39a8e4454fc3e885bedd9687">remove_value</a> (<a class="el" href="../../da/d7b/structini_1_1section.html">section</a> <a class="el" href="../../da/d7b/structini_1_1section.html">section</a>, <a class="el" href="../../dd/dad/structini_1_1key.html">key</a> <a class="el" href="../../dd/dad/structini_1_1key.html">key</a>) <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">noexcept</a> -&gt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">bool</a></td></tr>
+<tr class="memdesc:a2c2bca7b39a8e4454fc3e885bedd9687"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a key-value pair from a section.  <br /></td></tr>
 <tr class="separator:a2c2bca7b39a8e4454fc3e885bedd9687"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a96b22db39d586ae8e307328c210d5a" id="r_a1a96b22db39d586ae8e307328c210d5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a1a96b22db39d586ae8e307328c210d5a">remove_section</a> (<a class="el" href="../../da/d7b/structini_1_1section.html">section</a> <a class="el" href="../../da/d7b/structini_1_1section.html">section</a>) <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">noexcept</a> -&gt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">bool</a></td></tr>
+<tr class="memdesc:a1a96b22db39d586ae8e307328c210d5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an entire section from the INI data.  <br /></td></tr>
 <tr class="separator:a1a96b22db39d586ae8e307328c210d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11d6b90b20a81d65e294473e9825bbb7" id="r_a11d6b90b20a81d65e294473e9825bbb7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a11d6b90b20a81d65e294473e9825bbb7">load_file</a> (<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> std::string &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">file_path</a>) -&gt; std::expected&lt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">void</a>, std::error_code &gt;</td></tr>
+<tr class="memdesc:a11d6b90b20a81d65e294473e9825bbb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads INI data from a file, replacing any existing data.  <br /></td></tr>
 <tr class="separator:a11d6b90b20a81d65e294473e9825bbb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4316766a2c3029d10134eaf8e26f0774" id="r_a4316766a2c3029d10134eaf8e26f0774"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a4316766a2c3029d10134eaf8e26f0774">load_stream</a> (std::istream &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">istream</a>) -&gt; std::expected&lt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">void</a>, std::error_code &gt;</td></tr>
+<tr class="memdesc:a4316766a2c3029d10134eaf8e26f0774"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads INI data from an input stream, replacing any existing data.  <br /></td></tr>
 <tr class="separator:a4316766a2c3029d10134eaf8e26f0774"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41ed3e4d7b34985580e9eba4e802cac5" id="r_a41ed3e4d7b34985580e9eba4e802cac5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a41ed3e4d7b34985580e9eba4e802cac5">add_from_stream</a> (std::istream &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">istream</a>) -&gt; std::expected&lt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">void</a>, std::error_code &gt;</td></tr>
+<tr class="memdesc:a41ed3e4d7b34985580e9eba4e802cac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds INI data from an input stream to the existing data.  <br /></td></tr>
 <tr class="separator:a41ed3e4d7b34985580e9eba4e802cac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af84f7a451d5f5ab137a6f8a7a54ebcbc" id="r_af84f7a451d5f5ab137a6f8a7a54ebcbc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#af84f7a451d5f5ab137a6f8a7a54ebcbc">add_from_file</a> (<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> std::string &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">file_path</a>) -&gt; std::expected&lt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">void</a>, std::error_code &gt;</td></tr>
+<tr class="memdesc:af84f7a451d5f5ab137a6f8a7a54ebcbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds INI data from a file to the existing data.  <br /></td></tr>
 <tr class="separator:af84f7a451d5f5ab137a6f8a7a54ebcbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc3380c58541956d007765dd5a68e963" id="r_afc3380c58541956d007765dd5a68e963"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#afc3380c58541956d007765dd5a68e963">write_file</a> (<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> std::string &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">file_path</a>) <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> -&gt; std::expected&lt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">void</a>, std::error_code &gt;</td></tr>
+<tr class="memdesc:afc3380c58541956d007765dd5a68e963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the current INI data to a file.  <br /></td></tr>
 <tr class="separator:afc3380c58541956d007765dd5a68e963"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca4af2c4664494f85dc17c67adef735c" id="r_aca4af2c4664494f85dc17c67adef735c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#aca4af2c4664494f85dc17c67adef735c">write_file</a> () <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> -&gt; std::expected&lt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">void</a>, std::error_code &gt;</td></tr>
+<tr class="memdesc:aca4af2c4664494f85dc17c67adef735c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the current INI data to the file specified during loading (if any).  <br /></td></tr>
 <tr class="separator:aca4af2c4664494f85dc17c67adef735c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ac3edf612467ba4ffdf91c655df1079dc" id="r_ac3edf612467ba4ffdf91c655df1079dc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">static</a> <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#ac3edf612467ba4ffdf91c655df1079dc">from_file</a> (<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> std::string &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">file_path</a>) -&gt; std::expected&lt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html">ini_manager</a>, std::error_code &gt;</td></tr>
+<tr class="memdesc:ac3edf612467ba4ffdf91c655df1079dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an <a class="el" href="../../d4/d05/classini_1_1ini__manager.html" title="Manages INI file data, allowing reading, writing, and manipulation of configuration settings.">ini_manager</a> object by loading data from a file.  <br /></td></tr>
 <tr class="separator:ac3edf612467ba4ffdf91c655df1079dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0573c95a6430b2f982e0b411784f6385" id="r_a0573c95a6430b2f982e0b411784f6385"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">static</a> <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a0573c95a6430b2f982e0b411784f6385">from_stream</a> (std::istream &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">istream</a>) -&gt; std::expected&lt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html">ini_manager</a>, std::error_code &gt;</td></tr>
+<tr class="memdesc:a0573c95a6430b2f982e0b411784f6385"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an <a class="el" href="../../d4/d05/classini_1_1ini__manager.html" title="Manages INI file data, allowing reading, writing, and manipulation of configuration settings.">ini_manager</a> object by parsing data from an input stream.  <br /></td></tr>
 <tr class="separator:a0573c95a6430b2f982e0b411784f6385"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ad66bf3cfef5e56cd6f4de230a9864c0a" id="r_ad66bf3cfef5e56cd6f4de230a9864c0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#ad66bf3cfef5e56cd6f4de230a9864c0a">operator&lt;&lt;</a> (std::ostream &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">ostream</a>, <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> <a class="el" href="../../d4/d05/classini_1_1ini__manager.html">ini_manager</a> &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">manager</a>) -&gt; std::ostream &amp;</td></tr>
+<tr class="memdesc:ad66bf3cfef5e56cd6f4de230a9864c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the INI data to an output stream.  <br /></td></tr>
 <tr class="separator:ad66bf3cfef5e56cd6f4de230a9864c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d0347925e12c3de2218be088c60fae5" id="r_a1d0347925e12c3de2218be088c60fae5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a1d0347925e12c3de2218be088c60fae5">operator&gt;&gt;</a> (std::istream &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">istream</a>, <a class="el" href="../../d4/d05/classini_1_1ini__manager.html">ini_manager</a> &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">manager</a>) -&gt; std::istream &amp;</td></tr>
+<tr class="memdesc:a1d0347925e12c3de2218be088c60fae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses INI data from an input stream.  <br /></td></tr>
 <tr class="separator:a1d0347925e12c3de2218be088c60fae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Manages INI file data, allowing reading, writing, and manipulation of configuration settings. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aeb80d305184a00b43174d7a55b99f0ba" name="aeb80d305184a00b43174d7a55b99f0ba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeb80d305184a00b43174d7a55b99f0ba">&#9670;&#160;</a></span>ini_manager()</h2>
 
@@ -175,6 +201,9 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Default constructor for the <a class="el" href="../../d4/d05/classini_1_1ini__manager.html" title="Manages INI file data, allowing reading, writing, and manipulation of configuration settings.">ini_manager</a> class. </p>
+<p>Initializes an empty INI configuration. </p>
 
 </div>
 </div>
@@ -203,6 +232,15 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Adds INI data from a file to the existing data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file_path</td><td>The path to the INI file to add. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::expected</code> indicating success or failure with an <code>std::error_code</code>. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -235,6 +273,15 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Adds INI data from an input stream to the existing data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">istream</td><td>The input stream containing INI data to add. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::expected</code> indicating success or failure with an <code>std::error_code</code>. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -268,6 +315,15 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Creates an <a class="el" href="../../d4/d05/classini_1_1ini__manager.html" title="Manages INI file data, allowing reading, writing, and manipulation of configuration settings.">ini_manager</a> object by loading data from a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file_path</td><td>The path to the INI file. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::expected</code> containing the <a class="el" href="../../d4/d05/classini_1_1ini__manager.html" title="Manages INI file data, allowing reading, writing, and manipulation of configuration settings.">ini_manager</a> object on success, or a <code>std::error_code</code> on failure. </dd></dl>
+
 </div>
 </div>
 <a id="a0573c95a6430b2f982e0b411784f6385" name="a0573c95a6430b2f982e0b411784f6385"></a>
@@ -294,6 +350,15 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Creates an <a class="el" href="../../d4/d05/classini_1_1ini__manager.html" title="Manages INI file data, allowing reading, writing, and manipulation of configuration settings.">ini_manager</a> object by parsing data from an input stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">istream</td><td>The input stream containing INI data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::expected</code> containing the <a class="el" href="../../d4/d05/classini_1_1ini__manager.html" title="Manages INI file data, allowing reading, writing, and manipulation of configuration settings.">ini_manager</a> object on success, or a <code>std::error_code</code> on failure. </dd></dl>
 
 </div>
 </div>
@@ -331,6 +396,16 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Retrieves a string value for a given section and key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>The section containing the key. </td></tr>
+    <tr><td class="paramname">key</td><td>The key whose value to retrieve. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::optional</code> containing the string value, or <code>std::nullopt</code> if the section or key does not exist. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -418,6 +493,17 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Retrieves a string value for a given section and key, or a default value if not found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>The section containing the key. </td></tr>
+    <tr><td class="paramname">key</td><td>The key whose value to retrieve. </td></tr>
+    <tr><td class="paramname">default_value</td><td>The value to return if the section or key does not exist. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The string value associated with the key, or the default value. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -500,6 +586,15 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Loads INI data from a file, replacing any existing data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file_path</td><td>The path to the INI file. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::expected</code> indicating success or failure with an <code>std::error_code</code>. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -532,6 +627,15 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Loads INI data from an input stream, replacing any existing data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">istream</td><td>The input stream containing INI data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::expected</code> indicating success or failure with an <code>std::error_code</code>. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -565,6 +669,15 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Provides non-const access to a specific section. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>The name of the section. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code><a class="el" href="../../d6/d6f/classini_1_1ini__manager_1_1section__accessor.html" title="Provides non-const access to keys within a specific section.">section_accessor</a></code> object for accessing keys within the section. </dd></dl>
+
 </div>
 </div>
 <a id="aaf33fbcc709efa80979117920caa9e50" name="aaf33fbcc709efa80979117920caa9e50"></a>
@@ -592,6 +705,15 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Provides const access to a specific section. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>The name of the section. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code><a class="el" href="../../d4/d5f/classini_1_1ini__manager_1_1const__section__accessor.html" title="Provides const access to keys within a specific section.">const_section_accessor</a></code> object for accessing keys within the section. </dd></dl>
+
 </div>
 </div>
 <a id="a1a96b22db39d586ae8e307328c210d5a" name="a1a96b22db39d586ae8e307328c210d5a"></a>
@@ -618,6 +740,15 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Removes an entire section from the INI data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>The section to remove. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the section was successfully removed, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -655,6 +786,16 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Removes a key-value pair from a section. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>The section containing the key to remove. </td></tr>
+    <tr><td class="paramname">key</td><td>The key to remove. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the key was successfully removed, <code>false</code> otherwise. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -686,6 +827,14 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Sets a section in the INI data. If the section does not exist, it is created. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>The name of the section to set. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -732,6 +881,22 @@ requires std::formattable&lt;<a class="el" href="../../d4/d05/classini_1_1ini__m
 </table>
 </div><div class="memdoc">
 
+<p>Sets a value for a given section and key. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of the value to set. Must be formattable using <code>std::format</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>The name of the section. </td></tr>
+    <tr><td class="paramname">key</td><td>The name of the key. </td></tr>
+    <tr><td class="paramname">value</td><td>The value to set. @requires std::formattable&lt;T, char&gt; </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="aca4af2c4664494f85dc17c67adef735c" name="aca4af2c4664494f85dc17c67adef735c"></a>
@@ -757,6 +922,9 @@ requires std::formattable&lt;<a class="el" href="../../d4/d05/classini_1_1ini__m
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Writes the current INI data to the file specified during loading (if any). </p>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::expected</code> indicating success or failure with an <code>std::error_code</code>. Fails if no file path was previously loaded. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -794,6 +962,15 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Writes the current INI data to a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file_path</td><td>The path to the file to write to. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::expected</code> indicating success or failure with an <code>std::error_code</code>. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -838,6 +1015,15 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Writes the INI data to an output stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ostream</td><td>The output stream to write to. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the output stream. </dd></dl>
+
 </div>
 </div>
 <a id="a1d0347925e12c3de2218be088c60fae5" name="a1d0347925e12c3de2218be088c60fae5"></a>
@@ -874,6 +1060,16 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Parses INI data from an input stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">istream</td><td>The input stream to read from. </td></tr>
+    <tr><td class="paramname">manager</td><td>The <a class="el" href="../../d4/d05/classini_1_1ini__manager.html" title="Manages INI file data, allowing reading, writing, and manipulation of configuration settings.">ini_manager</a> object to populate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the input stream. </dd></dl>
 
 </div>
 </div>

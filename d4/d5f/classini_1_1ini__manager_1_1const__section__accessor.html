@@ -80,6 +80,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Provides const access to keys within a specific section.  
+ <a href="../../d4/d5f/classini_1_1ini__manager_1_1const__section__accessor.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="../../dd/d3f/ini__manager_8hpp_source.html">ini_manager.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for ini::ini_manager::const_section_accessor:</div>
@@ -90,11 +93,15 @@ Collaboration diagram for ini::ini_manager::const_section_accessor:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab91f7d38fb127ee4e24cc82a8aa74e29" id="r_ab91f7d38fb127ee4e24cc82a8aa74e29"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5f/classini_1_1ini__manager_1_1const__section__accessor.html#ab91f7d38fb127ee4e24cc82a8aa74e29">const_section_accessor</a> (std::shared_ptr&lt; std::map&lt; std::string, std::map&lt; std::string, std::string &gt; &gt; &gt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">data</a>, std::string <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">section_name</a>)</td></tr>
+<tr class="memdesc:ab91f7d38fb127ee4e24cc82a8aa74e29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d4/d5f/classini_1_1ini__manager_1_1const__section__accessor.html" title="Provides const access to keys within a specific section.">const_section_accessor</a>.  <br /></td></tr>
 <tr class="separator:ab91f7d38fb127ee4e24cc82a8aa74e29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2914962eeea59231c4fd2ad41284c554" id="r_a2914962eeea59231c4fd2ad41284c554"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5f/classini_1_1ini__manager_1_1const__section__accessor.html#a2914962eeea59231c4fd2ad41284c554">operator[]</a> (std::string_view <a class="el" href="../../dd/dad/structini_1_1key.html">key</a>) <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> -&gt; std::optional&lt; std::string &gt;</td></tr>
+<tr class="memdesc:a2914962eeea59231c4fd2ad41284c554"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses a key within the section for reading.  <br /></td></tr>
 <tr class="separator:a2914962eeea59231c4fd2ad41284c554"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Provides const access to keys within a specific section. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab91f7d38fb127ee4e24cc82a8aa74e29" name="ab91f7d38fb127ee4e24cc82a8aa74e29"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab91f7d38fb127ee4e24cc82a8aa74e29">&#9670;&#160;</a></span>const_section_accessor()</h2>
 
@@ -129,6 +136,15 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Constructs a <a class="el" href="../../d4/d5f/classini_1_1ini__manager_1_1const__section__accessor.html" title="Provides const access to keys within a specific section.">const_section_accessor</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>A shared pointer to the underlying data map (const). </td></tr>
+    <tr><td class="paramname">section_name</td><td>The name of the section. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -156,6 +172,15 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Accesses a key within the section for reading. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The name of the key. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::optional</code> containing the string value associated with the key, or <code>std::nullopt</code> if the key or section does not exist. </dd></dl>
 
 </div>
 </div>

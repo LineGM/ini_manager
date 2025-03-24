@@ -81,6 +81,9 @@ $(function() {
   <div class="headertitle"><div class="title">ini_manager.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>A header-only C++23 library for parsing, reading, and writing INI files.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;expected&gt;</code><br />
 <code>#include &lt;format&gt;</code><br />
@@ -105,14 +108,19 @@ Include dependency graph for ini_manager.hpp:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d7b/structini_1_1section.html">ini::section</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a section name in an INI file.  <a href="../../da/d7b/structini_1_1section.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dad/structini_1_1key.html">ini::key</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a key name in an INI file.  <a href="../../dd/dad/structini_1_1key.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html">ini::ini_manager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages INI file data, allowing reading, writing, and manipulation of configuration settings.  <a href="../../d4/d05/classini_1_1ini__manager.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6f/classini_1_1ini__manager_1_1section__accessor.html">ini::ini_manager::section_accessor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides non-const access to keys within a specific section.  <a href="../../d6/d6f/classini_1_1ini__manager_1_1section__accessor.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5f/classini_1_1ini__manager_1_1const__section__accessor.html">ini::ini_manager::const_section_accessor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides const access to keys within a specific section.  <a href="../../d4/d5f/classini_1_1ini__manager_1_1const__section__accessor.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -123,14 +131,22 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="concepts" name="concepts"></a>
 Concepts</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dec/conceptini_1_1StreamExtractable.html">ini::StreamExtractable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept that checks if a type <code>T</code> can be extracted from an input stream using <code>operator&gt;&gt;</code>. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d4e/conceptini_1_1ini__manager_1_1StreamExtractable.html">ini::ini_manager::StreamExtractable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a value of a specific type for a given section and key. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a830e3eb6271683891f0eb0a1cb78d85e" id="r_a830e3eb6271683891f0eb0a1cb78d85e"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d7b/namespaceini.html#a830e3eb6271683891f0eb0a1cb78d85e">ini::trim</a> (std::string_view str) noexcept -&gt; std::string_view</td></tr>
+<tr class="memdesc:a830e3eb6271683891f0eb0a1cb78d85e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trims leading and trailing whitespace from a string view.  <br /></td></tr>
 <tr class="separator:a830e3eb6271683891f0eb0a1cb78d85e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A header-only C++23 library for parsing, reading, and writing INI files. </p>
+<p>This library provides a simple and intuitive interface to manage configuration settings in INI format within C++ applications. </p>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8

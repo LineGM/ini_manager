@@ -80,6 +80,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Provides non-const access to keys within a specific section.  
+ <a href="../../d6/d6f/classini_1_1ini__manager_1_1section__accessor.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="../../dd/d3f/ini__manager_8hpp_source.html">ini_manager.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for ini::ini_manager::section_accessor:</div>
@@ -90,11 +93,15 @@ Collaboration diagram for ini::ini_manager::section_accessor:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5b7df5219a7a99777cdd40e988975654" id="r_a5b7df5219a7a99777cdd40e988975654"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6f/classini_1_1ini__manager_1_1section__accessor.html#a5b7df5219a7a99777cdd40e988975654">section_accessor</a> (std::shared_ptr&lt; std::map&lt; std::string, std::map&lt; std::string, std::string &gt; &gt; &gt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">data</a>, std::string <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">section_name</a>)</td></tr>
+<tr class="memdesc:a5b7df5219a7a99777cdd40e988975654"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d6/d6f/classini_1_1ini__manager_1_1section__accessor.html" title="Provides non-const access to keys within a specific section.">section_accessor</a>.  <br /></td></tr>
 <tr class="separator:a5b7df5219a7a99777cdd40e988975654"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accc33ad8b39718363f51e605ed464402" id="r_accc33ad8b39718363f51e605ed464402"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6f/classini_1_1ini__manager_1_1section__accessor.html#accc33ad8b39718363f51e605ed464402">operator[]</a> (std::string_view <a class="el" href="../../dd/dad/structini_1_1key.html">key</a>) -&gt; std::string &amp;</td></tr>
+<tr class="memdesc:accc33ad8b39718363f51e605ed464402"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses a key within the section for modification. If the key does not exist, it will be created.  <br /></td></tr>
 <tr class="separator:accc33ad8b39718363f51e605ed464402"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Provides non-const access to keys within a specific section. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5b7df5219a7a99777cdd40e988975654" name="a5b7df5219a7a99777cdd40e988975654"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5b7df5219a7a99777cdd40e988975654">&#9670;&#160;</a></span>section_accessor()</h2>
 
@@ -129,6 +136,15 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Constructs a <a class="el" href="../../d6/d6f/classini_1_1ini__manager_1_1section__accessor.html" title="Provides non-const access to keys within a specific section.">section_accessor</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>A shared pointer to the underlying data map. </td></tr>
+    <tr><td class="paramname">section_name</td><td>The name of the section. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -156,6 +172,15 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Accesses a key within the section for modification. If the key does not exist, it will be created. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The name of the key. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the string value associated with the key. </dd></dl>
 
 </div>
 </div>
