@@ -43,7 +43,7 @@ Simply include the ```ini_manager.hpp``` header file in your C++ project and ens
 
 If you are using CMake as your build system, you can easily integrate **ini_manager** using the ```FetchContent module```. Add the following to your ```CMakeLists.txt``` file:
 
-```CMake
+```cmake
 include(FetchContent)
 
 FetchContent_Declare(
@@ -57,7 +57,7 @@ FetchContent_MakeAvailable(ini_manager)
 
 After this, you can link library to your target:
 
-```CMake
+```cmake
 target_link_libraries(
     <your_target>
     PRIVATE ini_manager::ini_manager
