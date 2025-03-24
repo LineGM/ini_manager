@@ -1,0 +1,19 @@
+<map id="ini::ini_manager::get_value" name="ini::ini_manager::get_value">
+<area shape="rect" id="Node000001" title="Retrieves a string value for a given section and key." alt="" coords="248,227,404,267"/>
+<area shape="rect" id="Node000002" href="$d4/d05/classini_1_1ini__manager.html#af84f7a451d5f5ab137a6f8a7a54ebcbc" title="Adds INI data from a file to the existing data." alt="" coords="23,5,182,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="309,215,291,179,267,137,236,95,198,59,179,48,182,43,202,55,240,92,271,134,296,176,314,213"/>
+<area shape="rect" id="Node000003" href="$d4/d05/classini_1_1ini__manager.html#a41ed3e4d7b34985580e9eba4e802cac5" title="Adds INI data from an input stream to the existing data." alt="" coords="23,69,182,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="299,218,255,169,228,145,199,124,175,112,178,107,201,119,231,141,259,166,303,214"/>
+<area shape="rect" id="Node000004" href="$d4/d05/classini_1_1ini__manager.html#ac88f0d28eb415b59bf7dff771222df0e" title="Retrieves a string value for a given section and key, or a default value if not found." alt="" coords="25,133,181,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="274,223,199,188,168,176,169,171,201,183,276,218"/>
+<area shape="rect" id="Node000005" href="$d4/d05/classini_1_1ini__manager.html#a87fcd332ea821ea96964f728ac1e5b66" title=" " alt="" coords="25,197,181,237"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="234,237,180,230,181,225,234,232"/>
+<area shape="rect" id="Node000006" href="$d4/d05/classini_1_1ini__manager.html#a11d6b90b20a81d65e294473e9825bbb7" title="Loads INI data from a file, replacing any existing data." alt="" coords="7,262,198,287"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="235,261,199,265,198,260,234,255"/>
+<area shape="rect" id="Node000007" href="$d4/d05/classini_1_1ini__manager.html#a4316766a2c3029d10134eaf8e26f0774" title="Loads INI data from an input stream, replacing any existing data." alt="" coords="21,312,184,352"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="267,275,201,301,165,314,163,309,199,296,265,270"/>
+<area shape="rect" id="Node000008" href="$d4/d05/classini_1_1ini__manager.html#a2c2bca7b39a8e4454fc3e885bedd9687" title="Removes a key&#45;value pair from a section." alt="" coords="10,376,195,416"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="301,279,257,324,201,366,177,378,175,374,199,362,254,320,297,275"/>
+<area shape="rect" id="Node000009" href="$d4/d05/classini_1_1ini__manager.html#afc3380c58541956d007765dd5a68e963" title="Writes the current INI data to a file." alt="" coords="5,441,200,466"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="313,281,296,316,271,356,239,396,202,430,177,443,175,438,198,426,236,393,267,353,291,313,309,278"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="ini::ini_manager::write_file" name="ini::ini_manager::write_file">
+<area shape="rect" id="Node000001" title="Writes the current INI data to a file." alt="" coords="5,13,200,38"/>
+<area shape="rect" id="Node000002" href="$d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3" title="Retrieves a string value for a given section and key." alt="" coords="248,5,404,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,23,234,23,234,28,200,28"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="ini::ini_manager::load_stream" name="ini::ini_manager::load_stream">
+<area shape="rect" id="Node000001" title="Loads INI data from an input stream, replacing any existing data." alt="" coords="5,5,168,45"/>
+<area shape="rect" id="Node000002" href="$d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3" title="Retrieves a string value for a given section and key." alt="" coords="216,5,372,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,23,202,23,202,28,168,28"/>
+</map>
