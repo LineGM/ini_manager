@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 
 # ---- Process project() call in CMakeLists.txt ----
 
-file(READ "${src}/CMakeLists.txt" content)
+file(READ "${PROJECT_SOURCE_DIR}/CMakeLists.txt" content)
 
 string(FIND "${content}" "project(" index)
 if(index EQUAL "-1")
@@ -16,7 +16,7 @@ if(index EQUAL "-1")
 endif()
 string(SUBSTRING "${content}" 0 "${index}" content)
 
-file(WRITE "${bin}/docs-ci.project.cmake" "docs_${content}\n)\n")
+file(WRITE "${PROJECT_BINARY_DIR}/docs-ci.project.cmake" "docs_${content}\n)\n")
 
 macro(list_pop_front list out)
   list(GET "${list}" 0 "${out}")
@@ -45,7 +45,7 @@ function(docs_project name)
   endif()
 endfunction()
 
-include("${bin}/docs-ci.project.cmake")
+include("${PROJECT_BINARY_DIR}/docs-ci.project.cmake")
 
 # ---- Generate docs ----
 
