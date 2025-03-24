@@ -208,7 +208,7 @@ For information on building, please refer to the [**BUILDING**](BUILDING.md) fil
 Contributions are welcome! Please read the [**CONTRIBUTING**](CONTRIBUTING.md) file for guidelines on how to contribute to this project.
 
 ## License
-This library is licensed under the [**Unlicense License**](LICENSE).
+This library is licensed under the [**LICENSE**](LICENSE).
 
 ## Code of Conduct
 Please adhere to the [**CODE_OF_CONDUCT**](CODE_OF_CONDUCT.md) when participating in this project.
