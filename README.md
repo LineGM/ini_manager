@@ -170,11 +170,11 @@ For more detailed examples, please refer to the .cpp files provided in the ```ex
 
 ## API Overview
 
-### ```ini::section``` and ```ini::key```
+### **ini::section** and **ini::key**
 
 Simple structs to represent ```section``` and ```key``` names as ```std::string_view```.
 
-### ```ini::ini_manager```
+### **ini::ini_manager**
 * ```ini_manager()```: Default constructor to create an empty configuration.
 * ```static auto from_file(const std::string &file_path) -> std::expected<ini_manager, std::error_code>```: Static factory function to load configuration from a file.
 * ```static auto from_stream(std::istream &istream) -> std::expected<ini_manager, std::error_code>```: Static factory function to load configuration from a stream.
