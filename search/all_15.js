@@ -6,5 +6,7 @@ var searchData=
   ['set_5fsection_3',['set_section',['../d4/d05/classini_1_1ini__manager.html#ae86279dd28a7f5a6e246c7b74eee6072',1,'ini::ini_manager']]],
   ['set_5fvalue_4',['set_value',['../d4/d05/classini_1_1ini__manager.html#a85d06e07c18e04eaee981edb38e60993',1,'ini::ini_manager']]],
   ['stream_5',['Example 3: Reading from a Stream',['../index.html#autotoc_md9',1,'']]],
-  ['stream_20operators_6',['Example 4: Using Stream Operators',['../index.html#autotoc_md10',1,'']]]
+  ['stream_20operators_6',['Example 4: Using Stream Operators',['../index.html#autotoc_md10',1,'']]],
+  ['strong_20ini_3a_3aini_5fmanager_20strong_7',['&lt;strong&gt;ini::ini_manager&lt;/strong&gt;',['../index.html#autotoc_md13',1,'']]],
+  ['strong_20ini_3a_3asection_20strong_20and_20strong_20ini_3a_3akey_20strong_8',['&lt;strong&gt;ini::section&lt;/strong&gt; and &lt;strong&gt;ini::key&lt;/strong&gt;',['../index.html#autotoc_md12',1,'']]]
 ];
