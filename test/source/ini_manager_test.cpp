@@ -1,9 +1,11 @@
 #include "ini_manager/ini_manager.hpp"
 
+#include <algorithm>
 #include <boost/ut.hpp>
 
 #include <sstream>
 #include <string>
+#include <vector>
 
 // NOLINTBEGIN(*-magic-numbers)
 auto main() -> int
@@ -398,6 +400,135 @@ auto main() -> int
 							!manager.remove_section(ini::section{"nonexistent_section"}));
 					};
 				};
+			};
+
+			// Helper function to compare vectors regardless of order
+			auto vectors_contain_same_elements =
+				[](std::vector<std::string> vec1, std::vector<std::string> vec2) -> bool {
+				std::ranges::sort(vec1);
+				std::ranges::sort(vec2);
+				return vec1 == vec2;
+			};
+
+			describe("get_sections") = [&vectors_contain_same_elements] {
+				it("should return empty vector for empty manager") = [] {
+					const ini::ini_manager manager;
+					expect(manager.get_sections().empty());
+				};
+
+				it("should return vector with one section name") = [] {
+					ini::ini_manager manager;
+					manager.set_section("General");
+					auto sections = manager.get_sections();
+					expect(sections.size() == 1U);
+					expect(sections[0] == "General");
+				};
+
+				it("should return vector with one section name (added via set_value)") =
+					[] {
+						ini::ini_manager manager;
+						manager.set_value("General", "key", "value");
+						auto sections = manager.get_sections();
+						expect(sections.size() == 1U);
+						expect(sections[0] == "General");
+					};
+
+				it("should return vector with multiple section names") = [&] {
+					ini::ini_manager manager;
+					manager.set_section("Database");
+					manager.set_value("User", "id", "123");
+					manager.set_section("General");
+
+					auto sections = manager.get_sections();
+					const std::vector<std::string> expected = {"Database", "User",
+															   "General"};
+
+					expect(sections.size() == expected.size());
+					expect(vectors_contain_same_elements(sections, expected));
+				};
+
+				it("should reflect added sections dynamically") = [&] {
+					ini::ini_manager manager;
+					expect(manager.get_sections().empty());
+					manager.set_section("First");
+					expect(
+						vectors_contain_same_elements(manager.get_sections(), {"First"}));
+					manager.set_section("Second");
+					expect(vectors_contain_same_elements(manager.get_sections(),
+														 {"First", "Second"}));
+				};
+
+				it("should reflect removed sections") = [&] {
+					ini::ini_manager manager;
+					manager.set_section("Section1");
+					manager.set_section("SectionToRemove");
+					manager.set_section("Section3");
+					expect(vectors_contain_same_elements(
+						manager.get_sections(),
+						{"Section1", "SectionToRemove", "Section3"}));
+
+					manager.remove_section(ini::section{"SectionToRemove"});
+					expect(vectors_contain_same_elements(manager.get_sections(),
+														 {"Section1", "Section3"}));
+				};
+
+				it("should handle section names with spaces (if supported by set)") =
+					[&] {
+						ini::ini_manager manager;
+						manager.set_section(
+							" User Settings "); // Assumes set_section stores it as is
+						// But parsing trims section names, so let's test parsed names
+						std::stringstream sstream;
+						sstream << "[ User Settings ]\nkey=value\n[Another Section]\n";
+						auto result = ini::ini_manager::from_stream(sstream);
+						expect(result.has_value());
+						auto sections = result.value().get_sections();
+						expect(vectors_contain_same_elements(
+							sections, {"User Settings",
+									   "Another Section"})); // Expect trimmed names
+					};
+
+				it("should handle empty section name (if supported by parsing)") = [&] {
+					const ini::ini_manager manager;
+					std::stringstream sstream;
+					sstream << "[]\nkey=value\n"; // Parsed as empty section name ""
+					auto result = ini::ini_manager::from_stream(sstream);
+					expect(result.has_value());
+					auto sections = result.value().get_sections();
+					expect(vectors_contain_same_elements(sections, {""}));
+				};
+			};
+
+			describe("get_keys") = [&vectors_contain_same_elements] {
+				given("a manager with specific sections and keys") =
+					[&vectors_contain_same_elements] {
+						ini::ini_manager manager;
+						manager.set_section("EmptySection");
+						manager.set_value("General", "Host", "localhost");
+						manager.set_value("General", "Port", "8080");
+						manager.set_value("Database", "Type", "sqlite");
+						manager.set_value("Database", "File", "data.db");
+						manager.set_value("Database", "Timeout", "5000");
+
+						it("should return vector with multiple keys for a section") =
+							[&] {
+								auto keys = manager.get_keys(ini::section{"General"});
+								std::vector<std::string> expected = {"Host", "Port"};
+								expect(keys.size() == expected.size());
+								expect(vectors_contain_same_elements(keys, expected));
+
+								keys = manager.get_keys(ini::section{"Database"});
+								expected = {"Type", "File", "Timeout"};
+								expect(keys.size() == expected.size());
+								expect(vectors_contain_same_elements(keys, expected));
+							};
+
+						it("should return empty vector for a non-existent section") =
+							[&] {
+								expect(manager.get_keys(ini::section{"NonExistent"})
+										   .empty());
+							};
+					};
 			};
 
 			describe("load_stream") = [] {
