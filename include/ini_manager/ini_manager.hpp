@@ -10,18 +10,20 @@
 #define INI_MANAGER_HPP
 
 #include <algorithm>
-#include <expected> // C++23
+#include <expected>
 #include <format>
 #include <fstream>
 #include <iostream>
 #include <map>
 #include <memory>
 #include <optional>
+#include <ranges>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <system_error>
 #include <utility>
+#include <vector>
 
 namespace ini
 {
@@ -79,15 +81,16 @@ struct key
  */
 class ini_manager
 {
+	// Define the underlying data map type for brevity
+	using data_map = std::map<std::string, std::map<std::string, std::string>>;
+
   public:
 	/**
 	 * @brief Default constructor for the ini_manager class.
 	 *
 	 * Initializes an empty INI configuration.
 	 */
-	ini_manager()
-		: m_data(std::make_shared<
-				 std::map<std::string, std::map<std::string, std::string>>>())
+	ini_manager() : m_data(std::make_shared<data_map>())
 	{
 	}
 
@@ -139,14 +142,9 @@ class ini_manager
 		 * @param data A shared pointer to the underlying data map.
 		 * @param section_name The name of the section.
 		 */
-		explicit section_accessor(
-			std::shared_ptr< // NOLINT(modernize-pass-by-value)
-				std::map<std::string, std::map<std::string, std::string>>>
-				data,
-			std::string section_name)
-			: m_data(data) // NOLINT(performance-unnecessary-value-param)
-			  ,
-			  m_section_name(std::move(section_name))
+		explicit section_accessor(std::shared_ptr<data_map> data,
+								  std::string section_name)
+			: m_data(std::move(data)), m_section_name(std::move(section_name))
 		{
 		}
 
@@ -162,7 +160,7 @@ class ini_manager
 		}
 
 	  private:
-		std::shared_ptr<std::map<std::string, std::map<std::string, std::string>>> m_data;
+		std::shared_ptr<data_map> m_data;
 		std::string m_section_name;
 	};
 
@@ -177,14 +175,9 @@ class ini_manager
 		 * @param data A shared pointer to the underlying data map (const).
 		 * @param section_name The name of the section.
 		 */
-		explicit const_section_accessor(
-			std::shared_ptr< // NOLINT(modernize-pass-by-value)
-				std::map<std::string, std::map<std::string, std::string>>>
-				data,
-			std::string section_name)
-			: m_data(data) // NOLINT(performance-unnecessary-value-param)
-			  ,
-			  m_section_name(std::move(section_name))
+		explicit const_section_accessor(std::shared_ptr<data_map> data,
+										std::string section_name)
+			: m_data(std::move(data)), m_section_name(std::move(section_name))
 		{
 		}
 
@@ -209,7 +202,7 @@ class ini_manager
 		}
 
 	  private:
-		std::shared_ptr<std::map<std::string, std::map<std::string, std::string>>> m_data;
+		std::shared_ptr<data_map> m_data;
 		std::string m_section_name;
 	};
 
@@ -267,10 +260,12 @@ class ini_manager
 			}
 			else if constexpr (std::is_same_v<T, bool>)
 			{
-				std::istringstream iss(*value_str);
-				std::string lower_value;
-				iss >> lower_value;
+				// Use a local copy for modification
+				std::string lower_value = *value_str;
 				std::ranges::transform(lower_value, lower_value.begin(), ::tolower);
+				// Trim potential whitespace around boolean value before comparison
+				lower_value = std::string{trim(lower_value)};
+
 				if (lower_value == "true" || lower_value == "1")
 				{
 					return true;
@@ -285,7 +280,8 @@ class ini_manager
 			{
 				std::istringstream iss(*value_str);
 				T value;
-				if (iss >> value && iss.eof())
+				// Check for successful extraction AND that the entire string was consumed
+				if ((iss >> value) && iss.eof())
 				{
 					return value;
 				}
@@ -305,11 +301,7 @@ class ini_manager
 	auto get_value_or_default(section section, key key,
 							  std::string default_value) const noexcept -> std::string
 	{
-		if (auto value = get_value(section, key))
-		{
-			return *value;
-		}
-		return default_value;
+		return get_value(section, key).value_or(std::move(default_value));
 	}
 
 	/**
@@ -328,11 +320,7 @@ class ini_manager
 	auto get_value_or_default(section section, key key, T default_value) const noexcept
 		-> T
 	{
-		if (auto value = get_value<T>(section, key))
-		{
-			return *value;
-		}
-		return default_value;
+		return get_value<T>(section, key).value_or(std::move(default_value));
 	}
 
 	/**
@@ -357,7 +345,7 @@ class ini_manager
 	 */
 	void set_section(const std::string &section) noexcept
 	{
-		if (m_data->find(section) == m_data->end())
+		if (!m_data->contains(section))
 		{
 			// Create a new empty section only if it doesn't exist
 			(*m_data)[section] = {};
@@ -376,6 +364,7 @@ class ini_manager
 		const auto section_it = m_data->find(std::string{section.value});
 		if (section_it != m_data->end())
 		{
+			// erase returns the number of elements removed (0 or 1 for map)
 			return section_it->second.erase(std::string{key.value}) > 0;
 		}
 		return false;
@@ -392,14 +381,46 @@ class ini_manager
 	}
 
 	/**
+	 * @brief Gets a list of all section names in the INI data.
+	 * @return A `std::vector` containing the names of all sections.
+	 * The order corresponds to the map's internal ordering (typically
+	 * alphabetical).
+	 */
+	auto get_sections() const -> std::vector<std::string>
+	{
+		auto key_view = std::views::keys(*m_data);
+		return {key_view.begin(), key_view.end()};
+	}
+
+	/**
+	 * @brief Gets a list of all key names within a specific section.
+	 * @param section The section whose keys are to be retrieved.
+	 * @return A `std::vector` containing the names of all keys in the specified section.
+	 * Returns an empty vector if the section does not exist.
+	 * The order corresponds to the map's internal ordering (typically
+	 * alphabetical).
+	 */
+	auto get_keys(section section) const -> std::vector<std::string>
+	{
+		const auto section_it = m_data->find(std::string{section.value});
+		if (section_it != m_data->end())
+		{
+			auto key_view = std::views::keys(section_it->second);
+			return {key_view.begin(), key_view.end()};
+		}
+		// Section not found, return an empty vector
+		return {};
+	}
+
+	/**
 	 * @brief Loads INI data from a file, replacing any existing data.
 	 * @param file_path The path to the INI file.
 	 * @return A `std::expected` indicating success or failure with an `std::error_code`.
 	 */
 	auto load_file(const std::string &file_path) -> std::expected<void, std::error_code>
 	{
-		m_data =
-			std::make_shared<std::map<std::string, std::map<std::string, std::string>>>();
+		// Clear existing data and reset file path
+		m_data = std::make_shared<data_map>();
 		m_file_path = file_path;
 		return load(file_path);
 	}
@@ -411,30 +432,36 @@ class ini_manager
 	 */
 	auto load_stream(std::istream &istream) -> std::expected<void, std::error_code>
 	{
-		m_data =
-			std::make_shared<std::map<std::string, std::map<std::string, std::string>>>();
+		// Clear existing data and reset file path
+		m_data = std::make_shared<data_map>();
 		m_file_path.clear();
 		return parse(istream);
 	}
 
 	/**
 	 * @brief Adds INI data from an input stream to the existing data.
+	 * Existing keys in existing sections will be overwritten. New sections/keys are
+	 * added.
 	 * @param istream The input stream containing INI data to add.
 	 * @return A `std::expected` indicating success or failure with an `std::error_code`.
 	 */
 	auto add_from_stream(std::istream &istream) -> std::expected<void, std::error_code>
 	{
+		// Parse directly into the existing data
 		return parse(istream);
 	}
 
 	/**
 	 * @brief Adds INI data from a file to the existing data.
+	 * Existing keys in existing sections will be overwritten. New sections/keys are
+	 * added.
 	 * @param file_path The path to the INI file to add.
 	 * @return A `std::expected` indicating success or failure with an `std::error_code`.
 	 */
 	auto add_from_file(const std::string &file_path)
 		-> std::expected<void, std::error_code>
 	{
+		// Load directly into the existing data
 		return load(file_path);
 	}
 
@@ -457,14 +484,17 @@ class ini_manager
 	/**
 	 * @brief Writes the current INI data to the file specified during loading (if any).
 	 * @return A `std::expected` indicating success or failure with an `std::error_code`.
-	 * Fails if no file path was previously loaded.
+	 * Fails with `std::errc::operation_not_permitted` if no file path was previously
+	 * loaded or set.
 	 */
 	auto write_file() const -> std::expected<void, std::error_code>
 	{
 		if (m_file_path.empty())
 		{
-			return std::unexpected(std::error_code(
-				static_cast<int>(std::errc::invalid_argument), std::generic_category()));
+			// Use a standard error code indicating invalid operation state
+			return std::unexpected(
+				std::error_code(static_cast<int>(std::errc::operation_not_permitted),
+								std::generic_category()));
 		}
 		return write_file(m_file_path);
 	}
@@ -472,7 +502,8 @@ class ini_manager
 	/**
 	 * @brief Writes the INI data to an output stream.
 	 * @param ostream The output stream to write to.
-	 * @return A reference to the output stream.
+	 * @param manager The ini_manager object to write.
+	 * @return A reference to the output stream. Sets failbit on error.
 	 */
 	friend auto operator<<(std::ostream &ostream, const ini_manager &manager)
 		-> std::ostream &
@@ -480,6 +511,7 @@ class ini_manager
 		auto result = manager.write(ostream);
 		if (!result.has_value())
 		{
+			// Propagate failure to the stream state
 			ostream.setstate(std::ios::failbit);
 		}
 		return ostream;
@@ -496,6 +528,7 @@ class ini_manager
 		auto result = manager.parse(istream);
 		if (!result.has_value())
 		{
+			// Propagate failure to the stream state
 			istream.setstate(std::ios::failbit);
 		}
 		return istream;
@@ -505,16 +538,17 @@ class ini_manager
 	/**
 	 * @brief The underlying data structure storing the INI configuration.
 	 * The outer map represents sections, and the inner map represents key-value pairs
-	 * within each section.
+	 * within each section. Uses shared_ptr for potential copy efficiency if needed.
 	 */
-	std::shared_ptr<std::map<std::string, std::map<std::string, std::string>>> m_data;
+	std::shared_ptr<data_map> m_data;
 	/**
-	 * @brief The file path of the INI file, if loaded from a file.
+	 * @brief The file path of the INI file, if loaded from or intended to be saved to a
+	 * specific file.
 	 */
 	std::string m_file_path;
 
 	/**
-	 * @brief Loads INI data from a file.
+	 * @brief Loads INI data from a file, adding to or overwriting existing data.
 	 * @param file_path The path to the INI file.
 	 * @return A `std::expected` indicating success or failure with an `std::error_code`.
 	 */
@@ -529,7 +563,8 @@ class ini_manager
 	}
 
 	/**
-	 * @brief Parses INI data from an input stream.
+	 * @brief Parses INI data from an input stream, adding to or overwriting existing
+	 * data.
 	 * @param istream The input stream to parse.
 	 * @return A `std::expected` indicating success or failure with an `std::error_code`.
 	 */
@@ -537,23 +572,37 @@ class ini_manager
 	{
 		std::string line;
 		std::optional<std::string> current_section;
+
 		while (std::getline(istream, line))
 		{
 			const std::string_view line_view = trim(line);
 
+			// Skip empty lines and comments
 			if (line_view.empty() || line_view.starts_with(';') ||
 				line_view.starts_with('#'))
 			{
 				continue;
 			}
 
+			// Section header: [SectionName]
 			if (line_view.starts_with('[') && line_view.ends_with(']'))
 			{
-				current_section =
-					std::string{trim(line_view.substr(1, line_view.length() - 2))};
+				if (line_view.length() < 3)
+				{ // Handle empty section "[ ]" -> treat as unnamed or error?
+				  // Current behavior: treats as empty string section name ""
+					current_section = "";
+				}
+				else
+				{
+					current_section =
+						std::string{trim(line_view.substr(1, line_view.length() - 2))};
+				}
+				// Ensure the section exists in the map (creates if new)
+				set_section(*current_section);
 				continue;
 			}
 
+			// Key-value pair: Key = Value
 			if (auto delimiter_pos = line_view.find('=');
 				delimiter_pos != std::string_view::npos)
 			{
@@ -561,14 +610,28 @@ class ini_manager
 				{
 					auto key = trim(line_view.substr(0, delimiter_pos));
 					auto value = trim(line_view.substr(delimiter_pos + 1));
-					(*m_data)[*current_section][std::string{key}] = std::string{value};
+					// Check if key is empty
+					if (!key.empty())
+					{
+						(*m_data)[*current_section][std::string{key}] =
+							std::string{value};
+					}
 				}
 			}
+
+			// Check stream state *after* processing the line
 			if (istream.fail() && !istream.eof())
 			{
-				return std::unexpected(std::error_code(errno, std::system_category()));
+				return std::unexpected(std::error_code(EIO, std::system_category()));
 			}
 		}
+
+		// Check final stream state after loop (e.g., if badbit is set without failbit)
+		if (istream.bad())
+		{
+			return std::unexpected(std::error_code(EIO, std::system_category()));
+		}
+
 		return {};
 	}
 
@@ -588,6 +651,7 @@ class ini_manager
 			}
 			ostream << "\n";
 		}
+		// Check stream state after writing all data
 		if (ostream.fail())
 		{
 			return std::unexpected(std::error_code(errno, std::system_category()));
