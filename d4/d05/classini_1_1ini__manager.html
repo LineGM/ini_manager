@@ -142,6 +142,12 @@ requires std::formattable&lt;<a class="el" href="../../d4/d05/classini_1_1ini__m
 <tr class="memitem:a1a96b22db39d586ae8e307328c210d5a" id="r_a1a96b22db39d586ae8e307328c210d5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a1a96b22db39d586ae8e307328c210d5a">remove_section</a> (<a class="el" href="../../da/d7b/structini_1_1section.html">section</a> <a class="el" href="../../da/d7b/structini_1_1section.html">section</a>) <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">noexcept</a> -&gt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">bool</a></td></tr>
 <tr class="memdesc:a1a96b22db39d586ae8e307328c210d5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an entire section from the INI data.  <br /></td></tr>
 <tr class="separator:a1a96b22db39d586ae8e307328c210d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77d7ebfc1e2321c3aefb1cd23b607a08" id="r_a77d7ebfc1e2321c3aefb1cd23b607a08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a77d7ebfc1e2321c3aefb1cd23b607a08">get_sections</a> () <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> -&gt; std::vector&lt; std::string &gt;</td></tr>
+<tr class="memdesc:a77d7ebfc1e2321c3aefb1cd23b607a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a list of all section names in the INI data.  <br /></td></tr>
+<tr class="separator:a77d7ebfc1e2321c3aefb1cd23b607a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf3add41f5daa73e6e681cbe3b984590" id="r_aaf3add41f5daa73e6e681cbe3b984590"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#aaf3add41f5daa73e6e681cbe3b984590">get_keys</a> (<a class="el" href="../../da/d7b/structini_1_1section.html">section</a> <a class="el" href="../../da/d7b/structini_1_1section.html">section</a>) <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> -&gt; std::vector&lt; std::string &gt;</td></tr>
+<tr class="memdesc:aaf3add41f5daa73e6e681cbe3b984590"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a list of all key names within a specific section.  <br /></td></tr>
+<tr class="separator:aaf3add41f5daa73e6e681cbe3b984590"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11d6b90b20a81d65e294473e9825bbb7" id="r_a11d6b90b20a81d65e294473e9825bbb7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a11d6b90b20a81d65e294473e9825bbb7">load_file</a> (<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> std::string &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">file_path</a>) -&gt; std::expected&lt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">void</a>, std::error_code &gt;</td></tr>
 <tr class="memdesc:a11d6b90b20a81d65e294473e9825bbb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads INI data from a file, replacing any existing data.  <br /></td></tr>
 <tr class="separator:a11d6b90b20a81d65e294473e9825bbb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,10 +155,10 @@ requires std::formattable&lt;<a class="el" href="../../d4/d05/classini_1_1ini__m
 <tr class="memdesc:a4316766a2c3029d10134eaf8e26f0774"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads INI data from an input stream, replacing any existing data.  <br /></td></tr>
 <tr class="separator:a4316766a2c3029d10134eaf8e26f0774"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41ed3e4d7b34985580e9eba4e802cac5" id="r_a41ed3e4d7b34985580e9eba4e802cac5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a41ed3e4d7b34985580e9eba4e802cac5">add_from_stream</a> (std::istream &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">istream</a>) -&gt; std::expected&lt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">void</a>, std::error_code &gt;</td></tr>
-<tr class="memdesc:a41ed3e4d7b34985580e9eba4e802cac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds INI data from an input stream to the existing data.  <br /></td></tr>
+<tr class="memdesc:a41ed3e4d7b34985580e9eba4e802cac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds INI data from an input stream to the existing data. Existing keys in existing sections will be overwritten. New sections/keys are added.  <br /></td></tr>
 <tr class="separator:a41ed3e4d7b34985580e9eba4e802cac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af84f7a451d5f5ab137a6f8a7a54ebcbc" id="r_af84f7a451d5f5ab137a6f8a7a54ebcbc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#af84f7a451d5f5ab137a6f8a7a54ebcbc">add_from_file</a> (<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> std::string &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">file_path</a>) -&gt; std::expected&lt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">void</a>, std::error_code &gt;</td></tr>
-<tr class="memdesc:af84f7a451d5f5ab137a6f8a7a54ebcbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds INI data from a file to the existing data.  <br /></td></tr>
+<tr class="memdesc:af84f7a451d5f5ab137a6f8a7a54ebcbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds INI data from a file to the existing data. Existing keys in existing sections will be overwritten. New sections/keys are added.  <br /></td></tr>
 <tr class="separator:af84f7a451d5f5ab137a6f8a7a54ebcbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc3380c58541956d007765dd5a68e963" id="r_afc3380c58541956d007765dd5a68e963"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#afc3380c58541956d007765dd5a68e963">write_file</a> (<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> std::string &amp;<a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">file_path</a>) <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">const</a> -&gt; std::expected&lt; <a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">void</a>, std::error_code &gt;</td></tr>
 <tr class="memdesc:afc3380c58541956d007765dd5a68e963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the current INI data to a file.  <br /></td></tr>
@@ -236,7 +242,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Adds INI data from a file to the existing data. </p>
+<p>Adds INI data from a file to the existing data. Existing keys in existing sections will be overwritten. New sections/keys are added. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file_path</td><td>The path to the INI file to add. </td></tr>
@@ -249,7 +255,7 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d05/classini_1_1ini__manager_af84f7a451d5f5ab137a6f8a7a54ebcbc_cgraph.png" border="0" usemap="#ad4/d05/classini_1_1ini__manager_af84f7a451d5f5ab137a6f8a7a54ebcbc_cgraph" alt=""/></div>
 <map name="ad4/d05/classini_1_1ini__manager_af84f7a451d5f5ab137a6f8a7a54ebcbc_cgraph" id="ad4/d05/classini_1_1ini__manager_af84f7a451d5f5ab137a6f8a7a54ebcbc_cgraph">
-<area shape="rect" title="Adds INI data from a file to the existing data." alt="" coords="5,5,164,45"/>
+<area shape="rect" title="Adds INI data from a file to the existing data. Existing keys in existing sections will be overwritte..." alt="" coords="5,5,164,45"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3" title="Retrieves a string value for a given section and key." alt="" coords="212,5,368,45"/>
 <area shape="poly" title=" " alt="" coords="164,23,198,23,198,28,164,28"/>
 </map>
@@ -282,7 +288,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Adds INI data from an input stream to the existing data. </p>
+<p>Adds INI data from an input stream to the existing data. Existing keys in existing sections will be overwritten. New sections/keys are added. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">istream</td><td>The input stream containing INI data to add. </td></tr>
@@ -295,7 +301,7 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d05/classini_1_1ini__manager_a41ed3e4d7b34985580e9eba4e802cac5_cgraph.png" border="0" usemap="#ad4/d05/classini_1_1ini__manager_a41ed3e4d7b34985580e9eba4e802cac5_cgraph" alt=""/></div>
 <map name="ad4/d05/classini_1_1ini__manager_a41ed3e4d7b34985580e9eba4e802cac5_cgraph" id="ad4/d05/classini_1_1ini__manager_a41ed3e4d7b34985580e9eba4e802cac5_cgraph">
-<area shape="rect" title="Adds INI data from an input stream to the existing data." alt="" coords="5,5,164,45"/>
+<area shape="rect" title="Adds INI data from an input stream to the existing data. Existing keys in existing sections will be o..." alt="" coords="5,5,164,45"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3" title="Retrieves a string value for a given section and key." alt="" coords="212,5,368,45"/>
 <area shape="poly" title=" " alt="" coords="164,23,198,23,198,28,164,28"/>
 </map>
@@ -375,6 +381,91 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="aaf3add41f5daa73e6e681cbe3b984590" name="aaf3add41f5daa73e6e681cbe3b984590"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf3add41f5daa73e6e681cbe3b984590">&#9670;&#160;</a></span>get_keys()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a> ini::ini_manager::get_keys </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../da/d7b/structini_1_1section.html">section</a>&#160;</td>
+          <td class="paramname"><em>section</em></td><td>)</td>
+          <td> const -&gt; std::vector&lt;std::string&gt;
+	</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets a list of all key names within a specific section. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>The section whose keys are to be retrieved. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::vector</code> containing the names of all keys in the specified section. Returns an empty vector if the section does not exist. The order corresponds to the map's internal ordering (typically alphabetical). </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d05/classini_1_1ini__manager_aaf3add41f5daa73e6e681cbe3b984590_cgraph.png" border="0" usemap="#ad4/d05/classini_1_1ini__manager_aaf3add41f5daa73e6e681cbe3b984590_cgraph" alt=""/></div>
+<map name="ad4/d05/classini_1_1ini__manager_aaf3add41f5daa73e6e681cbe3b984590_cgraph" id="ad4/d05/classini_1_1ini__manager_aaf3add41f5daa73e6e681cbe3b984590_cgraph">
+<area shape="rect" title="Gets a list of all key names within a specific section." alt="" coords="5,13,199,38"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3" title="Retrieves a string value for a given section and key." alt="" coords="247,5,403,45"/>
+<area shape="poly" title=" " alt="" coords="199,23,233,23,233,28,199,28"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a77d7ebfc1e2321c3aefb1cd23b607a08" name="a77d7ebfc1e2321c3aefb1cd23b607a08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77d7ebfc1e2321c3aefb1cd23b607a08">&#9670;&#160;</a></span>get_sections()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3">auto</a> ini::ini_manager::get_sections </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const -&gt; std::vector&lt;std::string&gt;
+	</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets a list of all section names in the INI data. </p>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::vector</code> containing the names of all sections. The order corresponds to the map's internal ordering (typically alphabetical). </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d05/classini_1_1ini__manager_a77d7ebfc1e2321c3aefb1cd23b607a08_cgraph.png" border="0" usemap="#ad4/d05/classini_1_1ini__manager_a77d7ebfc1e2321c3aefb1cd23b607a08_cgraph" alt=""/></div>
+<map name="ad4/d05/classini_1_1ini__manager_a77d7ebfc1e2321c3aefb1cd23b607a08_cgraph" id="ad4/d05/classini_1_1ini__manager_a77d7ebfc1e2321c3aefb1cd23b607a08_cgraph">
+<area shape="rect" title="Gets a list of all section names in the INI data." alt="" coords="5,5,161,45"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a5b9d25a0d7860fe2f089b2347268d4a3" title="Retrieves a string value for a given section and key." alt="" coords="209,5,365,45"/>
+<area shape="poly" title=" " alt="" coords="161,23,196,23,196,28,161,28"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a5b9d25a0d7860fe2f089b2347268d4a3" name="a5b9d25a0d7860fe2f089b2347268d4a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5b9d25a0d7860fe2f089b2347268d4a3">&#9670;&#160;</a></span>get_value() <span class="overload">[1/2]</span></h2>
 
@@ -424,23 +515,27 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d05/classini_1_1ini__manager_a5b9d25a0d7860fe2f089b2347268d4a3_icgraph.png" border="0" usemap="#ad4/d05/classini_1_1ini__manager_a5b9d25a0d7860fe2f089b2347268d4a3_icgraph" alt=""/></div>
 <map name="ad4/d05/classini_1_1ini__manager_a5b9d25a0d7860fe2f089b2347268d4a3_icgraph" id="ad4/d05/classini_1_1ini__manager_a5b9d25a0d7860fe2f089b2347268d4a3_icgraph">
-<area shape="rect" title="Retrieves a string value for a given section and key." alt="" coords="248,227,404,267"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#af84f7a451d5f5ab137a6f8a7a54ebcbc" title="Adds INI data from a file to the existing data." alt="" coords="23,5,182,45"/>
-<area shape="poly" title=" " alt="" coords="309,215,291,179,267,137,236,95,198,59,179,48,182,43,202,55,240,92,271,134,296,176,314,213"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a41ed3e4d7b34985580e9eba4e802cac5" title="Adds INI data from an input stream to the existing data." alt="" coords="23,69,182,109"/>
-<area shape="poly" title=" " alt="" coords="299,218,255,169,228,145,199,124,175,112,178,107,201,119,231,141,259,166,303,214"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#ac88f0d28eb415b59bf7dff771222df0e" title="Retrieves a string value for a given section and key, or a default value if not found." alt="" coords="25,133,181,173"/>
-<area shape="poly" title=" " alt="" coords="274,223,199,188,168,176,169,171,201,183,276,218"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a87fcd332ea821ea96964f728ac1e5b66" title=" " alt="" coords="25,197,181,237"/>
-<area shape="poly" title=" " alt="" coords="234,237,180,230,181,225,234,232"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a11d6b90b20a81d65e294473e9825bbb7" title="Loads INI data from a file, replacing any existing data." alt="" coords="7,262,198,287"/>
-<area shape="poly" title=" " alt="" coords="235,261,199,265,198,260,234,255"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4316766a2c3029d10134eaf8e26f0774" title="Loads INI data from an input stream, replacing any existing data." alt="" coords="21,312,184,352"/>
-<area shape="poly" title=" " alt="" coords="267,275,201,301,165,314,163,309,199,296,265,270"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a2c2bca7b39a8e4454fc3e885bedd9687" title="Removes a key&#45;value pair from a section." alt="" coords="10,376,195,416"/>
-<area shape="poly" title=" " alt="" coords="301,279,257,324,201,366,177,378,175,374,199,362,254,320,297,275"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#afc3380c58541956d007765dd5a68e963" title="Writes the current INI data to a file." alt="" coords="5,441,200,466"/>
-<area shape="poly" title=" " alt="" coords="313,281,296,316,271,356,239,396,202,430,177,443,175,438,198,426,236,393,267,353,291,313,309,278"/>
+<area shape="rect" title="Retrieves a string value for a given section and key." alt="" coords="248,280,404,320"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#af84f7a451d5f5ab137a6f8a7a54ebcbc" title="Adds INI data from a file to the existing data. Existing keys in existing sections will be overwritte..." alt="" coords="23,5,182,45"/>
+<area shape="poly" title=" " alt="" coords="314,267,299,221,275,165,242,108,221,82,198,59,181,48,184,43,202,55,225,79,246,105,280,162,304,219,319,266"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a41ed3e4d7b34985580e9eba4e802cac5" title="Adds INI data from an input stream to the existing data. Existing keys in existing sections will be o..." alt="" coords="23,69,182,109"/>
+<area shape="poly" title=" " alt="" coords="308,269,265,195,234,157,198,123,179,112,182,107,202,119,238,153,269,192,312,266"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#aaf3add41f5daa73e6e681cbe3b984590" title="Gets a list of all key names within a specific section." alt="" coords="6,134,199,159"/>
+<area shape="poly" title=" " alt="" coords="300,271,257,221,229,196,199,174,170,162,173,157,201,170,232,191,261,217,304,267"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a77d7ebfc1e2321c3aefb1cd23b607a08" title="Gets a list of all section names in the INI data." alt="" coords="25,184,181,224"/>
+<area shape="poly" title=" " alt="" coords="276,276,199,238,168,226,169,222,201,234,278,271"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#ac88f0d28eb415b59bf7dff771222df0e" title="Retrieves a string value for a given section and key, or a default value if not found." alt="" coords="25,248,181,288"/>
+<area shape="poly" title=" " alt="" coords="234,290,180,282,181,276,234,284"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a87fcd332ea821ea96964f728ac1e5b66" title=" " alt="" coords="25,312,181,352"/>
+<area shape="poly" title=" " alt="" coords="234,316,181,324,180,318,234,310"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a11d6b90b20a81d65e294473e9825bbb7" title="Loads INI data from a file, replacing any existing data." alt="" coords="7,377,198,402"/>
+<area shape="poly" title=" " alt="" coords="280,329,201,366,161,379,160,374,199,362,277,324"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4316766a2c3029d10134eaf8e26f0774" title="Loads INI data from an input stream, replacing any existing data." alt="" coords="21,427,184,467"/>
+<area shape="poly" title=" " alt="" coords="300,332,256,375,201,416,174,429,172,424,199,411,253,371,296,329"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a2c2bca7b39a8e4454fc3e885bedd9687" title="Removes a key&#45;value pair from a section." alt="" coords="10,491,195,531"/>
+<area shape="poly" title=" " alt="" coords="312,334,269,408,238,447,202,481,182,493,179,488,198,477,234,443,265,405,308,331"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#afc3380c58541956d007765dd5a68e963" title="Writes the current INI data to a file." alt="" coords="5,555,200,581"/>
+<area shape="poly" title=" " alt="" coords="319,334,305,381,281,438,247,496,226,522,202,545,180,558,177,553,198,541,222,518,243,493,276,436,300,380,314,333"/>
 </map>
 </div>
 
@@ -482,6 +577,16 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d05/classini_1_1ini__manager_a39558157153c6c8322cf8745b70fdee5_cgraph.png" border="0" usemap="#ad4/d05/classini_1_1ini__manager_a39558157153c6c8322cf8745b70fdee5_cgraph" alt=""/></div>
+<map name="ad4/d05/classini_1_1ini__manager_a39558157153c6c8322cf8745b70fdee5_cgraph" id="ad4/d05/classini_1_1ini__manager_a39558157153c6c8322cf8745b70fdee5_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,161,45"/>
+<area shape="rect" href="../../d8/d7b/namespaceini.html#a830e3eb6271683891f0eb0a1cb78d85e" title="Trims leading and trailing whitespace from a string view." alt="" coords="209,13,283,38"/>
+<area shape="poly" title=" " alt="" coords="161,23,195,23,195,28,161,28"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -981,7 +1086,7 @@ requires std::formattable&lt;<a class="el" href="../../d4/d05/classini_1_1ini__m
 </div><div class="memdoc">
 
 <p>Writes the current INI data to the file specified during loading (if any). </p>
-<dl class="section return"><dt>Returns</dt><dd>A <code>std::expected</code> indicating success or failure with an <code>std::error_code</code>. Fails if no file path was previously loaded. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::expected</code> indicating success or failure with an <code>std::error_code</code>. Fails with <code>std::errc::operation_not_permitted</code> if no file path was previously loaded or set. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1089,10 +1194,11 @@ Here is the call graph for this function:</div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ostream</td><td>The output stream to write to. </td></tr>
+    <tr><td class="paramname">manager</td><td>The <a class="el" href="../../d4/d05/classini_1_1ini__manager.html" title="Manages INI file data, allowing reading, writing, and manipulation of configuration settings.">ini_manager</a> object to write. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to the output stream. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the output stream. Sets failbit on error. </dd></dl>
 
 </div>
 </div>
