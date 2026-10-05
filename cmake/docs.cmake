@@ -1,22 +1,11 @@
-# ---- Check if Doxygen is installed  ----
-
-find_package(Doxygen)
-if(DOXYGEN_FOUND)
-	set(DOXYGEN_IN ${PROJECT_SOURCE_DIR}/docs/Doxyfile.in)
-	set(DOXYGEN_OUT ${PROJECT_SOURCE_DIR}/docs/Doxyfile)
-	configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
-
-	set(working_dir "${PROJECT_SOURCE_DIR}/docs")
-
-	# ---- Declare documentation target ----
-
-	add_custom_target(
-		docs
-		COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
-		COMMENT "Building documentation using Doxygen."
-		WORKING_DIRECTORY "${working_dir}"
-	)
-
-else(DOXYGEN_FOUND)
-	message("Doxygen must be installed to build documentation.")
-endif(DOXYGEN_FOUND)
+find_package(Doxygen REQUIRED)
+set(DOXYGEN_OUT "${PROJECT_BINARY_DIR}/docs/Doxyfile")
+file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/docs")
+find_program(INI_DOT_EXECUTABLE dot)
+set(INI_HAVE_DOT NO)
+if(INI_DOT_EXECUTABLE)
+    set(INI_HAVE_DOT YES)
+endif()
+configure_file("${PROJECT_SOURCE_DIR}/docs/Doxyfile.in" "${DOXYGEN_OUT}" @ONLY)
+add_custom_target(docs COMMAND "${DOXYGEN_EXECUTABLE}" "${DOXYGEN_OUT}"
+    WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/docs" COMMENT "Building documentation")

@@ -13,3 +13,5 @@ docs/Doxyfile
 
 CMakeLists.txt.user
 compile_commands.json
+
+CMakeUserPresets.json

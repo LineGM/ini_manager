@@ -1,217 +1,280 @@
-# C++23 Header-Only INI Manager Library
+# ini_manager 1.0.0
 
-[![C++ Standard](https://img.shields.io/badge/C++-23-blueviolet.svg)](https://en.cppreference.com/w/cpp/23)
+A small header-only C++26 INI library with independent copies, strict parsing,
+transactional loading and checked file replacement. Include
+`<ini_manager/ini_manager.hpp>` and use `ini::ini_manager`.
+No third-party runtime libraries are required.
 
-This is a header-only C++23 library for parsing, reading, and writing INI files. It provides a simple and intuitive interface to manage configuration settings within your C++ applications.
+## Requirements and integration
 
-## Features
+C++26 mode is required, with these **standard library** features:
 
-* **Header-Only:** Easy to integrate into your projects by simply including the header file.
-* **C++23 Standard:** Leverages modern C++ features like `std::expected` and `std::format` for improved error handling and formatting.
-* **INI File Parsing:** Supports standard INI file syntax with sections and key-value pairs.
-* **Reading Values:** Provides methods to retrieve values as `std::string`, `int`, `double`, and `bool` with automatic type conversion.
-* **Optional Values:** Uses `std::optional` to handle cases where a requested value or section does not exist.
-* **Default Values:** Offers a convenient way to get a value or a default if it's not found.
-* **Setting Values:** Allows you to set new values or modify existing ones.
-* **Creating Sections:** Easily create new sections if they don't already exist.
-* **Removing Values and Sections:** Provides functions to remove specific key-value pairs or entire sections.
-* **Loading from File:** Reads INI data from a specified file path.
-* **Loading from Stream:** Parses INI data from any `std::istream`.
-* **Adding from File/Stream:** Merges INI data from a file or stream into an existing `ini_manager` object.
-* **Writing to File:** Saves the current configuration to a file.
-* **Writing to Stream:** Outputs the configuration data to any `std::ostream`.
-* **Stream Operators:** Overloads `operator>>` and `operator<<` for convenient reading from and writing to streams.
-* **FetchContent Ready:** Easily integrate into CMake projects using FetchContent.
+- `std::expected`, `std::formattable`/`std::format`;
+- integer and floating-point `from_chars`/`to_chars`, including `long double`;
+- heterogeneous map insertion (P2363R5,
+  `__cpp_lib_associative_heterogeneous_insertion >= 202306L`);
+- boolean testing of charconv results (P2497R0, `__cpp_lib_to_chars >= 202306L`).
 
-## Requirements
+The C++26 insertions accept borrowed `string_view` names directly: replacing an
+existing key does not first allocate temporary section/key strings. Stored names
+still own their memory. Charconv results are checked before values are used.
+The API uses C++26; the features listed above are required.
 
-* A C++23 compliant compiler (e.g., GCC 13+, Clang 16+).
+The supported baseline is GCC 16/libstdc++16 or Clang 22/libstdc++16.
+CI selects these on Linux, Homebrew GCC 16 on macOS, and MSYS2 UCRT64 GCC 16
+on Windows. Apple Clang/libc++ and MSVC are not currently in the supported matrix.
+Other toolchains must pass the feature probe; selecting `-std=c++26` alone does
+not establish standard-library support. The numeric contract includes `long double`; it is not silently
+replaced with `double` or locale-dependent stream conversion.
 
-## Installation
+Developer builds compile and link a probe of the actual public API. The standalone
+header also diagnoses missing C++26 mode and feature-test macros. C++26 compiler
+support is still evolving: use the toolchains above, and keep compiler and standard
+library versions together.
 
-As a header-only library, **ini_manager** can be integrated into your projects in a few ways:
+File I/O supports POSIX systems (including Linux/macOS) and Windows. It uses a
+small native adapter for exclusive creation, reliable system error codes, and
+explicit closing. This is still one header; no compiled library is shipped.
 
-### Direct Include:
-
-Simply include the ```ini_manager.hpp``` header file in your C++ project and ensure the directory containing it is in your compiler's include path.
-
-```cpp
-#include "ini_manager/ini_manager.hpp"
-```
-
-### Using CMake's FetchContent (Recommended for CMake Projects):
-
-If you are using CMake as your build system, you can easily integrate **ini_manager** using the ```FetchContent module```. Add the following to your ```CMakeLists.txt``` file:
+CMake 4.0 or newer:
 
 ```cmake
-include(FetchContent)
-
-FetchContent_Declare(
-    ini_manager
-    GIT_REPOSITORY https://github.com/LineGM/ini_manager.git
-    GIT_TAG        <desired_tag_or_branch> # Optional: Specify a tag or branch
-)
-
-FetchContent_MakeAvailable(ini_manager)
+add_subdirectory(path/to/ini_manager)
+target_link_libraries(my_app PRIVATE ini_manager::ini_manager)
 ```
 
-After this, you can link library to your target:
+Alternatively use `FetchContent_Declare` with this repository and a pinned
+revision, or install the project and use `find_package(ini_manager 1.0 REQUIRED)`.
+All forms expose the same target. Consumer builds do not download tests, change
+global compiler flags, add developer targets, or create compilation database links.
+See [BUILDING.md](BUILDING.md) and [HACKING.md](HACKING.md).
 
-```cmake
-target_link_libraries(
-    <your_target>
-    PRIVATE ini_manager::ini_manager
-)
-```
-
-Now simply include the ```ini_manager.hpp``` header file in your target source code:
+## Checked API
 
 ```cpp
-#include "ini_manager/ini_manager.hpp"
-```
-
-## Usage
-
-Here are some examples of how to use the **ini_manager** library:
-
-### Example 1: Creating and Writing to a File
-
-```cpp
-#include "ini_manager/ini_manager.hpp"
+#include <ini_manager/ini_manager.hpp>
 #include <iostream>
 
 int main() {
-    ini::ini_manager config;
-    config.set_section("Section1");
-    config.set_value("Section1", "Key1", "Value1");
-    config.set_value("Section1", "KeyInt", 42);
-
-    auto write_result = config.write_file("example1.ini");
-    if (write_result.has_value()) {
-        std::cout << "Configuration written to example1.ini" << std::endl;
-    } else {
-        std::cerr << "Error writing: " << write_result.error().message() << std::endl;
+    auto loaded = ini::ini_manager::from_file("app.ini");
+    if (!loaded) {
+        std::cerr << loaded.error().message() << '\n';
+        return 1;
     }
-    return 0;
-}
-```
+    auto config = std::move(*loaded);
 
-### Example 2: Reading and Modifying an Existing File
-
-```cpp
-#include "ini_manager/ini_manager.hpp"
-#include <iostream>
-#include <fstream>
-
-int main() {
-    // Create a dummy INI file for this example
-    std::ofstream dummy_file("example2.ini");
-    dummy_file << "[Settings]\nOption1 = OldValue\nNumber = 100\n";
-    dummy_file.close();
-
-    auto config_result = ini::ini_manager::from_file("example2.ini");
-    if (config_result.has_value()) {
-        auto config = config_result.value();
-        if (auto option = config.get_value(ini::section{"Settings"}, ini::key{"Option1"})) {
-            std::cout << "Option1: " << *option << std::endl;
-        }
-        config.set_value("Settings", "Option1", "NewValue");
-        config.set_value("Settings", "Number", 200);
-        config.write_file("example2.ini");
-    } else {
-        std::cerr << "Error loading file: " << config_result.error().message() << std::endl;
+    auto port = config.get_value<unsigned>({"server"}, {"port"});
+    if (!port) {
+        std::cerr << port.error().message() << '\n';
+        return 1;
     }
-    return 0;
-}
-```
-
-### Example 3: Reading from a Stream
-
-```cpp
-#include "ini_manager/ini_manager.hpp"
-#include <iostream>
-#include <sstream>
-
-int main() {
-    std::istringstream ini_stream("[Section]\nData = StreamData\nCounter = 5\n");
-    auto config_result = ini::ini_manager::from_stream(ini_stream);
-    if (config_result.has_value()) {
-        auto config = config_result.value();
-        if (auto data = config.get_value(ini::section{"Section"}, ini::key{"Data"})) {
-            std::cout << "Data: " << *data << std::endl;
-        }
-        if (auto counter = config.get_value<int>(ini::section{"Section"}, ini::key{"Counter"})) {
-            std::cout << "Counter: " << *counter << std::endl;
-        }
-    } else {
-        std::cerr << "Error loading from stream." << std::endl;
+    auto host = config.get_value_or_default(
+        {"server"}, {"host"}, "localhost");
+    if (!host) {
+        std::cerr << host.error().message() << '\n';
+        return 1;
     }
-    return 0;
+    if (auto changed = config.set_value({"server"}, {"port"}, 9000); !changed) {
+        std::cerr << changed.error().message() << '\n';
+        return 1;
+    }
+    if (auto saved = config.write_file(); !saved) {
+        std::cerr << saved.error().message() << '\n';
+        return 1;
+    }
 }
 ```
 
-### Example 4: Using Stream Operators
+`from_stream`, `load_stream`, `add_from_stream`, and `write_stream` take standard
+streams. File counterparts take `std::filesystem::path`, including native Unicode
+paths on Windows. A successful `load_file` associates its path; `load_stream`
+clears the association. Merge and explicit `write_file(path)` do not change it.
+`file_path()` returns an owning `optional<filesystem::path>`.
+
+`set_section({"empty"})` preserves a section without keys. `remove_value(section,
+key)` and `remove_section(section)` return whether anything was removed. Removing
+the last key leaves its section. `get_sections()` and `get_keys(section)` return
+sorted owning vectors; an absent section gives an empty key list.
+
+## Ownership and errors
+
+Maps are stored directly. Copy construction/assignment creates independent data;
+move operations leave the source empty, with default options and no associated
+path. Moving is conditionally noexcept because some standard libraries allocate
+an empty map sentinel. Copy assignment, load, and merge commit only after successful preparation.
+Parse, read, allocation, and merge failures preserve the previous manager state.
+A failed setter also preserves its data. Reading from an input stream is not
+rewound on failure; output streams can contain a partial write on failure.
+
+There are no section accessors, mutable references, iterators or views into the
+manager. Returned values remain valid after reload, modification, move or owner
+destruction. Getters on temporary managers are safe because they return owned
+values. `section` and `key` are **borrowed call arguments**, wrapping `string_view`;
+keep their source strings alive until the call returns. Do not retain a wrapper
+constructed from a temporary string. Managers never retain argument views.
+
+Operations that can fail return `ini::result<T>` (`std::expected<T, ini::error>`)
+and are `[[nodiscard]]`. The diagnostic owns its context and contains:
+
+- `reason` and `op`: machine-readable enums;
+- optional one-based `line` and byte `column`;
+- `section_name`, `key_name`, optional `path`;
+- `system_code` when a native operation provides one; generic `io_error` for
+  streams without a reliable specific code;
+- `replacement`, `cleanup_code`, and `temporary_path` for save failures.
+
+`message()` renders a readable diagnostic, but callers should branch on enums,
+not message text. Missing section/key, invalid format and out-of-range values
+are distinct. String values are returned as `std::string`.
+
+`get_value_or_default` substitutes **only for absence**. A present empty string
+is not absent. A malformed typed value remains an error. String literals,
+`std::string` and `std::string_view` defaults all return owning strings. Character
+arrays preserve their known length; a needed null C-string default is an error.
+
+`expected` does not promise absence of exceptions. Allocation failures and
+exceptions from user extraction/formatting propagate; allocating operations are
+not `noexcept`. Caller stream I/O exceptions become expected I/O errors, while
+`bad_alloc` propagates. Formatting and conversion occur before mutation.
+
+## Strict INI dialect
+
+Names are case-sensitive, with no Unicode normalization. Bytes above ASCII are
+preserved without validating UTF-8. Only a UTF-8 BOM at the very beginning of the
+input is removed. LF, CRLF, and a final line without a newline are supported;
+a bare CR is invalid.
+
+- Blank lines and lines whose first non-space/tab byte is `;` or `#` are ignored.
+- A section is `[name]`; surrounding spaces/tabs inside brackets are syntax
+  whitespace. After `]`, only spaces/tabs or a comment separated by them are
+  allowed: `[new] ; comment` is valid; `[new];comment` is invalid.
+- A pair is `key=value`. Surrounding spaces/tabs are removed from parsed names
+  and values. Keys must be nonempty. Empty values are valid.
+- Keys before the first header belong to section `""`. `[]` explicitly selects
+  the same section. Empty documents contain no sections. Empty sections persist.
+- Repeated section headers merge their keys. Duplicate keys anywhere in the same
+  input document fail by default, even across repeated headers. Merge into an
+  existing manager intentionally replaces existing values.
+- Missing separators, malformed headers, embedded NUL, DEL and disallowed ASCII
+  controls are errors, including inside comments. Internal tabs are permitted in
+  values, but not in names.
+- No permissive mode, continuation/multiline syntax, quoting or escaping exists.
+  Quote and backslash characters in values are literal bytes.
+
+Options are explicit:
 
 ```cpp
-#include "ini_manager/ini_manager.hpp"
-#include <iostream>
-#include <sstream>
-
-int main() {
-    std::istringstream ini_stream("[Section]\nValue = FromStream\n");
-    ini::ini_manager config;
-    ini_stream >> config;
-    std::cout << config << std::endl; // Write the loaded config to stdout
-    return 0;
-}
+ini::parse_options options;
+options.allow_colon = true;
+options.inline_comments = true;
+options.duplicates = ini::duplicate_policy::last_wins;
+std::istringstream input("[s]\nkey: value ; explanation\n");
+auto parsed = ini::ini_manager::from_stream(input, options);
 ```
 
-For more detailed examples, please refer to the .cpp files provided in the ```example/``` directory.
+With `allow_colon`, the first `=` or `:` is the separator. With inline comments,
+`;` or `#` starts a comment only at the start of the value field or immediately
+after a space/tab. Thus `a;b#c` and `https://host/#fragment` remain intact;
+`value ; comment` becomes `value`. Inline comments are **off by default**, so
+`;` and `#` are ordinarily literal everywhere in a value.
 
-## API Overview
+Options belong to the manager and can be inspected using `options()`. Successful
+load replaces options (omitted options mean defaults); merge uses existing options.
+Construct `ini_manager(options)` to use a selected dialect for programmatic data.
 
-### **ini::section** and **ini::key**
+## Resource limits and canonical writing
 
-Simple structs to represent ```section``` and ```key``` names as ```std::string_view```.
+| Option | Default | Meaning |
+| --- | ---: | --- |
+| `max_line_bytes` | 65,536 | Raw bytes excluding LF/CRLF, including any initial BOM |
+| `max_input_bytes` | 16,777,216 | All input bytes, including BOM and line endings |
+| `max_sections` | 4,096 | Unique sections, including a present global section |
+| `max_keys` | 100,000 | Unique keys across all sections |
 
-### **ini::ini_manager**
-* ```ini_manager()```: Default constructor to create an empty configuration.
-* ```static auto from_file(const std::string &file_path) -> std::expected<ini_manager, std::error_code>```: Static factory function to load configuration from a file.
-* ```static auto from_stream(std::istream &istream) -> std::expected<ini_manager, std::error_code>```: Static factory function to load configuration from a stream.
-* ```auto operator(std::string_view section) -> section_accessor```: Accessor for modifying values within a section.
-* ```auto operator(std::string_view section) const -> const_section_accessor```: Accessor for reading values within a section.
-* ```auto get_value(section section, key key) const noexcept -> std::optional<std::string>```: Retrieves a string value.
-* ```template <typename T> auto get_value(section section, key key) const noexcept -> std::optional<T>```: Retrieves a value with automatic type conversion.
-* ```auto get_value_or_default(section section, key key, std::string default_value) const noexcept -> std::string```: Retrieves a string value or a default if not found.
-* ```template <typename T> auto get_value_or_default(section section, key key, T default_value) const noexcept -> T```: Retrieves a value with type conversion or a default if not found.
-* ```template <typename T> requires std::formattable<T, char> void set_value(std::string_view section, std::string_view key, T value) noexcept```: Sets a value for a given section and key.
-* ```void set_section(const std::string &section) noexcept```: Creates a new section if it doesn't exist.
-* ```auto remove_value(section section, key key) noexcept -> bool```: Removes a key-value pair.
-* ```auto remove_section(section section) noexcept -> bool```: Removes an entire section.
-* ```auto load_file(const std::string &file_path) -> std::expected<void, std::error_code>```: Loads configuration from a file, overwriting existing data.
-* ```auto load_stream(std::istream &istream) -> std::expected<void, std::error_code>```: Loads configuration from a stream, overwriting existing data.
-* ```auto add_from_stream(std::istream &istream) -> std::expected<void, std::error_code>```: Adds configuration data from a stream, merging with existing data.
-* ```auto add_from_file(const std::string &file_path) -> std::expected<void, std::error_code>```: Adds configuration data from a file, merging with existing data.
-* ```auto write_file(const std::string &file_path) const -> std::expected<void, std::error_code>```: Writes the configuration to a file.
-* ```auto write_file() const -> std::expected<void, std::error_code>```: Writes the configuration to the file specified during loading (if any).
-* ```friend auto operator<<(std::ostream &ostream, const ini_manager &manager) -> std::ostream &```: Writes the configuration to an output stream.
-* ```friend auto operator>>(std::istream &istream, ini_manager &manager) -> std::istream &```: Reads the configuration from an input stream.
+Zero is a literal zero limit, not unlimited. Checks occur before extending the
+line buffer, not after an unlimited `getline`. File read-ahead is a fixed 4096
+bytes. Allocation is bounded by configured input/count limits plus map overhead;
+this is not a process-wide memory quota. Setters check counts; serialization
+checks canonical line/document sizes, so a successfully parsed compact input can
+still be too large to write in canonical spelling under the same limits.
 
-### Nested Classes
-* ```section_accessor```: Provides non-const access to keys within a section using operator, returning a ```std::string&```.
-* ```const_section_accessor```: Provides const access to keys within a section using operator, returning a ```std::optional<std::string>```.
+The writer emits sorted sections/keys with ` = ` separators, LF endings, and an
+explicit `[]` for a present global section. It does not preserve comments,
+whitespace, ordering or original numeric spelling after a typed setter.
 
-## Building
-For information on building, please refer to the [**BUILDING**](BUILDING.md) file.
+Mutators reject names/values that would change meaning on rereading:
 
-## Contributing
-Contributions are welcome! Please read the [**CONTRIBUTING**](CONTRIBUTING.md) file for guidelines on how to contribute to this project.
+- Names cannot have outer spaces/tabs or control bytes. Sections cannot contain
+  brackets; keys cannot contain an active separator or start with `[`, `;`, `#`.
+- Values cannot have outer spaces/tabs, NUL, newlines or disallowed controls.
+- Under inline comments, values containing a comment-start sequence are rejected.
 
-## License
-This library is licensed under the [**LICENSE**](LICENSE).
+Nothing is silently trimmed by setters or the writer. For example, `" padded "`,
+`"a\nb"`, and key `"a=b"` are rejected. Serialize validates all data and the full
+canonical size before any output or target file access. Any successfully written
+configuration rereads to equivalent data with the same options.
 
-## Code of Conduct
-Please adhere to the [**CODE_OF_CONDUCT**](CODE_OF_CONDUCT.md) when participating in this project.
+## Typed values
 
-## Hacking
-For more in-depth information about the library's internals and development, please see the [**HACKING**](HACKING.md) file.
+Integral values use decimal `from_chars`, require full consumption, and reject
+leading `+`, hex, negative unsigned and trailing junk. Signed/unsigned char,
+including `int8_t`/`uint8_t` aliases, are numbers; plain `char` requires one byte.
+Overflow produces `out_of_range`. Unsupported types fail constraints at compile time.
+
+Floating-point values use decimal/scientific charconv; leading `+`, hex, NaN and
+infinity are rejected. Overflow and underflow reported by charconv are range
+errors. Representable subnormal values and negative zero round-trip. Typed setters
+use shortest round-tripping `to_chars` output, independent of global locale.
+
+Bool accepts ASCII-case-insensitive `true`/`false` and `1`/`0`; `yes`/`no` and
+`on`/`off` are not accepted. Arithmetic reading trims surrounding space/tab and
+requires no other leftover bytes. String reads do not perform conversion.
+
+Custom types must be default-initializable, movable and extractable using an
+`istream& operator>>(istream&, T&)`. Extraction uses the classic locale and must
+succeed, leaving only spaces/tabs or EOF. EOF alone is not proof of success.
+Custom setters accept `std::formattable` types and validate the formatted result.
+The library cannot guarantee a custom formatter/extractor pair round-trips.
+
+## Streams and file preservation
+
+An input stream with preexisting failbit/badbit fails. Normal EOF sets only
+eofbit, so `if (input >> config)` succeeds after a complete document. Stream
+operators replace data, and honor exception masks: an eofbit exception can occur
+*after a successful load has committed*. Expected stream methods absorb I/O
+exceptions without changing masks or clearing existing errors. They report
+syntax diagnostics through the result; `operator>>` additionally sets failbit.
+A streambuf reporting EOF is treated as EOF; a custom source must signal actual
+read failures with an exception rather than silently returning EOF.
+
+`write_stream` checks both writing and `pubsync` (flush); it never closes a caller's
+stream. Stream operators use the same mechanisms. Stream locale and formatting
+flags do not affect canonical output.
+
+`write_file` validates and serializes first, rejects directories/devices/symlinks,
+creates a temporary file exclusively in the same directory, checks complete
+writes and close, then replaces the target without first deleting it. Colliding
+temporary names are retried a bounded number of times; existing files/symlinks
+are never opened for truncation. Temporary files are cleaned up on failure;
+cleanup errors accompany the original error without replacing it.
+
+On POSIX the replacement is rename; on Windows it is `MoveFileExW` with
+`MOVEFILE_REPLACE_EXISTING` and without copy fallback. The target directory must
+be trusted and stable. Exclusive creation protects against preexisting symlinks,
+but this is not a defense against an attacker who can rename parent directories
+or unlink open temporary files. Concurrent saves have last-replacement-wins
+semantics, without locking or conflict detection.
+
+Failures before replacement preserve the old file. Replacement failures with an
+uncertain outcome explicitly report `replacement_state::unknown`; callers must
+not assume the old file is intact. Ordinary local POSIX rename provides atomic
+visibility; filesystem/provider guarantees apply on Windows and network filesystems.
+No power-loss durability is promised: close/flush is not fsync, and the directory
+is not synchronized. No durable mode is exposed.
+
+POSIX new files use mode 0600 (subject to umask); replacement preserves the
+existing ordinary rwx bits, not special mode bits. Windows new files inherit
+security from the directory. Ownership, ACLs, extended attributes, hardlink
+identity and original formatting are not preserved by contract. Replacement
+requires directory permissions and may fail on Windows if another process holds
+the destination without delete sharing.

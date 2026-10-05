@@ -1,7 +1,11 @@
 /**
- * @page about About
- * @section about-doxygen Doxygen documentation
- * This page is auto generated using
- * <a href="https://www.doxygen.nl/">Doxygen</a>, making use of some useful
- * <a href="https://www.doxygen.nl/manual/commands.html">special commands</a>.
- */
+@page about About ini_manager 1.0.0
+
+ini_manager is a header-only C++26 value object for strict INI configuration.
+See the main page for the dialect, checked API, resource limits, stream behavior
+and file-replacement guarantees. Configuration values returned by the API own
+their data.
+
+The parser and native I/O helpers in ini::detail are implementation details,
+not supported public extension interfaces.
+*/

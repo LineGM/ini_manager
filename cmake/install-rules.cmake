@@ -6,7 +6,7 @@ if(PROJECT_IS_TOP_LEVEL)
 	set_property(CACHE CMAKE_INSTALL_INCLUDEDIR PROPERTY TYPE PATH)
 endif()
 
-# Project is configured with no languages, so tell GNUInstallDirs the lib dir
+# Header-only package: use a platform-independent config install directory
 set(CMAKE_INSTALL_LIBDIR lib CACHE PATH "")
 
 include(CMakePackageConfigHelpers)
@@ -15,17 +15,13 @@ include(GNUInstallDirs)
 # find_package(<package>) call for consumers to find this project
 set(package ini_manager)
 
-install(
-	DIRECTORY include/
-	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-	COMPONENT ini_manager_Development
-)
+install(TARGETS ini_manager_ini_manager EXPORT ini_managerTargets
+    FILE_SET HEADERS DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    COMPONENT ini_manager_Development)
 
-install(
-	TARGETS ini_manager_ini_manager
-	EXPORT ini_managerTargets
-	INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-)
+install(FILES "${PROJECT_SOURCE_DIR}/LICENSE"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/licenses/ini_manager"
+    COMPONENT ini_manager_Development)
 
 write_basic_package_version_file(
 	"${package}ConfigVersion.cmake"
@@ -62,5 +58,8 @@ install(
 )
 
 if(PROJECT_IS_TOP_LEVEL)
-	include(CPack)
+    set(CPACK_PACKAGE_FILE_NAME "ini_manager-${PROJECT_VERSION}")
+    set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+    set(CPACK_PACKAGE_CONTACT "LineGM@yandex.ru")
+    include(CPack)
 endif()

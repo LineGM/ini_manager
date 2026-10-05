@@ -1,0 +1,16 @@
+name: C++26 Linux tools
+description: Install current GCC/libstdc++ and LLVM in the Arch Linux CI container
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        pacman -Syu --noconfirm --needed gcc clang clang-tools-extra compiler-rt cmake ninja git python-codespell lcov doxygen graphviz
+        g++ --version
+        clang++ --version
+        cmake --version
+        # Fail clearly if the rolling image no longer matches the reviewed tools.
+        test "$(g++ -dumpversion)" = 16
+        clang++ --version | head -n 1 | grep -E 'version 22\.'
+        clang-format --version | grep -E 'version 22\.'
+        clang-tidy --version | grep -E 'version 22\.'

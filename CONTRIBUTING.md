@@ -1,19 +1,18 @@
-# Contributing
+# Contributing to ini_manager 1.0.0
 
-<!--
-    Short overview, rules, general guidelines, notes about pull requests and
-    style should go here.
--->
+Read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and the setup instructions in
+[HACKING.md](HACKING.md).
 
-## Code of Conduct
+Preserve header-only integration, explicit errors, independent value semantics
+and the documented parse/write contract. Add behavior-level regression tests for
+fixes and update README when public behavior changes. Check CTest, examples,
+clang-tidy, clang-format and spelling; run sanitizers when available. Report the
+actual toolchains and platforms tested and any unavailable checks.
 
-Please see the [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) document.
+Shared settings belong in CMakePresets.json. Personal paths and overrides belong
+in the ignored CMakeUserPresets.json. Keep downloaded dependencies, generated
+documentation, packages and fuzz corpora in the build tree. Do not apply developer
+flags or analysis targets to projects consuming the library.
 
-## Getting started
-
-Helpful notes for developers can be found in the [`HACKING.md`](HACKING.md)
-document.
-
-In addition to he above, if you use the presets file as instructed, then you
-should NOT check it into source control, just as the CMake documentation
-suggests.
+Document current behavior and supported usage. API changes need tests for their
+error handling, lifetime guarantees and effects on serialized configuration.

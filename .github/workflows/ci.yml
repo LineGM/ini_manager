@@ -1,168 +1,124 @@
 name: Continuous Integration
-
 on:
   push:
-    branches:
-    - main
-
+    branches: [main]
   pull_request:
-    branches:
-    - main
-
+    branches: [main]
+permissions:
+  contents: read
 jobs:
-  lint:
+  linux:
     runs-on: ubuntu-24.04
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - uses: actions/setup-python@v5
-      with: { python-version: "3.12" }
-
-    - name: Install codespell
-      run: pip3 install codespell
-
-    - name: Install clang-format 19
-      run: sudo apt-get update -q
-        && sudo apt-get install clang-format-19 -y -q
-
-    - name: Lint
-      run: cmake -D FORMAT_COMMAND=clang-format-19 -P cmake/lint.cmake
-
-    - name: Spell check
-      if: always()
-      run: cmake -P cmake/spell.cmake
-
-  coverage:
-    needs: [lint]
-
-    runs-on: ubuntu-24.04
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Install LCov
-      run: sudo apt-get update -q
-        && sudo apt-get install lcov -q -y
-
-    - name: Configure
-      run: cmake --preset=ci-coverage
-
-    - name: Build
-      run: cmake --build build/coverage -j 2
-
-    - name: Test
-      working-directory: build/coverage
-      run: ctest --output-on-failure --no-tests=error -j 2
-
-    - name: Process coverage info
-      run: cmake --build build/coverage -t coverage
-
-    - name: Submit to codecov.io
-      uses: codecov/codecov-action@v5
-      with:
-        file: build/coverage/coverage.info
-        token: ${{ secrets.CODECOV_TOKEN }}
-        slug: LineGM/ini_manager
-
-  sanitize:
-    needs: [lint]
-
-    runs-on: ubuntu-24.04
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Install Clang
-      run: sudo apt-get update -q
-        && sudo apt-get install clang-tools-19 -q -y
-
-    - name: Configure
-      run: cmake --preset=ci-sanitize
-
-    - name: Build
-      run: cmake --build build/sanitize -j 2
-
-    - name: Test
-      working-directory: build/sanitize
-      env:
-        ASAN_OPTIONS: "strict_string_checks=1:\
-          detect_stack_use_after_return=1:\
-          check_initialization_order=1:\
-          strict_init_order=1:\
-          detect_leaks=1:\
-          halt_on_error=1"
-        UBSAN_OPTIONS: "print_stacktrace=1:\
-          halt_on_error=1"
-      run: ctest --output-on-failure --no-tests=error -j 2
-
-  test:
-    needs: [lint]
-
+    container: archlinux:base-devel
     strategy:
+      fail-fast: false
       matrix:
-        os: [macos-15, ubuntu-24.04, windows-2025]
-
-    runs-on: ${{ matrix.os }}
-
+        include:
+          - preset: ci-ubuntu
+            compiler: g++
+          - preset: ci-clang
+            compiler: clang++
     steps:
-    - uses: actions/checkout@v4
-
-    - name: Install static analyzers
-      if: matrix.os == 'ubuntu-24.04'
-      run: >-
-        sudo apt-get update -q
-        && sudo apt-get install clang-tools-19 clang-tidy-19 cppcheck -y -q
-
-    - name: Setup MultiToolTask
-      if: matrix.os == 'windows-2025'
-      run: |
-        Add-Content "$env:GITHUB_ENV" 'UseMultiToolTask=true'
-        Add-Content "$env:GITHUB_ENV" 'EnforceProcessCountAcrossBuilds=true'
-
-    - name: Configure
-      shell: pwsh
-      run: cmake --preset=ci-$("${{ matrix.os }}".split("-")[0])
-
-    - name: Build
-      run: cmake --build build/ --config Release -j 2
-
-    - name: Install
-      run: cmake --install build/ --config Release --prefix prefix
-
-    - name: Test
-      working-directory: build
-      run: ctest --output-on-failure --no-tests=error -C Release -j 2
-
-  docs:
-    # Deploy docs only when builds succeed
-    needs: [sanitize, test]
-
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-linux
+      - run: cmake --preset=${{ matrix.preset }} -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
+      - run: cmake --build --preset=${{ matrix.preset }} --parallel 2
+      - run: ctest --preset=${{ matrix.preset }}
+      - run: cmake --build --preset=${{ matrix.preset }} --target run-examples all_verify_interface_header_sets
+      - if: matrix.compiler == 'clang++'
+        run: |
+          cmake -P cmake/lint.cmake
+          cmake -P cmake/spell.cmake
+          cmake --build --preset=ci-clang --target tidy-check
+  windows:
+    runs-on: windows-2025
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            git
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
+      - run: g++ --version && cmake --version
+      - run: cmake --preset=ci-windows
+      - run: cmake --build --preset=ci-windows --parallel 2
+      - run: ctest --preset=ci-windows
+      - run: cmake --build --preset=ci-windows --target run-examples all_verify_interface_header_sets
+  macos:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          brew install gcc@16 ninja cmake
+          echo "$(brew --prefix gcc@16)/bin" >> "$GITHUB_PATH"
+      - run: cmake --preset=ci-macos
+      - run: cmake --build --preset=ci-macos --parallel 2
+      - run: ctest --preset=ci-macos
+      - run: cmake --build --preset=ci-macos --target run-examples all_verify_interface_header_sets
+  sanitize:
     runs-on: ubuntu-24.04
-
-    if: github.ref == 'refs/heads/main'
-      && github.event_name == 'push'
-      && github.repository_owner == 'LineGM'
-
+    container: archlinux:base-devel
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-linux
+      - run: cmake --preset=ci-sanitize -DCMAKE_CXX_COMPILER=clang++
+      - run: cmake --build --preset=ci-sanitize --parallel 2
+      - run: cmake --build --preset=ci-sanitize --target tidy-check
+      - run: ctest --preset=ci-sanitize
+        env:
+          ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
+          UBSAN_OPTIONS: print_stacktrace=1:halt_on_error=1
+      - run: cmake --preset=fuzz -DCMAKE_CXX_COMPILER=clang++
+      - run: cmake --build --preset=fuzz --parallel 2
+      - run: cmake --build --preset=fuzz --target tidy-check
+      - run: |
+          mkdir -p build/fuzz/corpus
+          cp test/fuzz/corpus/* build/fuzz/corpus/
+          build/fuzz/ini_manager_fuzz -max_total_time=30 -max_len=65536 build/fuzz/corpus
+  coverage:
+    runs-on: ubuntu-24.04
+    container: archlinux:base-devel
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-linux
+      - run: cmake --preset=ci-coverage -DCMAKE_CXX_COMPILER=g++
+      - run: cmake --build --preset=ci-coverage --parallel 2
+      - run: ctest --preset=ci-coverage
+      - run: cmake --build --preset=ci-coverage --target coverage
+      - uses: codecov/codecov-action@v5
+        with:
+          files: build/ci-coverage/coverage.info
+          token: ${{ secrets.CODECOV_TOKEN }}
+  package:
+    runs-on: ubuntu-24.04
+    container: archlinux:base-devel
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-linux
+      - run: cmake --workflow --preset=package-release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ini_manager-1.0.0
+          path: build/release/packages/*
+  docs:
+    needs: [linux, windows, macos, sanitize]
+    runs-on: ubuntu-24.04
+    container: archlinux:base-devel
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && github.repository_owner == 'LineGM'
     permissions:
       contents: write
-
     steps:
-    - uses: actions/checkout@v4
-
-    - uses: actions/setup-python@v5
-      with: { python-version: "3.12" }
-
-    - name: Install Doxygen
-      run: sudo apt-get update -q
-        && sudo apt-get install doxygen graphviz -q -y
-
-    - name: Build docs
-      run: cmake "-DPROJECT_SOURCE_DIR=$PWD" "-DPROJECT_BINARY_DIR=$PWD/build"
-        -P cmake/docs-ci.cmake; cat docs/Doxyfile
-
-    - name: Deploy docs
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: docs/html
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-linux
+      - run: cmake -DPROJECT_SOURCE_DIR="$PWD" -DPROJECT_BINARY_DIR="$PWD/build" -P cmake/docs-ci.cmake
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/docs/html

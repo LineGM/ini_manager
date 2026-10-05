@@ -4,7 +4,7 @@
 # customization issues
 set(
 	COVERAGE_TRACE_COMMAND
-	lcov -c -q
+	lcov -c -q --rc geninfo_unexecuted_blocks=1
 	-o "${PROJECT_BINARY_DIR}/coverage.info"
 	-d "${PROJECT_BINARY_DIR}"
 	--include "${PROJECT_SOURCE_DIR}/*"

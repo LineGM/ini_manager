@@ -1,12 +1,12 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 4.0...4.4)
 
 project(ini_managerExamples CXX)
 
-include(../cmake/project-is-top-level.cmake)
 include(../cmake/folders.cmake)
 
 if(PROJECT_IS_TOP_LEVEL)
-	find_package(ini_manager REQUIRED)
+	find_package(ini_manager 1.0 REQUIRED)
+    include(../cmake/developer-targets.cmake)
 endif()
 
 add_custom_target(run-examples)
@@ -22,10 +22,7 @@ function(add_example NAME)
 		PRIVATE ini_manager::ini_manager
 	)
 
-	target_compile_features(
-		"${NAME}"
-		PRIVATE cxx_std_23
-	)
+    ini_manager_developer_target(${NAME})
 
 	add_custom_target(
 		"run_${NAME}"

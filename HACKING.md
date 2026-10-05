@@ -1,149 +1,113 @@
-# Hacking
+# Developing ini_manager 1.0.0
 
-Here is some wisdom to help you build and test this project as a developer and
-potential contributor.
+Use CMake 4.0+ and a supported C++26 toolchain from README. Shared presets live in
+`CMakePresets.json` (schema 10); `CMakeUserPresets.json` is ignored and reserved for
+local paths and overrides.
 
-If you plan to contribute, please read the [CONTRIBUTING](CONTRIBUTING.md)
-guide.
-
-## Developer mode
-
-Build system targets that are only useful for developers of this project are
-hidden if the `ini_manager_DEVELOPER_MODE` option is disabled. Enabling this
-option makes tests and other developer targets and options available. Not
-enabling this option means that you are a consumer of this project and thus you
-have no need for these targets and options.
-
-Developer mode is always set to on in CI workflows.
-
-### Presets
-
-This project makes use of [presets][1] to simplify the process of configuring
-the project. As a developer, you are recommended to always have the [latest
-CMake version][2] installed to make use of the latest Quality-of-Life
-additions.
-
-You have a few options to pass `ini_manager_DEVELOPER_MODE` to the configure
-command, but this project prefers to use presets.
-
-As a developer, you should create a `CMakeUserPresets.json` file at the root of
-the project:
-
-```json
-{
-  "version": 2,
-  "cmakeMinimumRequired": {
-    "major": 3,
-    "minor": 14,
-    "patch": 0
-  },
-  "configurePresets": [
-    {
-      "name": "dev",
-      "binaryDir": "${sourceDir}/build/dev",
-      "inherits": ["dev-mode", "ci-<os>"],
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
-      }
-    }
-  ],
-  "buildPresets": [
-    {
-      "name": "dev",
-      "configurePreset": "dev",
-      "configuration": "Debug"
-    }
-  ],
-  "testPresets": [
-    {
-      "name": "dev",
-      "configurePreset": "dev",
-      "configuration": "Debug",
-      "output": {
-        "outputOnFailure": true
-      }
-    }
-  ]
-}
-```
-
-You should replace `<os>` in your newly created presets file with the name of
-the operating system you have, which may be `win64`, `linux` or `darwin`. You
-can see what these correspond to in the
-[`CMakePresets.json`](CMakePresets.json) file.
-
-`CMakeUserPresets.json` is also the perfect place in which you can put all
-sorts of things that you would otherwise want to pass to the configure command
-in the terminal.
-
-> **Note**
-> Some editors are pretty greedy with how they open projects with presets.
-> Some just randomly pick a preset and start configuring without your consent,
-> which can be confusing. Make sure that your editor configures when you
-> actually want it to, for example in CLion you have to make sure only the
-> `dev-dev preset` has `Enable profile` ticked in
-> `File > Settings... > Build, Execution, Deployment > CMake` and in Visual
-> Studio you have to set the option `Never run configure step automatically`
-> in `Tools > Options > CMake` **prior to opening the project**, after which
-> you can manually configure using `Project > Configure Cache`.
-
-### Configure, build and test
-
-If you followed the above instructions, then you can configure, build and test
-the project respectively with the following commands from the project root on
-any operating system with any build system:
+## Build and verify
 
 ```sh
-cmake --preset=dev
-cmake --build --preset=dev
-ctest --preset=dev
+cmake --workflow --preset=verify-gcc
+cmake --workflow --preset=verify-clang
 ```
 
-If you are using a compatible editor (e.g. VSCode) or IDE (e.g. CLion, VS), you
-will also be able to select the above created user presets for automatic
-integration.
+The GCC workflow configures, builds, runs CTest and the examples, and compiles
+the public header independently through `all_verify_interface_header_sets`.
+The Clang workflow also runs clang-tidy, clang-format and spelling checks.
+Choose `dev-darwin` for Homebrew GCC on macOS or `dev-win64` from an MSYS2 UCRT64
+terminal on Windows. Individual steps remain available:
 
-Please note that both the build and test commands accept a `-j` flag to specify
-the number of jobs to use, which should ideally be specified to the number of
-threads your CPU has. You may also want to add that to your preset using the
-`jobs` property, see the [presets documentation][1] for more details.
+```sh
+cmake --preset=dev-linux-clang
+cmake --build --preset=dev-linux-clang --parallel 2
+ctest --preset=dev-linux-clang
+cmake --build --preset=dev-linux-clang --target run-examples
+```
 
-### Developer mode targets
+Developer mode is active only when this repository is the top-level project.
+Compiler and linker warnings are errors for project executables; this is controlled
+by `INI_MANAGER_WARNINGS_AS_ERRORS`. Warning flags, sanitizer flags and coverage
+instrumentation are private to those targets. Consumer targets and dependency
+builds receive none of these settings. No global compiler/linker flags are changed.
+The exported interface uses a `HEADERS` file set and `cxx_std_26`.
 
-These are targets you may invoke using the build command from above, with an
-additional `-t <target>` flag:
+On non-Windows developer builds a compilation database link is created only if
+no existing file or link occupies that path. `tidy-check` uses the selected build
+directory explicitly. Module scanning is disabled on project executables because
+the library is distributed as a header.
 
-#### `coverage`
+Tests use Boost.UT 2.3.0 fetched into the build tree. For offline builds configure
+with `-DFETCHCONTENT_SOURCE_DIR_BOOST.UT=/path/to/boost.ut`. CTest labels `unit`,
+`integration`, `headers` and `package` allow focused runs. Package tests verify
+add_subdirectory, local FetchContent and installed find_package consumers,
+including the absence of developer settings in their builds.
 
-Available if `ENABLE_COVERAGE` is enabled. This target processes the output of
-the previously run tests when built with coverage configuration. The commands
-this target runs can be found in the `COVERAGE_TRACE_COMMAND` and
-`COVERAGE_HTML_COMMAND` cache variables. The trace command produces an info
-file by default, which can be submitted to services with CI integration. The
-HTML command uses the trace command's output to generate an HTML document to
-`<binary-dir>/coverage_html` by default.
+## Code quality
 
-#### `docs`
+```sh
+cmake --build --preset=dev-linux-clang --target tidy-check
+cmake -DFIX=YES -P cmake/lint.cmake
+cmake -P cmake/lint.cmake
+cmake -P cmake/spell.cmake
+```
 
-Available if `BUILD_MCSS_DOCS` is enabled. Builds to documentation using
-Doxygen and m.css. The output will go to `<binary-dir>/docs` by default
-(customizable using `DOXYGEN_OUTPUT_DIRECTORY`).
+Use clang-tidy and clang-format 22 with the checked-in configuration files.
+`TIDY_COMMAND`, `FORMAT_COMMAND` and `SPELL_COMMAND` can select executables.
+Every enabled clang-tidy diagnostic is an error, including style diagnostics.
+The analysis covers all enabled project translation units and the public header;
+dependency sources and generated build files are excluded. Use a Clang build to
+match the compilation database to the analyzer.
 
-#### `format-check` and `format-fix`
+Anonymous namespaces are the local-linkage convention. The contradictory
+`llvm-prefer-static-over-anonymous-namespace` rule is disabled in favor of
+`misc-use-anonymous-namespace`. Narrow suppressions must explain a necessary
+native ABI operation or an intentional regression-test condition. Do not silence
+whole files to obtain a passing check.
 
-These targets run the clang-format tool on the codebase to check errors and to
-fix them respectively. Customization available using the `FORMAT_PATTERNS` and
-`FORMAT_COMMAND` cache variables.
+## Sanitizers, coverage and fuzzing
 
-#### `run-examples`
+```sh
+cmake --preset=ci-sanitize
+cmake --build --preset=ci-sanitize --parallel 2
+ctest --preset=ci-sanitize
+cmake --preset=ci-coverage
+cmake --build --preset=ci-coverage --parallel 2
+ctest --preset=ci-coverage
+cmake --build --preset=ci-coverage --target coverage
+```
 
-Runs all the examples created by the `add_example` command.
+`INI_MANAGER_ENABLE_SANITIZERS=ON` enables ASan/UBSan on project executables.
+The sanitizer preset explicitly selects `clang++`; use Clang 22.
+`ENABLE_COVERAGE=ON` uses GCC
+coverage instrumentation and the `coverage` target requires lcov. Each preset has
+its own build directory. LeakSanitizer cannot run under ptrace; when necessary,
+use `ASAN_OPTIONS=detect_leaks=0` and report that limitation with the results.
 
-#### `spell-check` and `spell-fix`
+```sh
+cmake --preset=fuzz
+cmake --build --preset=fuzz --parallel 2
+mkdir -p build/fuzz/corpus
+cp test/fuzz/corpus/* build/fuzz/corpus/
+build/fuzz/ini_manager_fuzz -max_total_time=30 -max_len=65536 build/fuzz/corpus
+```
 
-These targets run the codespell tool on the codebase to check errors and to fix
-them respectively. Customization available using the `SPELL_COMMAND` cache
-variable.
+The optional `INI_MANAGER_BUILD_FUZZER` target requires Clang/libFuzzer and enables
+its own sanitizer instrumentation. The first input byte selects dialect options;
+remaining bytes form the document. Successful parses are serialized, reparsed and
+compared. Keep tracked seeds unchanged and write generated corpus inputs into the
+build tree.
 
-[1]: https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html
-[2]: https://cmake.org/download/
+## Documentation and packaging
+
+Configure with `BUILD_DOCS=ON` to enable the `docs` target. Doxygen is required;
+Graphviz is optional. All generated documentation goes beneath the binary tree.
+The independent CI entry point follows the same convention:
+
+```sh
+cmake -DPROJECT_SOURCE_DIR="$PWD" -DPROJECT_BINARY_DIR="$PWD/build/docs-ci" -P cmake/docs-ci.cmake
+cmake --workflow --preset=package-release
+```
+
+Keep README, BUILDING and these instructions synchronized with the public API,
+package requirements and actual presets. Documentation describes the supported
+release and its users' and maintainers' workflows.
