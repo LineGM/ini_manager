@@ -1384,6 +1384,17 @@ class ini_manager
 	std::optional<std::filesystem::path> m_path;
 	parse_options m_options;
 
+	std::size_t m_key_count = 0;
+	static auto count_keys(const detail::data_map &data) noexcept -> std::size_t
+	{
+		std::size_t count = 0;
+		for (const auto &[ignored, entries] : data)
+		{
+			count += entries.size();
+		}
+		return count;
+	}
+
 	auto lookup(section group, key name) const -> result<const std::string *>
 	{
 		const auto sec = m_data.find(group.value);
@@ -1424,12 +1435,7 @@ class ini_manager
 			return std::unexpected(
 				detail::make_error(error_reason::resource_limit, operation::validate));
 		}
-		std::size_t count = 0;
-		for (const auto &entry : m_data)
-		{
-			count += entry.second.size();
-		}
-		if (count >= m_options.max_keys)
+		if (m_key_count >= m_options.max_keys)
 		{
 			return std::unexpected(
 				detail::make_error(error_reason::resource_limit, operation::validate));
@@ -1446,6 +1452,7 @@ class ini_manager
 		{
 			sec->second.try_emplace(std::string(name.value), std::move(text));
 		}
+		++m_key_count;
 		return {};
 	}
 
@@ -1465,7 +1472,9 @@ class ini_manager
 		{
 			return std::unexpected(std::move(valid.error()));
 		}
+		const auto count = count_keys(candidate);
 		m_data.swap(candidate);
+		m_key_count = count;
 		return {};
 	}
 
@@ -1506,6 +1515,7 @@ class ini_manager
 		m_data.swap(other.m_data);
 		m_path.swap(other.m_path);
 		std::swap(m_options, other.m_options);
+		std::swap(m_key_count, other.m_key_count);
 	}
 	friend void swap(ini_manager &left, ini_manager &right) noexcept
 	{
@@ -1557,6 +1567,7 @@ class ini_manager
 		}
 		ini_manager candidate(options);
 		candidate.m_data = std::move(*parsed);
+		candidate.m_key_count = count_keys(candidate.m_data);
 		candidate.m_path = std::move(*resolved);
 		swap(candidate);
 		return {};
@@ -1571,6 +1582,7 @@ class ini_manager
 		}
 		ini_manager candidate(options);
 		candidate.m_data = std::move(*parsed);
+		candidate.m_key_count = count_keys(candidate.m_data);
 		swap(candidate);
 		return {};
 	}
@@ -1703,6 +1715,7 @@ class ini_manager
 			return false;
 		}
 		sec->second.erase(entry);
+		--m_key_count;
 		return true;
 	}
 	[[nodiscard]] auto remove_section(section group) -> bool
@@ -1712,6 +1725,7 @@ class ini_manager
 		{
 			return false;
 		}
+		m_key_count -= entry->second.size();
 		m_data.erase(entry);
 		return true;
 	}

@@ -427,6 +427,43 @@ void test_validation_prevents_injection_and_leaves_values_unchanged()
 	expect(config.remove_section({"s"}));
 	expect(!config.remove_section({"s"}));
 }
+
+void test_key_limit_tracks_value_operations()
+{
+	const ini::parse_options options{.max_keys = 2};
+	auto config = test::parse("[s]\na=1\nb=2", options);
+	expect(!config.set_value({"s"}, {"c"}, "3"));
+	must(config.set_value({"s"}, {"a"}, "updated"));
+	expect(config.remove_value({"s"}, {"a"}));
+	must(config.set_value({"s"}, {"c"}, "3"));
+	auto copy = config;
+	expect(copy.remove_section({"s"}));
+	must(copy.set_value({"new"}, {"a"}, "1"));
+	must(copy.set_value({"new"}, {"b"}, "2"));
+	expect(!copy.set_value({"new"}, {"c"}, "3"));
+	expect(!config.set_value({"new"}, {"a"}, "1"));
+	std::istringstream too_many("[new]\na=1\nb=2\nc=3");
+	expect(!config.load_stream(too_many, options));
+	expect(!config.set_value({"s"}, {"a"}, "1"));
+	std::istringstream load("[loaded]\na=1");
+	must(config.load_stream(load, options));
+	std::istringstream merge("[loaded]\na=updated\n[extra]\nb=2");
+	must(config.add_from_stream(merge));
+	expect(!config.set_value({"s"}, {"a"}, "1"));
+	std::istringstream rejected("[overflow]\nc=3");
+	expect(!config.add_from_stream(rejected));
+	expect(config.remove_section({"extra"}));
+	must(config.set_value({"loaded"}, {"b"}, "2"));
+	auto moved = std::move(config);
+	// A moved-from manager is empty and has default limits.
+	// NOLINTNEXTLINE(bugprone-use-after-move,hicpp-invalid-access-moved)
+	must(config.set_value({"new"}, {"a"}, "1"));
+	expect(!moved.set_value({"loaded"}, {"c"}, "3"));
+	copy = moved;
+	expect(!copy.set_value({"loaded"}, {"c"}, "3"));
+	config = std::move(copy);
+	expect(!config.set_value({"loaded"}, {"c"}, "3"));
+}
 } // namespace
 
 auto main() -> int
@@ -453,6 +490,7 @@ try
 	"ASCII bool and single byte char"_test = test_ascii_bool_and_single_byte_char;
 	"validation prevents injection and leaves values unchanged"_test =
 		test_validation_prevents_injection_and_leaves_values_unchanged;
+	"key limit tracks value operations"_test = test_key_limit_tracks_value_operations;
 }
 
 catch (const std::exception &error)
