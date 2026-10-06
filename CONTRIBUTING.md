@@ -16,3 +16,18 @@ flags or analysis targets to projects consuming the library.
 
 Document current behavior and supported usage. API changes need tests for their
 error handling, lifetime guarantees and effects on serialized configuration.
+
+Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for
+small, focused changes: `fix(parser): reject invalid headers`,
+`perf(api): avoid copying string rvalues`, `test(io): cover failed replacement`,
+`build(cmake): isolate developer settings`, `ci: verify packages`, or
+`docs: clarify stream ownership`. A compatibility break requires `!` in the
+subject and a `BREAKING CHANGE:` footer describing the observable change.
+Do not rewrite published commits or move published release tags.
+
+Explain ownership at each `std::move`/`std::forward` site. Return eligible local
+variables directly; distinguish implicit move from optional NRVO and from moving
+members or values contained in `expected`. Prefer Rule of Zero unless documented
+postconditions or exception guarantees require special members. Apply `noexcept`
+only when every operation on that path satisfies it. Measure performance claims
+on identical workloads; retain raw results and tool versions.
