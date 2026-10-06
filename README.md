@@ -10,6 +10,7 @@ No third-party runtime libraries are required.
 C++26 mode is required, with these **standard library** features:
 
 - `std::expected`, `std::formattable`/`std::format`;
+- span-based input streams (`std::ispanstream`);
 - integer and floating-point `from_chars`/`to_chars`, including `long double`;
 - heterogeneous map insertion (P2363R5,
   `__cpp_lib_associative_heterogeneous_insertion >= 202306L`);
@@ -254,6 +255,10 @@ Custom types must be default-initializable, movable and extractable using an
 `istream& operator>>(istream&, T&)`. Extraction uses the classic locale and must
 succeed, leaving only spaces/tabs or EOF. EOF alone is not proof of success.
 Custom setters accept `std::formattable` types and validate the formatted result.
+Custom extraction uses a classic-locale input stream over borrowed, read-only
+configuration bytes. Extractors must not modify that buffer or retain references
+to the stream or its storage; returned custom values must own any data they need.
+Move-only extractable types are supported, including as defaults passed by value.
 The library cannot guarantee a custom formatter/extractor pair round-trips.
 
 ## Streams and file preservation

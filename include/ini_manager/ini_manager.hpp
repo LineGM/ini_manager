@@ -29,7 +29,7 @@
 #include <optional>
 #include <ostream>
 #include <span>
-#include <sstream>
+#include <spanstream>
 #include <streambuf>
 #include <string>
 #include <string_view>
@@ -1226,7 +1226,8 @@ template <class T> auto read_number(std::string_view text) -> result<T>
 }
 template <custom_readable T> auto read_custom(const std::string &text) -> result<T>
 {
-	std::istringstream input(text);
+	// The stream borrows immutable bytes only for this synchronous conversion.
+	std::ispanstream input{std::span<const char>(text)};
 	input.imbue(std::locale::classic());
 	T converted{};
 	if (input >> converted)

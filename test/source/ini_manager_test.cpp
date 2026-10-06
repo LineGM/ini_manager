@@ -36,6 +36,22 @@ struct throwing_value
 struct throwing_format
 {
 };
+struct move_only_value
+{
+	int value = 0;
+	move_only_value() = default;
+	~move_only_value() = default;
+	move_only_value(const move_only_value &) =
+		delete ("This test requires move-only values");
+	move_only_value(move_only_value &&) = default;
+	auto operator=(const move_only_value &)
+		-> move_only_value & = delete ("This test requires move-only values");
+	auto operator=(move_only_value &&) -> move_only_value & = default;
+	friend auto operator>>(std::istream &input, move_only_value &result) -> std::istream &
+	{
+		return input >> result.value;
+	}
+};
 } // namespace
 template <> struct std::formatter<throwing_format> : std::formatter<std::string_view>
 {
@@ -58,6 +74,10 @@ static_assert(!ini::readable_value<unsupported>);
 static_assert(!ini::readable_value<const char *>);
 static_assert(!ini::readable_value<std::string_view>);
 static_assert(ini::readable_value<user_value>);
+static_assert(ini::readable_value<move_only_value>);
+static_assert(!std::copy_constructible<move_only_value>);
+static_assert(!ini::readable_value<std::string &>);
+static_assert(!ini::writable_value<unsupported>);
 static_assert(!noexcept(std::declval<const ini::ini_manager &>().get_value<int>({"s"},
 																				{"k"})));
 static_assert(std::same_as<decltype(std::declval<ini::ini_manager>().get_value_or_default(
@@ -277,6 +297,20 @@ void test_integer_ranges_and_full_consumption()
 	expect(!config.get_value<std::uint8_t>({"s"}, {"x"}));
 }
 
+void test_move_only_conversions_and_defaults()
+{
+	constexpr int expected = 42;
+	const auto config = test::parse("[s]\nx=42\nbad=42junk\n");
+	expect(must(config.get_value<move_only_value>({"s"}, {"x"})).value == expected);
+	expect(must(config.get_value_or_default({"s"}, {"x"}, move_only_value{})).value ==
+		   expected);
+	expect(
+		must(config.get_value_or_default({"s"}, {"missing"}, move_only_value{})).value ==
+		0);
+	expect(!config.get_value_or_default({"s"}, {"bad"}, move_only_value{}));
+	expect(must(config.get_value({"s"}, {"x"})) == "42");
+}
+
 void test_floating_conversions_are_finite_exact_and_locale_independent()
 {
 	struct comma : std::numpunct<char>
@@ -413,6 +447,7 @@ try
 	"exceptions in user conversions propagate without mutation"_test =
 		test_exceptions_in_user_conversions_propagate_without_mutation;
 	"integer ranges and full consumption"_test = test_integer_ranges_and_full_consumption;
+	"move-only conversions and defaults"_test = test_move_only_conversions_and_defaults;
 	"floating conversions are finite exact and locale independent"_test =
 		test_floating_conversions_are_finite_exact_and_locale_independent;
 	"ASCII bool and single byte char"_test = test_ascii_bool_and_single_byte_char;
