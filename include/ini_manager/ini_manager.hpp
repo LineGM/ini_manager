@@ -866,6 +866,25 @@ inline auto valid_path(const std::filesystem::path &path) noexcept -> bool
 {
 	return !path.empty() && !path.native().contains(std::filesystem::path::value_type{});
 }
+inline auto absolute_path(const std::filesystem::path &path, operation action)
+	-> result<std::filesystem::path>
+{
+	if (!valid_path(path))
+	{
+		auto diagnostic = make_error(error_reason::invalid_target, action);
+		diagnostic.path = path;
+		return std::unexpected(std::move(diagnostic));
+	}
+	std::error_code code;
+	auto resolved = std::filesystem::absolute(path, code);
+	if (code)
+	{
+		auto diagnostic = io_error(action, code);
+		diagnostic.path = path;
+		return std::unexpected(std::move(diagnostic));
+	}
+	return resolved;
+}
 inline auto parse_file(const std::filesystem::path &path, const parse_options &options)
 	-> result<data_map>
 {
@@ -1439,15 +1458,20 @@ class ini_manager
 	[[nodiscard]] auto load_file(const std::filesystem::path &path,
 								 parse_options options = {}) -> result<void>
 	{
-		auto parsed = detail::parse_file(path, options);
+		auto resolved = detail::absolute_path(path, operation::open);
+		if (!resolved)
+		{
+			return std::unexpected(std::move(resolved.error()));
+		}
+		auto parsed = detail::parse_file(*resolved, options);
 		if (!parsed)
 		{
-			parsed.error().path = path;
+			parsed.error().path = *resolved;
 			return std::unexpected(std::move(parsed.error()));
 		}
 		ini_manager candidate(options);
 		candidate.m_data = std::move(*parsed);
-		candidate.m_path = path;
+		candidate.m_path = std::move(*resolved);
 		swap(candidate);
 		return {};
 	}
@@ -1466,16 +1490,21 @@ class ini_manager
 	}
 	[[nodiscard]] auto add_from_file(const std::filesystem::path &path) -> result<void>
 	{
-		auto parsed = detail::parse_file(path, m_options);
+		auto resolved = detail::absolute_path(path, operation::open);
+		if (!resolved)
+		{
+			return std::unexpected(std::move(resolved.error()));
+		}
+		auto parsed = detail::parse_file(*resolved, m_options);
 		if (!parsed)
 		{
-			parsed.error().path = path;
+			parsed.error().path = *resolved;
 			return std::unexpected(std::move(parsed.error()));
 		}
 		auto outcome = merge(std::move(*parsed));
 		if (!outcome)
 		{
-			outcome.error().path = path;
+			outcome.error().path = *resolved;
 		}
 		return outcome;
 	}
@@ -1710,11 +1739,16 @@ class ini_manager
 		{
 			return std::unexpected(std::move(text.error()));
 		}
-		detail::file_ops ops(path);
+		auto resolved = detail::absolute_path(path, operation::inspect);
+		if (!resolved)
+		{
+			return std::unexpected(std::move(resolved.error()));
+		}
+		detail::file_ops ops(std::move(*resolved));
 		auto outcome = detail::atomic_write(ops, *text);
 		if (!outcome)
 		{
-			outcome.error().path = path;
+			outcome.error().path = ops.target;
 		}
 		return outcome;
 	}

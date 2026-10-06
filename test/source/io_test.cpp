@@ -407,6 +407,43 @@ void test_file_transactions_paths_permissions_and_cleanup()
 #endif
 }
 
+void test_loaded_path_survives_working_directory_changes()
+{
+	struct working_directory
+	{
+		std::filesystem::path original = std::filesystem::current_path();
+		working_directory() = default;
+		working_directory(const working_directory &) = delete;
+		working_directory(working_directory &&) = delete;
+		auto operator=(const working_directory &) -> working_directory & = delete;
+		auto operator=(working_directory &&) -> working_directory & = delete;
+		~working_directory()
+		{
+			std::error_code code;
+			std::filesystem::current_path(original, code);
+		}
+	};
+	test::temp_directory const first;
+	test::temp_directory const second;
+	const working_directory restore;
+	test::write(first.path / "config.ini", "[s]\nx=first\n");
+	test::write(second.path / "config.ini", "[s]\nx=second\n");
+	std::filesystem::current_path(first.path);
+	auto config = must(ini::ini_manager::from_file("config.ini"));
+	expect(config.file_path() == first.path / "config.ini");
+	std::filesystem::current_path(second.path);
+	must(config.set_value({"s"}, {"x"}, "changed"));
+	must(config.write_file());
+	const auto saved = must(ini::ini_manager::from_file(first.path / "config.ini"));
+	expect(must(saved.get_value({"s"}, {"x"})) == "changed");
+	expect(test::read(second.path / "config.ini") == "[s]\nx=second\n");
+	expect(!config.load_file("missing.ini"));
+	expect(config.file_path() == first.path / "config.ini");
+	must(config.write_file("explicit.ini"));
+	expect(std::filesystem::exists(second.path / "explicit.ini"));
+	expect(config.file_path() == first.path / "config.ini");
+}
+
 void test_stream_buffers_preserve_available_system_error_codes()
 {
 	struct coded_input : std::streambuf
@@ -513,6 +550,8 @@ auto main() -> int
 try
 {
 	using boost::ut::operator""_test;
+	"loaded path survives working directory changes"_test =
+		test_loaded_path_survives_working_directory_changes;
 	"normal EOF is successful even without final newline"_test =
 		test_normal_eof_is_successful_even_without_final_newline;
 	"preexisting stream errors are not cleared"_test =

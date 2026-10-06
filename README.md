@@ -95,7 +95,10 @@ int main() {
 streams. File counterparts take `std::filesystem::path`, including native Unicode
 paths on Windows. A successful `load_file` associates its path; `load_stream`
 clears the association. Merge and explicit `write_file(path)` do not change it.
-`file_path()` returns an owning `optional<filesystem::path>`.
+`file_path()` returns an owning `optional<filesystem::path>`. File operations
+resolve relative paths to absolute paths once. A successful file load stores that
+absolute path, so changing the working directory does not redirect `write_file()`.
+This does not canonicalize symlinks or track files across directory renames.
 
 `set_section({"empty"})` preserves a section without keys. `remove_value(section,
 key)` and `remove_section(section)` return whether anything was removed. Removing
