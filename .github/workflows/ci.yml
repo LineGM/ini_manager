@@ -30,27 +30,6 @@ jobs:
           cmake -P cmake/lint.cmake
           cmake -P cmake/spell.cmake
           cmake --build --preset=ci-clang --target tidy-check
-  windows:
-    runs-on: windows-2025
-    defaults:
-      run:
-        shell: msys2 {0}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: msys2/setup-msys2@v2
-        with:
-          msystem: UCRT64
-          update: true
-          install: >-
-            git
-            mingw-w64-ucrt-x86_64-gcc
-            mingw-w64-ucrt-x86_64-cmake
-            mingw-w64-ucrt-x86_64-ninja
-      - run: g++ --version && cmake --version
-      - run: cmake --preset=ci-windows
-      - run: cmake --build --preset=ci-windows --parallel 2
-      - run: ctest --preset=ci-windows
-      - run: cmake --build --preset=ci-windows --target run-examples all_verify_interface_header_sets
   macos:
     runs-on: macos-15
     steps:
@@ -108,7 +87,7 @@ jobs:
           name: ini_manager-1.0.0
           path: build/release/packages/*
   docs:
-    needs: [linux, windows, macos, sanitize]
+    needs: [linux, macos, sanitize]
     runs-on: ubuntu-24.04
     container: archlinux:base-devel
     if: github.ref == 'refs/heads/main' && github.event_name == 'push' && github.repository_owner == 'LineGM'

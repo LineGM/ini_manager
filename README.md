@@ -21,18 +21,24 @@ still own their memory. Charconv results are checked before values are used.
 The API uses C++26; the features listed above are required.
 
 The supported baseline is GCC 16/libstdc++16 or Clang 22/libstdc++16.
-CI selects these on Linux, Homebrew GCC 16 on macOS, and MSYS2 UCRT64 GCC 16
-on Windows. Apple Clang/libc++ and MSVC are not currently in the supported matrix.
+CI selects these on Linux and Homebrew GCC 16 on macOS.
+Windows currently has no supported toolchain: MinGW/libstdc++16 narrows
+`from_chars(long double)` through `double`, while MSVC/libc++ do not provide all
+required library features. Windows is excluded from the supported CI matrix;
+its native file adapter remains available for future compatible toolchains.
+Apple Clang/libc++ is also outside the supported matrix.
 Other toolchains must pass the feature probe; selecting `-std=c++26` alone does
 not establish standard-library support. The numeric contract includes `long double`; it is not silently
 replaced with `double` or locale-dependent stream conversion.
 
-Developer builds compile and link a probe of the actual public API. The standalone
+Developer builds compile and link a probe of the actual public API, then run
+numeric boundary round-trips on native builds (or with a cross-compiling emulator).
+The standalone
 header also diagnoses missing C++26 mode and feature-test macros. C++26 compiler
 support is still evolving: use the toolchains above, and keep compiler and standard
 library versions together.
 
-File I/O supports POSIX systems (including Linux/macOS) and Windows. It uses a
+File I/O provides POSIX (including Linux/macOS) and Windows adapters. It uses a
 small native adapter for exclusive creation, reliable system error codes, and
 explicit closing. This is still one header; no compiled library is shipped.
 

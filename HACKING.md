@@ -14,8 +14,9 @@ cmake --workflow --preset=verify-clang
 The GCC workflow configures, builds, runs CTest and the examples, and compiles
 the public header independently through `all_verify_interface_header_sets`.
 The Clang workflow also runs clang-tidy, clang-format and spelling checks.
-Choose `dev-darwin` for Homebrew GCC on macOS or `dev-win64` from an MSYS2 UCRT64
-terminal on Windows. Individual steps remain available:
+Choose `dev-darwin` for Homebrew GCC on macOS. Windows is excluded until a
+toolchain satisfies the full numeric and C++26 library contract; see README.
+Individual steps remain available:
 
 ```sh
 cmake --preset=dev-linux-clang

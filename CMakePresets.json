@@ -41,13 +41,6 @@
       }
     },
     {
-      "name": "dev-win64",
-      "inherits": "dev-common",
-      "cacheVariables": {
-        "CMAKE_CXX_COMPILER": "g++"
-      }
-    },
-    {
       "name": "ci-ubuntu",
       "inherits": "dev-common",
       "cacheVariables": {
@@ -68,14 +61,6 @@
       "inherits": "dev-common",
       "cacheVariables": {
         "CMAKE_CXX_COMPILER": "g++-16",
-        "CMAKE_BUILD_TYPE": "Release"
-      }
-    },
-    {
-      "name": "ci-windows",
-      "inherits": "dev-common",
-      "cacheVariables": {
-        "CMAKE_CXX_COMPILER": "g++",
         "CMAKE_BUILD_TYPE": "Release"
       }
     },
@@ -130,10 +115,6 @@
       "configurePreset": "dev-darwin"
     },
     {
-      "name": "dev-win64",
-      "configurePreset": "dev-win64"
-    },
-    {
       "name": "ci-ubuntu",
       "configurePreset": "ci-ubuntu"
     },
@@ -144,10 +125,6 @@
     {
       "name": "ci-macos",
       "configurePreset": "ci-macos"
-    },
-    {
-      "name": "ci-windows",
-      "configurePreset": "ci-windows"
     },
     {
       "name": "ci-sanitize",
@@ -217,16 +194,6 @@
       }
     },
     {
-      "name": "dev-win64",
-      "configurePreset": "dev-win64",
-      "output": {
-        "outputOnFailure": true
-      },
-      "execution": {
-        "noTestsAction": "error"
-      }
-    },
-    {
       "name": "ci-ubuntu",
       "configurePreset": "ci-ubuntu",
       "output": {
@@ -249,16 +216,6 @@
     {
       "name": "ci-macos",
       "configurePreset": "ci-macos",
-      "output": {
-        "outputOnFailure": true
-      },
-      "execution": {
-        "noTestsAction": "error"
-      }
-    },
-    {
-      "name": "ci-windows",
-      "configurePreset": "ci-windows",
       "output": {
         "outputOnFailure": true
       },
