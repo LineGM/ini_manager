@@ -50,6 +50,9 @@
 #if !defined(__cpp_lib_to_chars) || __cpp_lib_to_chars < 202306L
 #error "ini_manager requires C++26 charconv result testing (P2497R0)"
 #endif
+#if !defined(__cpp_lib_format_path) || __cpp_lib_format_path < 202403L
+#error "ini_manager requires C++26 filesystem path formatting (P2845R8)"
+#endif
 
 #ifdef _WIN32
 #ifndef NOMINMAX
@@ -199,15 +202,15 @@ struct error
 		}
 		if (path)
 		{
-			result += " (" + path->string() + ")";
+			result += std::format(" ({:?})", *path);
 		}
 		if (!section_name.empty() || !key_name.empty())
 		{
-			result += " [" + section_name + "] " + key_name;
+			result += std::format(" [section={:?}, key={:?}]", section_name, key_name);
 		}
 		if (system_code)
 		{
-			result += ": " + system_code.message();
+			result += std::format(": {:?}", system_code.message());
 		}
 		if (replacement == replacement_state::replaced)
 		{
@@ -219,7 +222,11 @@ struct error
 		}
 		if (cleanup_code)
 		{
-			result += "; cleanup failed: " + cleanup_code.message();
+			result += std::format("; cleanup failed: {:?}", cleanup_code.message());
+		}
+		if (temporary_path)
+		{
+			result += std::format("; temporary file: {:?}", *temporary_path);
 		}
 		return result;
 	}

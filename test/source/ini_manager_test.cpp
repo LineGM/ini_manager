@@ -164,6 +164,27 @@ void test_default_only_for_missing_data()
 		   ini::error_reason::missing_key);
 }
 
+void test_diagnostics_escape_untrusted_context()
+{
+	ini::ini_manager config;
+	auto outcome = config.set_value({"bad\nsection"}, {"bad\tkey"}, "value");
+	test::require(!outcome);
+	auto &diagnostic = outcome.error();
+	diagnostic.path = std::filesystem::path("bad\npath");
+	diagnostic.temporary_path = std::filesystem::path("temporary\tpath");
+	diagnostic.key_name.push_back('\0');
+	const auto message = diagnostic.message();
+	expect(!message.contains('\n'));
+	expect(!message.contains('\t'));
+	expect(!message.contains('\0'));
+	expect(message.contains("bad\\nsection"));
+	expect(message.contains("bad\\tkey"));
+	expect(message.contains("bad\\npath"));
+	expect(message.contains("temporary\\tpath"));
+	expect(diagnostic.section_name == "bad\nsection");
+	expect(diagnostic.key_name.back() == '\0');
+}
+
 void test_string_arguments_preserve_array_lengths_and_reject_null_pointers()
 {
 	ini::ini_manager config;
@@ -356,6 +377,8 @@ try
 	"diagnostics tolerate unrecognized public enum values"_test =
 		test_diagnostics_tolerate_unrecognized_public_enum_values;
 	"default only for missing data"_test = test_default_only_for_missing_data;
+	"diagnostics escape untrusted context"_test =
+		test_diagnostics_escape_untrusted_context;
 	"string arguments preserve array lengths and reject null pointers"_test =
 		test_string_arguments_preserve_array_lengths_and_reject_null_pointers;
 	"exceptions in user conversions propagate without mutation"_test =

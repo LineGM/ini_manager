@@ -14,6 +14,7 @@ C++26 mode is required, with these **standard library** features:
 - heterogeneous map insertion (P2363R5,
   `__cpp_lib_associative_heterogeneous_insertion >= 202306L`);
 - boolean testing of charconv results (P2497R0, `__cpp_lib_to_chars >= 202306L`).
+- filesystem path formatting (P2845R8, `__cpp_lib_format_path >= 202403L`).
 
 The C++26 insertions accept borrowed `string_view` names directly: replacing an
 existing key does not first allocate temporary section/key strings. Stored names
@@ -135,6 +136,10 @@ and are `[[nodiscard]]`. The diagnostic owns its context and contains:
 `message()` renders a readable diagnostic, but callers should branch on enums,
 not message text. Missing section/key, invalid format and out-of-range values
 are distinct. String values are returned as `std::string`.
+
+Diagnostic context is quoted and escaped for display, including native paths,
+control characters and system messages. Structured fields retain their original
+bytes. A leftover temporary file's path is included in the message when available.
 
 `get_value_or_default` substitutes **only for absence**. A present empty string
 is not absent. A malformed typed value remains an error. String literals,
