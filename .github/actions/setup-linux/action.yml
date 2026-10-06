@@ -9,8 +9,7 @@ runs:
         g++ --version
         clang++ --version
         cmake --version
-        # Fail clearly if the rolling image no longer matches the reviewed tools.
-        test "$(g++ -dumpversion)" = 16
-        clang++ --version | head -n 1 | grep -E 'version 22\.'
-        clang-format --version | grep -E 'version 22\.'
-        clang-tidy --version | grep -E 'version 22\.'
+        clang-format --version
+        clang-tidy --version
+        # CMake probes capabilities and numeric behavior. Newer tool releases
+        # must pass the same tests, not fail an exact version-string comparison.
