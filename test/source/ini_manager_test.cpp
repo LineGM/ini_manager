@@ -12,6 +12,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -78,6 +79,11 @@ static_assert(ini::readable_value<move_only_value>);
 static_assert(!std::copy_constructible<move_only_value>);
 static_assert(!ini::readable_value<std::string &>);
 static_assert(!ini::writable_value<unsupported>);
+static_assert(std::is_nothrow_swappable_v<ini::ini_manager>);
+static_assert(std::is_nothrow_move_constructible_v<ini::ini_manager> ==
+			  std::is_nothrow_default_constructible_v<ini::detail::data_map>);
+static_assert(std::is_nothrow_move_assignable_v<ini::ini_manager> ==
+			  std::is_nothrow_default_constructible_v<ini::detail::data_map>);
 static_assert(!noexcept(std::declval<const ini::ini_manager &>().get_value<int>({"s"},
 																				{"k"})));
 static_assert(std::same_as<decltype(std::declval<ini::ini_manager>().get_value_or_default(
@@ -127,6 +133,22 @@ void test_value_semantics_and_owning_results()
 	expect(must(assigned.get_value({"s"}, {"x"})) == "copy");
 	auto temporary_result = test::parse("[s]\nx=owning").get_value({"s"}, {"x"});
 	expect(must(std::move(temporary_result)) == "owning");
+}
+
+void test_self_assignment_preserves_data_and_options()
+{
+	const ini::parse_options options{.max_keys = 1};
+	auto config = test::parse("[s]\nk=value", options);
+	auto &alias = config;
+	config = alias;
+	expect(config.options() == options);
+	expect(must(config.get_value({"s"}, {"k"})) == "value");
+	config = std::move(alias);
+	// Self-move through an alias is supported by the manager's assignment contract.
+	// NOLINTNEXTLINE(bugprone-use-after-move,hicpp-invalid-access-moved)
+	expect(config.options() == options);
+	expect(must(config.get_value({"s"}, {"k"})) == "value");
+	expect(!config.set_value({"s"}, {"another"}, "full"));
 }
 
 void test_borrowed_substrings_are_copied_only_when_inserted()
@@ -471,6 +493,8 @@ try
 {
 	using boost::ut::operator""_test;
 	"value semantics and owning results"_test = test_value_semantics_and_owning_results;
+	"self assignment preserves data and options"_test =
+		test_self_assignment_preserves_data_and_options;
 	"borrowed substrings are copied only when inserted"_test =
 		test_borrowed_substrings_are_copied_only_when_inserted;
 	"string sinks preserve aliased names"_test = test_string_sinks_preserve_aliased_names;
