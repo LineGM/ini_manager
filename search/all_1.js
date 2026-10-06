@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['23_20header_20only_20ini_20manager_20library_0',['C++23 Header-Only INI Manager Library',['../index.html',1,'']]],
-  ['2_3a_20reading_20and_20modifying_20an_20existing_20file_1',['Example 2: Reading and Modifying an Existing File',['../index.html#autotoc_md8',1,'']]]
+  ['1_200_200_0',['1 0 0',['../db/d07/about.html',1,'About ini_manager 1.0.0'],['../d6/dd0/md_BUILDING.html',1,'Building and installing ini_manager 1.0.0'],['../d6/de0/md_HACKING.html',1,'Developing ini_manager 1.0.0'],['../index.html',1,'ini_manager 1.0.0']]]
 ];

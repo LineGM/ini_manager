@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['c_2023_20header_20only_20ini_20manager_20library_0',['C++23 Header-Only INI Manager Library',['../index.html',1,'']]],
-  ['classes_1',['Nested Classes',['../index.html#autotoc_md14',1,'']]],
-  ['cmake_20s_20fetchcontent_20recommended_20for_20cmake_20projects_20_3a_2',['Using CMake&apos;s FetchContent (Recommended for CMake Projects):',['../index.html#autotoc_md5',1,'']]],
-  ['code_20of_20conduct_3',['Code of Conduct',['../index.html#autotoc_md18',1,'']]],
-  ['conduct_4',['Code of Conduct',['../index.html#autotoc_md18',1,'']]],
-  ['const_5fsection_5faccessor_5',['const_section_accessor',['../d4/d5f/classini_1_1ini__manager_1_1const__section__accessor.html',1,'ini::ini_manager::const_section_accessor'],['../d4/d5f/classini_1_1ini__manager_1_1const__section__accessor.html#a8db3d765d9054c2c9958bc916228c10d',1,'ini::ini_manager::const_section_accessor::const_section_accessor()']]],
-  ['contributing_6',['Contributing',['../index.html#autotoc_md16',1,'']]],
-  ['creating_20and_20writing_20to_20a_20file_7',['Example 1: Creating and Writing to a File',['../index.html#autotoc_md7',1,'']]]
+  ['file_20preservation_0',['Streams and file preservation',['../index.html#autotoc_md7',1,'']]],
+  ['file_5fpath_1',['file_path',['../d4/d05/classini_1_1ini__manager.html#acec848df732999da162d517d2c1cdf25',1,'ini::ini_manager']]],
+  ['flush_2',['flush',['../d8/d7b/namespaceini.html#a07fbe7cfe37562863c38a572651e4817a86f354b8575a1a736775ae003fa344e5',1,'ini']]],
+  ['from_5ffile_3',['from_file',['../d4/d05/classini_1_1ini__manager.html#adff3e217524e5c12b4729dcd29b3b7c7',1,'ini::ini_manager']]],
+  ['from_5fstream_4',['from_stream',['../d4/d05/classini_1_1ini__manager.html#a4e070ce4f9b1c759bae1426abe6a1955',1,'ini::ini_manager']]],
+  ['fuzzing_5',['Sanitizers, coverage and fuzzing',['../d6/de0/md_HACKING.html#autotoc_md15',1,'']]]
 ];

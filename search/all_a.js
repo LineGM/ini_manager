@@ -1,10 +1,25 @@
 var searchData=
 [
-  ['features_0',['Features',['../index.html#autotoc_md1',1,'']]],
-  ['fetchcontent_20recommended_20for_20cmake_20projects_20_3a_1',['Using CMake&apos;s FetchContent (Recommended for CMake Projects):',['../index.html#autotoc_md5',1,'']]],
-  ['file_2',['file',['../index.html#autotoc_md7',1,'Example 1: Creating and Writing to a File'],['../index.html#autotoc_md8',1,'Example 2: Reading and Modifying an Existing File']]],
-  ['for_20cmake_20projects_20_3a_3',['Using CMake&apos;s FetchContent (Recommended for CMake Projects):',['../index.html#autotoc_md5',1,'']]],
-  ['from_20a_20stream_4',['Example 3: Reading from a Stream',['../index.html#autotoc_md9',1,'']]],
-  ['from_5ffile_5',['from_file',['../d4/d05/classini_1_1ini__manager.html#ac3edf612467ba4ffdf91c655df1079dc',1,'ini::ini_manager']]],
-  ['from_5fstream_6',['from_stream',['../d4/d05/classini_1_1ini__manager.html#a0573c95a6430b2f982e0b411784f6385',1,'ini::ini_manager']]]
+  ['include_20source_20directly_0',['Include source directly',['../d6/dd0/md_BUILDING.html#autotoc_md10',1,'']]],
+  ['ini_1',['ini',['../d8/d7b/namespaceini.html',1,'']]],
+  ['ini_20dialect_2',['Strict INI dialect',['../index.html#autotoc_md4',1,'']]],
+  ['ini_3a_3adetail_3',['detail',['../d9/dd5/namespaceini_1_1detail.html',1,'ini']]],
+  ['ini_5fmanager_4',['ini_manager',['../d4/d05/classini_1_1ini__manager.html',1,'ini::ini_manager'],['../d4/d05/classini_1_1ini__manager.html#ada0b41f5b64fb74d7480a72c65580798',1,'ini::ini_manager::ini_manager(parse_options options={})'],['../d4/d05/classini_1_1ini__manager.html#a8062a967a0a4d688f8bf60feed738677',1,'ini::ini_manager::ini_manager(const ini_manager &amp;)=default'],['../d4/d05/classini_1_1ini__manager.html#a02f8a12ab60bf461aee6de44a22ec20a',1,'ini::ini_manager::ini_manager(ini_manager &amp;&amp;other) noexcept(std::is_nothrow_default_constructible_v&lt; detail::data_map &gt;)']]],
+  ['ini_5fmanager_201_200_200_5',['ini_manager 1 0 0',['../db/d07/about.html',1,'About ini_manager 1.0.0'],['../d6/dd0/md_BUILDING.html',1,'Building and installing ini_manager 1.0.0'],['../d6/de0/md_HACKING.html',1,'Developing ini_manager 1.0.0'],['../index.html',1,'ini_manager 1.0.0']]],
+  ['ini_5fmanager_2ehpp_6',['ini_manager.hpp',['../dd/d3f/ini__manager_8hpp.html',1,'']]],
+  ['inline_5fcomment_7',['inline_comment',['../d9/dd5/namespaceini_1_1detail.html#a77288b82c86116589932b83d855c7f94',1,'ini::detail']]],
+  ['inline_5fcomments_8',['inline_comments',['../db/d42/structini_1_1parse__options.html#a5551c65ae37a8bcbd922ae97344bbd2e',1,'ini::parse_options']]],
+  ['inspect_9',['inspect',['../d8/d7b/namespaceini.html#a07fbe7cfe37562863c38a572651e4817a9350cbb84e8ab827898a783d8f724951',1,'ini']]],
+  ['install_20a_20package_10',['Install a package',['../d6/dd0/md_BUILDING.html#autotoc_md9',1,'']]],
+  ['installing_20ini_5fmanager_201_200_200_11',['Building and installing ini_manager 1.0.0',['../d6/dd0/md_BUILDING.html',1,'']]],
+  ['integer_12',['integer',['../d9/dd5/namespaceini_1_1detail.html#a7181f77300b09be82c5b0dad7bd5ceed',1,'ini::detail']]],
+  ['integration_13',['Requirements and integration',['../index.html#autotoc_md1',1,'']]],
+  ['invalid_5fcontrol_14',['invalid_control',['../d8/d7b/namespaceini.html#a012771d1ffc681a949a99b4f956770efaf14c3982c9c4678c0cee7b4b6e6cc751',1,'ini']]],
+  ['invalid_5fformat_15',['invalid_format',['../d8/d7b/namespaceini.html#a012771d1ffc681a949a99b4f956770efa8e40c21d17487b141e798359ee241411',1,'ini']]],
+  ['invalid_5fheader_16',['invalid_header',['../d8/d7b/namespaceini.html#a012771d1ffc681a949a99b4f956770efa4585e5059044360f4622dd7e172d7b86',1,'ini']]],
+  ['invalid_5fkey_17',['invalid_key',['../d8/d7b/namespaceini.html#a012771d1ffc681a949a99b4f956770efad9d8172ffa4e21f955e8ad125f9dbc32',1,'ini']]],
+  ['invalid_5fsection_18',['invalid_section',['../d8/d7b/namespaceini.html#a012771d1ffc681a949a99b4f956770efa5325710fb93b68ea3ac259b3c742b354',1,'ini']]],
+  ['invalid_5ftarget_19',['invalid_target',['../d8/d7b/namespaceini.html#a012771d1ffc681a949a99b4f956770efaf43799188fea593cddb08ab61b257419',1,'ini']]],
+  ['invalid_5fvalue_20',['invalid_value',['../d8/d7b/namespaceini.html#a012771d1ffc681a949a99b4f956770efa24fe18195f0e29f8d3ef5ad3110cfc24',1,'ini']]],
+  ['io_5ferror_21',['io_error',['../d9/dd5/namespaceini_1_1detail.html#aed057b4fdb3b84e9a557d03b1869fdd4',1,'ini::detail::io_error()'],['../d8/d7b/namespaceini.html#a012771d1ffc681a949a99b4f956770efacccc32f2a5f7dc7b87d2f85daea66789',1,'ini::io_error']]]
 ];

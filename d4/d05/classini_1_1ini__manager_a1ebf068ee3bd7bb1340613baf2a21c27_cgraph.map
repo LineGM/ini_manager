@@ -1,0 +1,18 @@
+<map id="ini::ini_manager::add_from_stream" name="ini::ini_manager::add_from_stream">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,96,147,134"/>
+<area shape="rect" id="Node000002" href="$d9/dd5/namespaceini_1_1detail.html#a64b83eb9b71a1257ed10f21304a59a07" title=" " alt="" coords="195,96,309,134"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,112,182,114,177,116,148,118"/>
+<area shape="poly" id="edge8_Node000002_Node000002" title=" " alt="" coords="219,94,217,86,222,77,234,71,252,69,271,72,284,80,279,80,270,77,252,74,235,76,226,81,222,87,224,96"/>
+<area shape="rect" id="Node000003" href="$d9/dd5/namespaceini_1_1detail.html#aed057b4fdb3b84e9a557d03b1869fdd4" title=" " alt="" coords="362,29,487,54"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="293,93,356,65,371,61,376,59,358,69,295,98"/>
+<area shape="rect" id="Node000005" href="$d9/dd5/namespaceini_1_1detail.html#af4325bab303802ac9f1e65fca24040e0" title=" " alt="" coords="368,103,482,127"/>
+<area shape="poly" id="edge6_Node000002_Node000005" title=" " alt="" coords="309,112,355,115,349,115,310,118"/>
+<area shape="rect" id="Node000006" href="$d9/dd5/namespaceini_1_1detail.html#ac4e7c428c5ad7216d06b3edde5e408e7" title=" " alt="" coords="357,176,492,201"/>
+<area shape="poly" id="edge9_Node000002_Node000006" title=" " alt="" coords="300,132,382,169,377,169,299,137"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="395,28,390,21,393,11,405,5,425,3,446,5,458,15,453,14,444,10,425,8,406,10,397,15,395,20,401,30"/>
+<area shape="rect" id="Node000004" href="$d9/dd5/namespaceini_1_1detail.html#a5fd15479d4956566416ec05702c0ea7f" title=" " alt="" coords="540,29,686,54"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="487,39,527,41,522,42,488,44"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="581,28,575,21,579,11,592,5,613,3,636,5,650,15,644,14,635,10,613,8,593,10,583,15,580,20,587,30"/>
+<area shape="poly" id="edge7_Node000005_Node000005" title=" " alt="" coords="396,101,390,94,393,84,405,78,425,76,446,79,458,88,453,88,444,84,425,81,406,83,397,88,395,93,401,103"/>
+<area shape="poly" id="edge10_Node000006_Node000006" title=" " alt="" coords="396,175,390,167,393,158,405,152,425,149,446,152,458,162,453,161,444,157,425,155,406,157,397,161,395,167,400,177"/>
+</map>

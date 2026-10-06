@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['header_20only_20ini_20manager_20library_0',['C++23 Header-Only INI Manager Library',['../index.html',1,'']]]
+  ['build_20and_20verify_0',['Build and verify',['../d6/de0/md_HACKING.html#autotoc_md13',1,'']]],
+  ['building_20and_20installing_20ini_5fmanager_201_200_200_1',['Building and installing ini_manager 1.0.0',['../d6/dd0/md_BUILDING.html',1,'']]]
 ];

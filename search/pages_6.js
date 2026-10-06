@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['manager_20library_0',['C++23 Header-Only INI Manager Library',['../index.html',1,'']]]
+  ['errors_0',['Ownership and errors',['../index.html#autotoc_md3',1,'']]]
 ];

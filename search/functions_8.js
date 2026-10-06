@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['section_5faccessor_0',['section_accessor',['../d6/d6f/classini_1_1ini__manager_1_1section__accessor.html#af2f133cfded4a59e83b9bc56adf495ec',1,'ini::ini_manager::section_accessor']]],
-  ['set_5fsection_1',['set_section',['../d4/d05/classini_1_1ini__manager.html#ae86279dd28a7f5a6e246c7b74eee6072',1,'ini::ini_manager']]],
-  ['set_5fvalue_2',['set_value',['../d4/d05/classini_1_1ini__manager.html#a85d06e07c18e04eaee981edb38e60993',1,'ini::ini_manager']]]
+  ['operator_3d_0',['operator=',['../d4/d05/classini_1_1ini__manager.html#a676d64a0aed117762b0854b2c5afa66e',1,'ini::ini_manager::operator=(const ini_manager &amp;other) -&gt; ini_manager &amp;'],['../d4/d05/classini_1_1ini__manager.html#a1a9babe1244209e497b8823f7be88be0',1,'ini::ini_manager::operator=(ini_manager &amp;&amp;other) noexcept(std::is_nothrow_default_constructible_v&lt; detail::data_map &gt;) -&gt; ini_manager &amp;']]],
+  ['operator_3d_3d_1',['operator==',['../db/d42/structini_1_1parse__options.html#a4432f53f4eb897d859349559f50b5b25',1,'ini::parse_options']]],
+  ['options_2',['options',['../d4/d05/classini_1_1ini__manager.html#a2f547f9fea74fbfbd99a17a46cd47c79',1,'ini::ini_manager']]]
 ];

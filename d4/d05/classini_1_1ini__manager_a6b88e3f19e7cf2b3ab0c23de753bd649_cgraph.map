@@ -1,0 +1,12 @@
+<map id="ini::ini_manager::get_value_or_default" name="ini::ini_manager::get_value_or_default">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,69,144,108"/>
+<area shape="rect" id="Node000002" href="$d4/d05/classini_1_1ini__manager.html#ae77dfd84e806555df024c869ad9f3471" title=" " alt="" coords="194,29,332,68"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,71,181,66,176,68,145,77"/>
+<area shape="rect" id="Node000003" href="$d9/dd5/namespaceini_1_1detail.html#afa277471262057a56dc3200024ea2311" title=" " alt="" coords="192,116,334,141"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="144,101,189,112,184,113,144,106"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="228,28,225,20,231,11,243,5,263,3,284,5,297,14,292,14,282,10,263,8,245,10,234,15,230,21,232,30"/>
+<area shape="poly" id="edge6_Node000003_Node000003" title=" " alt="" coords="231,115,225,108,229,98,241,92,263,90,286,92,299,102,294,101,285,97,263,95,243,97,232,102,230,107,236,117"/>
+<area shape="rect" id="Node000004" href="$d9/dd5/namespaceini_1_1detail.html#a5fd15479d4956566416ec05702c0ea7f" title=" " alt="" coords="382,116,527,141"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="335,126,369,129,364,129,335,131"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="423,115,416,108,420,98,433,92,455,90,479,92,492,102,487,101,477,97,455,95,434,97,424,102,421,107,428,117"/>
+</map>

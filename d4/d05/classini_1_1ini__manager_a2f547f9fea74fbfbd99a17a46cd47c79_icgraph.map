@@ -1,0 +1,33 @@
+<map id="ini::ini_manager::options" name="ini::ini_manager::options">
+<area shape="rect" id="Node000001" title=" " alt="" coords="678,207,841,232"/>
+<area shape="rect" id="Node000002" href="$d4/d05/classini_1_1ini__manager.html#adff3e217524e5c12b4729dcd29b3b7c7" title=" " alt="" coords="460,88,630,113"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="730,196,685,162,629,127,602,116,602,111,632,122,688,158,736,197"/>
+<area shape="rect" id="Node000003" href="$d4/d05/classini_1_1ini__manager.html#a4e070ce4f9b1c759bae1426abe6a1955" title=" " alt="" coords="472,137,618,176"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="697,202,614,179,614,174,702,202"/>
+<area shape="rect" id="Node000004" href="$d4/d05/classini_1_1ini__manager.html#ada0b41f5b64fb74d7480a72c65580798" title=" " alt="" coords="478,200,612,239"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="661,220,612,222,612,217,666,219"/>
+<area shape="rect" id="Node000013" href="$d4/d05/classini_1_1ini__manager.html#ad83952d1523c461e7199ed167efd72a4" title=" " alt="" coords="461,326,629,350"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="735,241,688,280,632,315,600,328,598,323,629,310,685,276,730,243"/>
+<area shape="rect" id="Node000014" href="$d4/d05/classini_1_1ini__manager.html#ab67c2b16be2d905c0090116fcbbcfbdf" title=" " alt="" coords="473,263,617,301"/>
+<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="702,236,614,265,613,260,697,237"/>
+<area shape="rect" id="Node000005" href="$d4/d05/classini_1_1ini__manager.html#a8062a967a0a4d688f8bf60feed738677" title=" " alt="" coords="254,143,387,181"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="461,199,387,182,387,176,466,198"/>
+<area shape="rect" id="Node000006" href="$d4/d05/classini_1_1ini__manager.html#a02f8a12ab60bf461aee6de44a22ec20a" title=" " alt="" coords="26,211,160,249"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="462,224,160,231,160,226,464,219"/>
+<area shape="rect" id="Node000007" href="$d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="229,44,412,69"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="463,192,458,189,447,176,440,162,434,135,428,109,422,96,410,84,392,72,392,67,414,80,426,93,433,107,439,134,445,160,451,173,462,186,468,193"/>
+<area shape="rect" id="Node000008" href="$d4/d05/classini_1_1ini__manager.html#a676d64a0aed117762b0854b2c5afa66e" title=" " alt="" coords="5,284,181,309"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="470,245,461,252,448,263,439,275,429,286,413,295,350,312,284,319,221,318,166,312,166,307,221,313,284,314,349,307,411,290,426,282,435,271,444,260,459,248,465,247"/>
+<area shape="rect" id="Node000009" href="$d4/d05/classini_1_1ini__manager.html#a1a9babe1244209e497b8823f7be88be0" title=" " alt="" coords="5,79,181,104"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="463,192,458,189,444,169,437,148,437,107,434,68,426,51,410,35,374,16,333,9,291,11,249,20,208,34,171,50,116,80,112,77,169,45,206,29,247,15,290,5,334,3,375,11,414,31,431,48,440,67,442,106,443,147,449,166,462,186,468,193"/>
+<area shape="rect" id="Node000010" href="$d4/d05/classini_1_1ini__manager.html#a0307453e26fa22e506bcabc5ff1c2d89" title=" " alt="" coords="229,355,412,380"/>
+<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="468,245,462,252,445,273,439,294,431,317,414,339,381,357,380,352,410,335,427,314,434,293,441,271,458,248,463,247"/>
+<area shape="rect" id="Node000011" href="$d4/d05/classini_1_1ini__manager.html#abfb1f6e2046632e53ed928c52bdaf190" title=" " alt="" coords="245,94,396,118"/>
+<area shape="poly" id="edge10_Node000004_Node000011" title=" " alt="" coords="465,192,458,190,443,175,434,160,425,146,411,132,389,122,389,116,413,128,430,142,439,157,447,171,462,185,470,193"/>
+<area shape="rect" id="Node000012" href="$d4/d05/classini_1_1ini__manager.html#a3f9e8c2f146f2a7d06f1f83be3ebcca9" title=" " alt="" coords="245,256,396,281"/>
+<area shape="poly" id="edge11_Node000004_Node000012" title=" " alt="" coords="461,238,381,258,379,253,466,236"/>
+<area shape="poly" id="edge12_Node000012_Node000006" title=" " alt="" coords="227,255,160,244,160,239,232,252"/>
+<area shape="poly" id="edge13_Node000012_Node000008" title=" " alt="" coords="227,281,182,289,181,283,232,279"/>
+<area shape="poly" id="edge14_Node000012_Node000009" title=" " alt="" coords="289,248,109,107,111,102,294,246"/>
+<area shape="poly" id="edge17_Node000014_Node000010" title=" " alt="" coords="478,307,461,317,413,339,364,357,362,352,411,334,459,312,473,308"/>
+</map>

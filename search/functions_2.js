@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['from_5ffile_0',['from_file',['../d4/d05/classini_1_1ini__manager.html#ac3edf612467ba4ffdf91c655df1079dc',1,'ini::ini_manager']]],
-  ['from_5fstream_1',['from_stream',['../d4/d05/classini_1_1ini__manager.html#a0573c95a6430b2f982e0b411784f6385',1,'ini::ini_manager']]]
+  ['file_5fpath_0',['file_path',['../d4/d05/classini_1_1ini__manager.html#acec848df732999da162d517d2c1cdf25',1,'ini::ini_manager']]],
+  ['from_5ffile_1',['from_file',['../d4/d05/classini_1_1ini__manager.html#adff3e217524e5c12b4729dcd29b3b7c7',1,'ini::ini_manager']]],
+  ['from_5fstream_2',['from_stream',['../d4/d05/classini_1_1ini__manager.html#a4e070ce4f9b1c759bae1426abe6a1955',1,'ini::ini_manager']]]
 ];
