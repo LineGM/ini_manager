@@ -14,7 +14,7 @@ C++26 mode is required, with these **standard library** features:
 - integer and floating-point `from_chars`/`to_chars`, including `long double`;
 - heterogeneous map insertion (P2363R5,
   `__cpp_lib_associative_heterogeneous_insertion >= 202306L`);
-- boolean testing of charconv results (P2497R0, `__cpp_lib_to_chars >= 202306L`).
+- boolean testing of charconv results (P2497R0, `__cpp_lib_to_chars >= 202306L`);
 - filesystem path formatting (P2845R8, `__cpp_lib_format_path >= 202403L`).
 
 The C++26 insertions accept borrowed `string_view` names directly: replacing an
@@ -39,6 +39,10 @@ The standalone
 header also diagnoses missing C++26 mode and feature-test macros. C++26 compiler
 support is still evolving: use the toolchains above, and keep compiler and standard
 library versions together.
+
+Strict project analysis uses LLVM 23 clang-tidy/clang-format. CI installs rolling
+Linux packages and records actual tool versions; the requirements above are
+capabilities, not a promise that every package with a matching version works.
 
 File I/O provides POSIX (including Linux/macOS) and Windows adapters. It uses a
 small native adapter for exclusive creation, reliable system error codes, and
@@ -113,6 +117,7 @@ Maps are stored directly. Copy construction/assignment creates independent data;
 move operations leave the source empty, with default options and no associated
 path. Moving is conditionally noexcept because some standard libraries allocate
 an empty map sentinel. Copy assignment, load, and merge commit only after successful preparation.
+Self-copy and self-move assignment preserve the object, including its options.
 Parse, read, allocation, and merge failures preserve the previous manager state.
 A failed setter also preserves its data. Reading from an input stream is not
 rewound on failure; output streams can contain a partial write on failure.
@@ -261,6 +266,14 @@ to the stream or its storage; returned custom values must own any data they need
 Move-only extractable types are supported, including as defaults passed by value.
 The library cannot guarantee a custom formatter/extractor pair round-trips.
 
+Concurrent const operations on a manager are permitted if user conversions and
+their dependencies are also safe for concurrent use. Synchronize mutation,
+assignment, moving and destruction against all access to the same manager.
+Callbacks must not mutate or destroy that manager reentrantly during a call;
+extraction borrows its stored bytes until the callback returns. Independent
+manager copies have independent storage. Synchronization of shared streams and
+other callback state remains the caller's responsibility.
+
 ## Streams and file preservation
 
 An input stream with preexisting failbit/badbit fails. Normal EOF sets only
@@ -271,6 +284,9 @@ exceptions without changing masks or clearing existing errors. They report
 syntax diagnostics through the result; `operator>>` additionally sets failbit.
 A streambuf reporting EOF is treated as EOF; a custom source must signal actual
 read failures with an exception rather than silently returning EOF.
+Byte/count limits do not impose a timeout: reading a pipe, device or stalled
+stream can block. File loads follow symlinks; the regular-file and symlink
+restrictions below apply to save destinations.
 
 `write_stream` checks both writing and `pubsync` (flush); it never closes a caller's
 stream. Stream operators use the same mechanisms. Stream locale and formatting
