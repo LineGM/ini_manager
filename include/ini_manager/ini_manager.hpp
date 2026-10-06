@@ -1284,7 +1284,11 @@ template <class S> auto string_text(S &&source, operation action) -> result<std:
 			return std::unexpected(make_error(error_reason::invalid_value, action));
 		}
 	}
-	if constexpr (std::is_array_v<value_type>)
+	if constexpr (std::same_as<value_type, std::string>)
+	{
+		return std::forward<S>(source);
+	}
+	else if constexpr (std::is_array_v<value_type>)
 	{
 		const auto bytes = std::span(source);
 		const auto length =
@@ -1370,6 +1374,52 @@ class ini_manager
 		diagnostic.key_name = name.value;
 		return std::unexpected(std::move(diagnostic));
 	}
+	auto store_value(section group, key name, std::string &&text) -> result<void>
+	{
+		if (auto valid = detail::validate_entry(group, name, text, m_options); !valid)
+		{
+			return valid;
+		}
+		const auto sec = m_data.find(group.value);
+		if (sec != m_data.end())
+		{
+			const auto entry = sec->second.find(name.value);
+			if (entry != sec->second.end())
+			{
+				entry->second = std::move(text);
+				return {};
+			}
+		}
+		else if (m_data.size() >= m_options.max_sections)
+		{
+			return std::unexpected(
+				detail::make_error(error_reason::resource_limit, operation::validate));
+		}
+		std::size_t count = 0;
+		for (const auto &entry : m_data)
+		{
+			count += entry.second.size();
+		}
+		if (count >= m_options.max_keys)
+		{
+			return std::unexpected(
+				detail::make_error(error_reason::resource_limit, operation::validate));
+		}
+		// Own every required name before moving text; borrowed names may alias it.
+		if (sec == m_data.end())
+		{
+			auto section_name = std::string(group.value);
+			detail::entries values;
+			values.try_emplace(std::string(name.value), std::move(text));
+			m_data.try_emplace(std::move(section_name), std::move(values));
+		}
+		else
+		{
+			sec->second.try_emplace(std::string(name.value), std::move(text));
+		}
+		return {};
+	}
+
 	auto merge(detail::data_map incoming) -> result<void>
 	{
 		auto candidate = m_data;
@@ -1577,48 +1627,20 @@ class ini_manager
 	template <writable_value T>
 	[[nodiscard]] auto set_value(section group, key name, T &&value) -> result<void>
 	{
-		auto formatted = detail::value_text(std::forward<T>(value));
-		if (!formatted)
+		if constexpr (std::same_as<T, std::string>)
 		{
-			return std::unexpected(std::move(formatted.error()));
-		}
-		auto text = std::move(*formatted);
-		if (auto valid = detail::validate_entry(group, name, text, m_options); !valid)
-		{
-			return valid;
-		}
-		// Prepare all potentially throwing work before touching the stored map.
-		const auto sec = m_data.find(group.value);
-		if (sec == m_data.end() && m_data.size() >= m_options.max_sections)
-		{
-			return std::unexpected(
-				detail::make_error(error_reason::resource_limit, operation::validate));
-		}
-		const bool new_key = sec == m_data.end() || !sec->second.contains(name.value);
-		if (new_key)
-		{
-			std::size_t count = 0;
-			for (const auto &entry : m_data)
-			{
-				count += entry.second.size();
-			}
-			if (count >= m_options.max_keys)
-			{
-				return std::unexpected(detail::make_error(error_reason::resource_limit,
-														  operation::validate));
-			}
-		}
-		if (sec == m_data.end())
-		{
-			detail::entries values;
-			values.try_emplace(name.value, std::move(text));
-			m_data.try_emplace(group.value, std::move(values));
+			// Binding the reference does not move yet: names may borrow value's bytes.
+			return store_value(group, name, std::move(value));
 		}
 		else
 		{
-			sec->second.insert_or_assign(name.value, std::move(text));
+			auto formatted = detail::value_text(std::forward<T>(value));
+			if (!formatted)
+			{
+				return std::unexpected(std::move(formatted.error()));
+			}
+			return store_value(group, name, std::move(*formatted));
 		}
-		return {};
 	}
 	[[nodiscard]] auto set_section(section group) -> result<void>
 	{

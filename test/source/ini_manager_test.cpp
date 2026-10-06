@@ -141,6 +141,34 @@ void test_diagnostics_tolerate_unrecognized_public_enum_values()
 	expect(diagnostic.message() == "unknown operation: unknown reason");
 }
 
+void test_string_sinks_preserve_aliased_names()
+{
+	constexpr std::string_view group = "server";
+	constexpr std::string_view name = "port";
+	constexpr std::size_t long_size = 1024;
+	for (const auto size : {group.size() + name.size(), long_size})
+	{
+		ini::ini_manager config;
+		for (const auto *suffix : {"", "new", "new"})
+		{
+			const auto expected = std::string(group) + std::string(name) + suffix +
+								  std::string(size - group.size() - name.size(), 'x');
+			auto value = expected;
+			const ini::section borrowed_group{
+				std::string_view(value).substr(0, group.size())};
+			const ini::key borrowed_key{std::string_view(value).substr(group.size())};
+			const auto expected_key = std::string(borrowed_key.value);
+			must(config.set_value(borrowed_group, borrowed_key, std::move(value)));
+			expect(must(config.get_value({group}, {expected_key})) == expected);
+		}
+		std::string invalid = " padded";
+		expect(!config.set_value({group}, {name}, std::move(invalid)));
+		// Validation precedes consumption of a string rvalue.
+		// NOLINTNEXTLINE(bugprone-use-after-move,hicpp-invalid-access-moved)
+		expect(invalid == " padded");
+	}
+}
+
 void test_default_only_for_missing_data()
 {
 	constexpr int fallback_number = 8;
@@ -374,6 +402,7 @@ try
 	"value semantics and owning results"_test = test_value_semantics_and_owning_results;
 	"borrowed substrings are copied only when inserted"_test =
 		test_borrowed_substrings_are_copied_only_when_inserted;
+	"string sinks preserve aliased names"_test = test_string_sinks_preserve_aliased_names;
 	"diagnostics tolerate unrecognized public enum values"_test =
 		test_diagnostics_tolerate_unrecognized_public_enum_values;
 	"default only for missing data"_test = test_default_only_for_missing_data;

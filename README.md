@@ -123,6 +123,12 @@ values. `section` and `key` are **borrowed call arguments**, wrapping `string_vi
 keep their source strings alive until the call returns. Do not retain a wrapper
 constructed from a temporary string. Managers never retain argument views.
 
+String rvalues passed to setters or a needed default can transfer their storage;
+lvalues are copied. Setters validate string rvalues before consuming them, and
+section/key arguments may refer into that string. Allocation failures during an
+insertion can leave an explicitly moved argument in a valid but unspecified state;
+the manager itself retains its previous data.
+
 Operations that can fail return `ini::result<T>` (`std::expected<T, ini::error>`)
 and are `[[nodiscard]]`. The diagnostic owns its context and contains:
 
