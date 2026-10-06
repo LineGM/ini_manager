@@ -677,10 +677,10 @@ auto serialize_entries(std::string_view section_name, const entries &values,
 	return {};
 }
 
-inline auto serialize(const data_map &data, const parse_options &options)
-	-> result<std::string>
+inline auto serialized_size(const data_map &data, const parse_options &options)
+	-> result<std::size_t>
 {
-	std::string output;
+	std::size_t size = 0;
 	const auto limit_error = [] -> std::unexpected<ini::error> {
 		return std::unexpected(
 			make_error(error_reason::resource_limit, operation::validate));
@@ -691,11 +691,11 @@ inline auto serialize(const data_map &data, const parse_options &options)
 	}
 	std::size_t keys = 0;
 	auto append = [&](std::string_view section_name) -> bool {
-		if (section_name.size() > options.max_input_bytes - output.size())
+		if (section_name.size() > options.max_input_bytes - size)
 		{
 			return false;
 		}
-		output.append(section_name);
+		size += section_name.size();
 		return true;
 	};
 	for (const auto &[section_name, entries] : data)
@@ -728,6 +728,34 @@ inline auto serialize(const data_map &data, const parse_options &options)
 		{
 			return limit_error();
 		}
+	}
+	return size;
+}
+
+inline auto serialize(const data_map &data, const parse_options &options)
+	-> result<std::string>
+{
+	auto size = serialized_size(data, options);
+	if (!size)
+	{
+		return std::unexpected(std::move(size.error()));
+	}
+	std::string output;
+	output.reserve(*size);
+	// The owning map is stable for this read: validation and sizing are complete.
+	for (const auto &[section_name, entries] : data)
+	{
+		output += '[';
+		output += section_name;
+		output += "]\n";
+		for (const auto &[name, value] : entries)
+		{
+			output += name;
+			output += " = ";
+			output += value;
+			output += '\n';
+		}
+		output += '\n';
 	}
 	return output;
 }
@@ -1433,7 +1461,7 @@ class ini_manager
 			}
 		}
 		// Check resulting counts and canonical resource limits before committing.
-		if (auto valid = detail::serialize(candidate, m_options); !valid)
+		if (auto valid = detail::serialized_size(candidate, m_options); !valid)
 		{
 			return std::unexpected(std::move(valid.error()));
 		}

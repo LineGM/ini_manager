@@ -231,12 +231,30 @@ void test_generated_parse_serialize_parse_invariants()
 		expect(test::serialize(reread) == text);
 	}
 }
+
+void test_canonical_measurement_matches_output()
+{
+	ini::detail::data_map data;
+	data[""]["global"] = "value";
+	data["empty"] = {};
+	data["section"]["key"] = "literal;#text";
+	const auto text = must(ini::detail::serialize(data, {}));
+	expect(must(ini::detail::serialized_size(data, {})) == text.size());
+	ini::parse_options options;
+	options.max_input_bytes = text.size();
+	expect(must(ini::detail::serialize(data, options)) == text);
+	--options.max_input_bytes;
+	expect(!ini::detail::serialized_size(data, options));
+	expect(!ini::detail::serialize(data, options));
+}
 } // namespace
 
 auto main() -> int
 try
 {
 	using boost::ut::operator""_test;
+	"canonical measurement matches output"_test =
+		test_canonical_measurement_matches_output;
 
 	"BOM comments globals empty sections and line endings"_test =
 		test_bom_comments_globals_empty_sections_and_line_endings;
