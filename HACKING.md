@@ -101,6 +101,28 @@ remaining bytes form the document. Successful parses are serialized, reparsed an
 compared. Keep tracked seeds unchanged and write generated corpus inputs into the
 build tree.
 
+## Performance measurements
+
+`INI_MANAGER_BUILD_BENCHMARKS=ON` adds `ini_manager_benchmark` to developer
+builds, including compilation-database analysis. It uses only the public API and
+the standard library. The CI measurement job compares the same workload source
+against the review's fixed baseline and the current header:
+
+```sh
+python3 test/benchmark/compare.py --output build/benchmarks --compiler g++
+```
+
+This requires a full Git checkout, Python 3, a supported C++26 compiler and
+Valgrind. Run substantial measurements on a dedicated runner. The job records
+six alternating native timing samples per workload, whole-process allocation
+counts/bytes under Valgrind, and three compiler wall-time samples per header.
+Compile samples include linking and are sequential, so cache effects remain.
+Timings include scenario setup but exclude process startup; allocation counts
+include both. Reporting does not count C++ copy/move constructor calls and does
+not infer them from heap allocations. Checksums must agree, but performance
+thresholds do not gate shared runners. Inspect raw samples before claiming a
+speedup; these scenarios are not a general-purpose workload distribution.
+
 ## Documentation and packaging
 
 Configure with `BUILD_DOCS=ON` to enable the `docs` target. Doxygen is required;
