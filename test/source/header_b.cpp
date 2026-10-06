@@ -6,7 +6,7 @@ auto main() -> int
 	{
 		ini::ini_manager config;
 		constexpr int sample = 7;
-		auto result = config.set_value({"s"}, {"k"}, sample);
+		const auto result = config.set_value({"s"}, {"k"}, sample);
 		auto read = config.get_value<int>({"s"}, {"k"});
 		return result && read && header_a() == 1 && *read == sample ? 0 : 1;
 	}

@@ -83,7 +83,7 @@ struct key
 enum class duplicate_policy : std::uint8_t
 {
 	reject,
-	last_wins
+	last_wins,
 };
 struct parse_options
 {
@@ -116,7 +116,7 @@ enum class error_reason : std::uint8_t
 	resource_limit,
 	io_error,
 	no_file_path,
-	invalid_target
+	invalid_target,
 };
 enum class operation : std::uint8_t
 {
@@ -132,13 +132,13 @@ enum class operation : std::uint8_t
 	create_temp,
 	permissions,
 	replace,
-	cleanup
+	cleanup,
 };
 enum class replacement_state : std::uint8_t
 {
 	unchanged,
 	replaced,
-	unknown
+	unknown,
 };
 
 /// Owning diagnostic. line/column are one-based byte positions when available.
@@ -158,25 +158,28 @@ struct error
 
 	[[nodiscard]] auto message() const -> std::string
 	{
-		constexpr std::array reasons{"missing section",
-									 "missing key",
-									 "invalid value format",
-									 "value out of range",
-									 "unrepresentable section name",
-									 "unrepresentable key",
-									 "unrepresentable value",
-									 "invalid section header",
-									 "missing key/value separator",
-									 "duplicate key",
-									 "invalid control byte",
-									 "resource limit exceeded",
-									 "I/O failure",
-									 "no associated file path",
-									 "target is not a regular file"};
+		constexpr std::array reasons{
+			"missing section",
+			"missing key",
+			"invalid value format",
+			"value out of range",
+			"unrepresentable section name",
+			"unrepresentable key",
+			"unrepresentable value",
+			"invalid section header",
+			"missing key/value separator",
+			"duplicate key",
+			"invalid control byte",
+			"resource limit exceeded",
+			"I/O failure",
+			"no associated file path",
+			"target is not a regular file",
+		};
 		constexpr std::array operations{
 			"parse",		   "lookup",  "validate", "open",	 "read",
 			"write",		   "flush",	  "close",	  "inspect", "create temporary file",
-			"set permissions", "replace", "cleanup"};
+			"set permissions", "replace", "cleanup",
+		};
 		// error is a public aggregate: even an unrecognized enum value must be safe.
 		const auto operation_index = std::to_underlying(op);
 		const auto reason_index = std::to_underlying(reason);
@@ -600,7 +603,7 @@ inline auto parse_stream(std::istream &stream, const parse_options &options)
 		return std::unexpected(io_error(operation::read));
 	}
 	return parse(
-		[&]() -> result<std::optional<char>> {
+		[&] -> result<std::optional<char>> {
 			if (stream.eof())
 			{
 				return std::optional<char>{};
@@ -642,7 +645,7 @@ template <class Append>
 auto serialize_entries(std::string_view section_name, const entries &values,
 					   const parse_options &options, Append &append) -> result<void>
 {
-	auto limit_error = [] -> std::unexpected<error> {
+	const auto limit_error = [] -> std::unexpected<error> {
 		return std::unexpected(
 			make_error(error_reason::resource_limit, operation::validate));
 	};
@@ -671,7 +674,7 @@ inline auto serialize(const data_map &data, const parse_options &options)
 	-> result<std::string>
 {
 	std::string output;
-	auto limit_error = [] -> std::unexpected<ini::error> {
+	const auto limit_error = [] -> std::unexpected<ini::error> {
 		return std::unexpected(
 			make_error(error_reason::resource_limit, operation::validate));
 	};
@@ -879,7 +882,7 @@ inline auto parse_file(const std::filesystem::path &path, const parse_options &o
 	std::size_t position = 0;
 	std::size_t available = 0;
 	auto parsed = parse(
-		[&]() -> result<std::optional<char>> {
+		[&] -> result<std::optional<char>> {
 			if (position == available)
 			{
 				auto outcome = file.read(buffer.data(), buffer.size());
@@ -1069,7 +1072,7 @@ template <class Ops> auto atomic_write(Ops &ops, std::string_view bytes) -> resu
 		return std::unexpected(io_error(operation::create_temp,
 										std::make_error_code(std::errc::file_exists)));
 	}
-	auto fail = [&](error diagnostic) -> result<void> {
+	const auto fail = [&](error diagnostic) -> result<void> {
 		diagnostic.cleanup_code = ops.cleanup();
 		owned = false;
 		if (diagnostic.cleanup_code)
@@ -1257,7 +1260,7 @@ template <class S> auto string_text(S &&source, operation action) -> result<std:
 	}
 	if constexpr (std::is_array_v<value_type>)
 	{
-		auto bytes = std::span(source);
+		const auto bytes = std::span(source);
 		const auto length =
 			!bytes.empty() && bytes.back() == '\0' ? bytes.size() - 1 : bytes.size();
 		const auto content = bytes.first(length);
@@ -1327,7 +1330,7 @@ class ini_manager
 		const auto sec = m_data.find(group.value);
 		if (sec != m_data.end())
 		{
-			auto entry = sec->second.find(name.value);
+			const auto entry = sec->second.find(name.value);
 			if (entry != sec->second.end())
 			{
 				return &entry->second;
@@ -1549,14 +1552,11 @@ class ini_manager
 			return valid;
 		}
 		// Prepare all potentially throwing work before touching the stored map.
-		auto sec = m_data.find(group.value);
-		if (sec == m_data.end())
+		const auto sec = m_data.find(group.value);
+		if (sec == m_data.end() && m_data.size() >= m_options.max_sections)
 		{
-			if (m_data.size() >= m_options.max_sections)
-			{
-				return std::unexpected(detail::make_error(error_reason::resource_limit,
-														  operation::validate));
-			}
+			return std::unexpected(
+				detail::make_error(error_reason::resource_limit, operation::validate));
 		}
 		const bool new_key = sec == m_data.end() || !sec->second.contains(name.value);
 		if (new_key)
@@ -1605,12 +1605,12 @@ class ini_manager
 	}
 	[[nodiscard]] auto remove_value(section group, key name) -> bool
 	{
-		auto sec = m_data.find(group.value);
+		const auto sec = m_data.find(group.value);
 		if (sec == m_data.end())
 		{
 			return false;
 		}
-		auto entry = sec->second.find(name.value);
+		const auto entry = sec->second.find(name.value);
 		if (entry == sec->second.end())
 		{
 			return false;
@@ -1620,7 +1620,7 @@ class ini_manager
 	}
 	[[nodiscard]] auto remove_section(section group) -> bool
 	{
-		auto entry = m_data.find(group.value);
+		const auto entry = m_data.find(group.value);
 		if (entry == m_data.end())
 		{
 			return false;
@@ -1641,7 +1641,7 @@ class ini_manager
 	[[nodiscard]] auto get_keys(section group) const -> std::vector<std::string>
 	{
 		std::vector<std::string> result;
-		if (auto sec = m_data.find(group.value); sec != m_data.end())
+		if (const auto sec = m_data.find(group.value); sec != m_data.end())
 		{
 			result.reserve(sec->second.size());
 			for (const auto &[name, ignored] : sec->second)
@@ -1729,7 +1729,7 @@ class ini_manager
 	}
 	friend auto operator>>(std::istream &stream, ini_manager &manager) -> std::istream &
 	{
-		auto outcome = manager.load_stream(stream);
+		const auto outcome = manager.load_stream(stream);
 		if (!outcome)
 		{
 			detail::set_state(stream, std::ios::failbit);
@@ -1743,7 +1743,7 @@ class ini_manager
 	friend auto operator<<(std::ostream &stream, const ini_manager &manager)
 		-> std::ostream &
 	{
-		auto outcome = manager.write_stream(stream);
+		const auto outcome = manager.write_stream(stream);
 		if (!outcome)
 		{
 			detail::set_state(stream, std::ios::failbit);

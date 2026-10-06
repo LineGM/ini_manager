@@ -21,7 +21,7 @@ void test_bom_comments_globals_empty_sections_and_line_endings()
 		const auto input = std::format("\xEF\xBB\xBFglobal = before{0}[new] ; "
 									   "comment{0}key = a;b#c{0}[empty] # comment",
 									   ending);
-		auto config = test::parse(input);
+		const auto config = test::parse(input);
 		expect(must(config.get_value({""}, {"global"})) == "before");
 		expect(must(config.get_value({"new"}, {"key"})) == "a;b#c");
 		expect(config.get_sections() == std::vector<std::string>{"", "empty", "new"});
@@ -37,8 +37,16 @@ void test_bom_comments_globals_empty_sections_and_line_endings()
 
 void test_invalid_syntax_reports_one_based_position()
 {
-	for (const auto *bad : {"[", "[bad", "[bad]junk", "[bad];comment", "[[bad]]",
-							"[bad] tail", "=empty", "missing separator"})
+	for (const auto *bad : {
+			 "[",
+			 "[bad",
+			 "[bad]junk",
+			 "[bad];comment",
+			 "[[bad]]",
+			 "[bad] tail",
+			 "=empty",
+			 "missing separator",
+		 })
 	{
 		std::istringstream input(std::string("[old]\nx=1\n") + bad + "\ny=2");
 		auto outcome = ini::ini_manager::from_stream(input);
@@ -50,8 +58,12 @@ void test_invalid_syntax_reports_one_based_position()
 			expect(!outcome.error().message().empty());
 		}
 	}
-	for (const auto &bad : {std::string("[s]\nx=a\0b", 9), std::string(";comment\x01"),
-							std::string("x=y\r"), std::string("x=y\ra=b")})
+	for (const auto &bad : {
+			 std::string("[s]\nx=a\0b", 9),
+			 std::string(";comment\x01"),
+			 std::string("x=y\r"),
+			 std::string("x=y\ra=b"),
+		 })
 	{
 		std::istringstream input(bad);
 		auto outcome = ini::ini_manager::from_stream(input);
@@ -73,7 +85,7 @@ void test_duplicate_policy_and_repeated_sections()
 	expect(outcome.error().line == 4U);
 	ini::parse_options options;
 	options.duplicates = ini::duplicate_policy::last_wins;
-	auto config = test::parse("[s]\na=1\n[s]\na=2", options);
+	const auto config = test::parse("[s]\na=1\n[s]\na=2", options);
 	expect(must(config.get_value<int>({"s"}, {"a"})) == 2);
 	expect(test::parse("[s]\nA=1\na=2\n[S]\na=3").get_sections().size() == 2U);
 }
@@ -156,7 +168,7 @@ void test_finite_resource_limits_boundary_and_canonical_output()
 	options.max_line_bytes = 3;
 	config = test::parse("a=b", options);
 	std::ostringstream out;
-	auto outcome = config.write_stream(out);
+	const auto outcome = config.write_stream(out);
 	expect(!outcome);
 	expect(out.str().empty());
 	options = {};
@@ -213,8 +225,8 @@ void test_generated_parse_serialize_parse_invariants()
 			const auto value = "value=" + std::to_string(i) + ";literal#";
 			must(config.set_value({group}, {name}, value));
 		}
-		auto text = test::serialize(config);
-		auto reread = test::parse(text, options);
+		const auto text = test::serialize(config);
+		const auto reread = test::parse(text, options);
 		expect(test::same_data(config, reread));
 		expect(test::serialize(reread) == text);
 	}

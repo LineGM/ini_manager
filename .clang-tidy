@@ -1,6 +1,8 @@
 ---
 # Prefer anonymous namespaces: llvm-prefer-static-over-anonymous-namespace
 # contradicts misc-use-anonymous-namespace for the same free functions.
+# LLVM 23 renamed zircon-temporary-objects to fuchsia-temporary-objects.
+# Enable the current check and exclude the deprecated alias.
 # misc-non-private-member-variables-in-classes: the options don't do anything
 # modernize-use-nodiscard: too aggressive, attribute is situationally useful
 Checks: "*,\
@@ -8,6 +10,8 @@ Checks: "*,\
   -altera-*,\
   -fuchsia-*,\
   fuchsia-multiple-inheritance,\
+  fuchsia-temporary-objects,\
+  -zircon-*,\
   -llvm-header-guard,\
   -llvm-include-order,\
   -llvm-prefer-static-over-anonymous-namespace,\

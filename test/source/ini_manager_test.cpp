@@ -81,8 +81,8 @@ using test::must;
 void test_value_semantics_and_owning_results()
 {
 	auto original = test::parse("[s]\nx=original\n");
-	auto snapshot = must(original.get_value({"s"}, {"x"}));
-	auto sections = original.get_sections();
+	const auto snapshot = must(original.get_value({"s"}, {"x"}));
+	const auto sections = original.get_sections();
 	auto copy = original;
 	must(copy.set_value({"s"}, {"x"}, "copy"));
 	expect(must(original.get_value({"s"}, {"x"})) == "original");
@@ -114,8 +114,10 @@ void test_borrowed_substrings_are_copied_only_when_inserted()
 	ini::ini_manager config;
 	std::string names = "!server!port!";
 	const ini::section group{std::string_view(names).substr(1, 6)};
-	const ini::key field{std::string_view(names).substr(names.find("port"),
-														std::string_view("port").size())};
+	const ini::key field{
+		std::string_view(names).substr(names.find("port"),
+									   std::string_view("port").size()),
+	};
 	constexpr int initial_port = 80;
 	constexpr int changed_port = 9000;
 	must(config.set_section(group));
@@ -142,7 +144,7 @@ void test_diagnostics_tolerate_unrecognized_public_enum_values()
 void test_default_only_for_missing_data()
 {
 	constexpr int fallback_number = 8;
-	auto config = test::parse("[s]\nx=actual\nnumber=bad\nempty=\n");
+	const auto config = test::parse("[s]\nx=actual\nnumber=bad\nempty=\n");
 	expect(must(config.get_value_or_default({"s"}, {"x"}, "fallback")) == "actual");
 	expect(must(config.get_value_or_default({"s"}, {"x"}, std::string("fallback"))) ==
 		   "actual");
@@ -184,10 +186,12 @@ void test_exceptions_in_user_conversions_propagate_without_mutation()
 	constexpr int expected_value = 42;
 	auto config = test::parse("[s]\nx=42\n");
 	expect(throws<std::runtime_error>([&] -> void {
-		[[maybe_unused]] auto result = config.get_value<throwing_value>({"s"}, {"x"});
+		[[maybe_unused]] const auto result =
+			config.get_value<throwing_value>({"s"}, {"x"});
 	}));
 	expect(throws<std::runtime_error>([&] -> void {
-		[[maybe_unused]] auto result = config.set_value({"s"}, {"x"}, throwing_format{});
+		[[maybe_unused]] const auto result =
+			config.set_value({"s"}, {"x"}, throwing_format{});
 	}));
 	expect(must(config.get_value<int>({"s"}, {"x"})) == expected_value);
 	expect(must(config.get_value<user_value>({"s"}, {"x"})).value == expected_value);
@@ -250,16 +254,21 @@ void test_floating_conversions_are_finite_exact_and_locale_independent()
 	const restore_locale restore;
 	std::locale::global(std::locale(std::locale::classic(), new comma));
 	ini::ini_manager config;
-	auto roundtrip = [&]<class T>() -> auto {
-		for (T value :
-			 {T{0}, -T{0}, T{1.25}, std::numeric_limits<T>::max(),
-			  std::numeric_limits<T>::min(), std::numeric_limits<T>::denorm_min()})
+	const auto roundtrip = [&]<class T> -> auto {
+		for (const T value : {
+				 T{0},
+				 -T{0},
+				 T{1.25},
+				 std::numeric_limits<T>::max(),
+				 std::numeric_limits<T>::min(),
+				 std::numeric_limits<T>::denorm_min(),
+			 })
 		{
 			must(config.set_value({"s"}, {"x"}, value));
 			const auto read = must(config.get_value<T>({"s"}, {"x"}));
 			expect(read == value);
 			expect(std::signbit(read) == std::signbit(value));
-			auto reread = test::parse(test::serialize(config));
+			const auto reread = test::parse(test::serialize(config));
 			expect(must(reread.get_value<T>({"s"}, {"x"})) == value);
 		}
 	};

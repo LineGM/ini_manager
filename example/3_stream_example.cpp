@@ -6,7 +6,7 @@ auto main() -> int
 {
 	return example::run([] -> void {
 		std::istringstream input("[server]\nport=8080\nenabled=TRUE\n");
-		auto config = example::checked(ini::ini_manager::from_stream(input));
+		const auto config = example::checked(ini::ini_manager::from_stream(input));
 		std::cout << example::checked(config.get_value<unsigned>({"server"}, {"port"}))
 				  << '\n';
 		std::cout << example::checked(config.get_value<bool>({"server"}, {"enabled"}))

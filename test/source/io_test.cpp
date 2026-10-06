@@ -40,7 +40,7 @@ struct output_failure : std::streambuf
 		short_write,
 		throw_write,
 		sync,
-		throw_sync
+		throw_sync,
 	} mode;
 	explicit output_failure(kind name) : mode(name)
 	{
@@ -195,7 +195,7 @@ void test_normal_eof_is_successful_even_without_final_newline()
 
 void test_preexisting_stream_errors_are_not_cleared()
 {
-	for (auto state :
+	for (const auto state :
 		 {std::ios::failbit, std::ios::badbit, std::ios::failbit | std::ios::eofbit})
 	{
 		auto config = test::parse("[old]\nx=old");
@@ -257,9 +257,12 @@ void test_stream_operators_honor_exception_masks()
 void test_portable_output_and_flush_failures()
 {
 	auto config = test::parse("[s]\nx=y");
-	for (auto kind :
-		 {output_failure::kind::short_write, output_failure::kind::throw_write,
-		  output_failure::kind::sync, output_failure::kind::throw_sync})
+	for (const auto kind : {
+			 output_failure::kind::short_write,
+			 output_failure::kind::throw_write,
+			 output_failure::kind::sync,
+			 output_failure::kind::throw_sync,
+		 })
 	{
 		for (bool const exceptions : {false, true})
 		{
@@ -292,9 +295,14 @@ void test_portable_output_and_flush_failures()
 
 void test_atomic_save_stage_failures_preserve_old_target()
 {
-	for (auto action :
-		 {ini::operation::inspect, ini::operation::create_temp, ini::operation::write,
-		  ini::operation::permissions, ini::operation::close, ini::operation::replace})
+	for (const auto action : {
+			 ini::operation::inspect,
+			 ini::operation::create_temp,
+			 ini::operation::write,
+			 ini::operation::permissions,
+			 ini::operation::close,
+			 ini::operation::replace,
+		 })
 	{
 		failing_ops ops(action);
 		auto outcome = ini::detail::atomic_write(ops, "new");
@@ -435,7 +443,7 @@ void test_native_staged_failures_retain_real_target_bytes()
 	test::temp_directory const dir;
 	const auto target = dir.path / "config.ini";
 	test::write(target, "original bytes");
-	for (auto action :
+	for (const auto action :
 		 {ini::operation::write, ini::operation::close, ini::operation::replace})
 	{
 		failing_native_ops operations(target, action);
@@ -481,20 +489,21 @@ void test_allocation_exceptions_from_stream_buffers_propagate()
 	std::istream input(&input_buffer);
 	std::ostream output(&output_buffer);
 	expect(throws<std::bad_alloc>(
-		[&] -> void { [[maybe_unused]] auto result = config.load_stream(input); }));
+		[&] -> void { [[maybe_unused]] const auto result = config.load_stream(input); }));
 	expect(must(config.get_value({"s"}, {"x"})) == "original");
-	expect(throws<std::bad_alloc>(
-		[&] -> void { [[maybe_unused]] auto result = config.write_stream(output); }));
+	expect(throws<std::bad_alloc>([&] -> void {
+		[[maybe_unused]] const auto result = config.write_stream(output);
+	}));
 }
 
 void test_validation_finishes_before_touching_target()
 {
 	test::temp_directory const dir;
-	auto path = dir.path / "original.ini";
+	const auto path = dir.path / "original.ini";
 	test::write(path, "untouched");
 	ini::parse_options options;
 	options.max_line_bytes = 3;
-	auto config = test::parse("a=b", options);
+	const auto config = test::parse("a=b", options);
 	expect(!config.write_file(path));
 	expect(test::read(path) == "untouched");
 }

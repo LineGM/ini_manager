@@ -25,11 +25,15 @@ jobs:
       - run: cmake --build --preset=${{ matrix.preset }} --parallel 2
       - run: ctest --preset=${{ matrix.preset }}
       - run: cmake --build --preset=${{ matrix.preset }} --target run-examples all_verify_interface_header_sets
-      - if: matrix.compiler == 'clang++'
-        run: |
-          cmake -P cmake/lint.cmake
-          cmake -P cmake/spell.cmake
-          cmake --build --preset=ci-clang --target tidy-check
+      - name: Check formatting
+        if: matrix.compiler == 'clang++'
+        run: cmake -P cmake/lint.cmake
+      - name: Check spelling
+        if: matrix.compiler == 'clang++'
+        run: cmake -P cmake/spell.cmake
+      - name: Check clang-tidy
+        if: matrix.compiler == 'clang++'
+        run: cmake --build --preset=ci-clang --target tidy-check
   macos:
     runs-on: macos-15
     steps:

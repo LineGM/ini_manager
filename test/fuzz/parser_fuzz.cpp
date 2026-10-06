@@ -14,10 +14,12 @@ extern "C" auto LLVMFuzzerTestOneInput(const std::uint8_t *data, std::size_t siz
 	{
 		return 0;
 	}
-	constexpr ini::parse_options limits{.max_line_bytes = 4096,
-										.max_input_bytes = 65536,
-										.max_sections = 64,
-										.max_keys = 512};
+	constexpr ini::parse_options limits{
+		.max_line_bytes = 4096,
+		.max_input_bytes = 65536,
+		.max_sections = 64,
+		.max_keys = 512,
+	};
 	auto options = limits;
 	const auto bytes = std::span(data, size);
 	const auto flags = bytes.front();
@@ -30,7 +32,7 @@ extern "C" auto LLVMFuzzerTestOneInput(const std::uint8_t *data, std::size_t siz
 			return std::bit_cast<char>(byte);
 		});
 	std::istringstream input(std::string(std::from_range, chars));
-	auto parsed = ini::ini_manager::from_stream(input, options);
+	const auto parsed = ini::ini_manager::from_stream(input, options);
 	if (!parsed)
 	{
 		return 0;
@@ -41,7 +43,7 @@ extern "C" auto LLVMFuzzerTestOneInput(const std::uint8_t *data, std::size_t siz
 		return 0; // canonical spelling may exceed input limits
 	}
 	std::istringstream again(output.str());
-	auto reread = ini::ini_manager::from_stream(again, options);
+	const auto reread = ini::ini_manager::from_stream(again, options);
 	if (!reread || parsed->get_sections() != reread->get_sections())
 	{
 		std::abort();

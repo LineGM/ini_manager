@@ -66,7 +66,7 @@ struct temp_directory
 	temp_directory()
 	{
 		static std::atomic<unsigned> count{0};
-		auto base = std::filesystem::temp_directory_path();
+		const auto base = std::filesystem::temp_directory_path();
 		constexpr unsigned max_attempts = 1000;
 		for (unsigned i = 0; i < max_attempts; ++i)
 		{

@@ -52,7 +52,7 @@ cmake -P cmake/lint.cmake
 cmake -P cmake/spell.cmake
 ```
 
-Use clang-tidy and clang-format 22 or newer with the checked-in configuration files.
+Use clang-tidy and clang-format 23 with the checked-in configuration files.
 CI prints the selected versions and checks all enabled diagnostics.
 `TIDY_COMMAND`, `FORMAT_COMMAND` and `SPELL_COMMAND` can select executables.
 Every enabled clang-tidy diagnostic is an error, including style diagnostics.
