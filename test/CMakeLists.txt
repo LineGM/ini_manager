@@ -8,8 +8,8 @@ endif()
 include(FetchContent)
 FetchContent_Declare(boost.ut
     GIT_REPOSITORY https://github.com/boost-ext/ut.git
-    GIT_TAG v2.3.0
-    GIT_SHALLOW TRUE
+    # Includes the Darwin constructor-priority fix; pin the reviewed source.
+    GIT_TAG bfbec2a580c21fb3ffa328ede8821243e7cdf247
     SYSTEM)
 set(BOOST_UT_DISABLE_MODULE ON CACHE BOOL "Disable optional Boost.UT module")
 FetchContent_MakeAvailable(boost.ut)

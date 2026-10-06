@@ -36,7 +36,7 @@ no existing file or link occupies that path. `tidy-check` uses the selected buil
 directory explicitly. Module scanning is disabled on project executables because
 the library is distributed as a header.
 
-Tests use Boost.UT 2.3.0 fetched into the build tree. For offline builds configure
+Tests use a pinned Boost.UT revision fetched into the build tree. For offline builds configure
 with `-DFETCHCONTENT_SOURCE_DIR_BOOST.UT=/path/to/boost.ut`. CTest labels `unit`,
 `integration`, `headers` and `package` allow focused runs. Package tests verify
 add_subdirectory, local FetchContent and installed find_package consumers,
