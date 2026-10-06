@@ -26,6 +26,11 @@ ini_manager_developer_target(header_test)
 add_test(NAME header_test COMMAND header_test)
 set_tests_properties(header_test PROPERTIES LABELS "integration;headers")
 if(NOT PROJECT_IS_TOP_LEVEL)
+    find_package(Python3 COMPONENTS Interpreter REQUIRED)
+    add_test(NAME tidy_selection_test COMMAND "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/consumer/check_tidy.py" "${CMAKE_COMMAND}"
+        "${ini_manager_SOURCE_DIR}/cmake/tidy.cmake")
+    set_tests_properties(tidy_selection_test PROPERTIES LABELS "integration;tooling")
     add_test(NAME consumer_test COMMAND ${CMAKE_COMMAND}
         "-DINI_SOURCE=${ini_manager_SOURCE_DIR}" "-DINI_BINARY=${ini_manager_BINARY_DIR}"
         "-DINI_COMPILER=${CMAKE_CXX_COMPILER}" "-DINI_FLAGS=${CMAKE_CXX_FLAGS}"

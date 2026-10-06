@@ -37,7 +37,8 @@ no existing file or link occupies that path. `tidy-check` uses the selected buil
 directory explicitly. Module scanning is disabled on project executables because
 the library is distributed as a header.
 
-Tests use a pinned Boost.UT revision fetched into the build tree. For offline builds configure
+Tests require Python 3 for tooling integration checks and use a pinned Boost.UT
+revision fetched into the build tree. For offline builds configure
 with `-DFETCHCONTENT_SOURCE_DIR_BOOST.UT=/path/to/boost.ut`. CTest labels `unit`,
 `integration`, `headers` and `package` allow focused runs. Package tests verify
 add_subdirectory, local FetchContent and installed find_package consumers,
@@ -79,7 +80,8 @@ cmake --build --preset=ci-coverage --target coverage
 ```
 
 `INI_MANAGER_ENABLE_SANITIZERS=ON` enables ASan/UBSan on project executables.
-The sanitizer preset explicitly selects `clang++`; use Clang 22.
+The sanitizer preset explicitly selects `clang++`; use the same supported LLVM
+toolchain as the Clang quality checks.
 `ENABLE_COVERAGE=ON` uses GCC
 coverage instrumentation and the `coverage` target requires lcov. Each preset has
 its own build directory. LeakSanitizer cannot run under ptrace; when necessary,
