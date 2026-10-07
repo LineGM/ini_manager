@@ -123,6 +123,14 @@ not infer them from heap allocations. Checksums must agree, but performance
 thresholds do not gate shared runners. Inspect raw samples before claiming a
 speedup; these scenarios are not a general-purpose workload distribution.
 
+On Arch, Valgrind needs matching loader debug symbols. CI installs `debuginfod`,
+sets `DEBUGINFOD_URLS=https://debuginfod.archlinux.org`, fetches the loader's debug
+information and checks Valgrind on `/usr/bin/true` before measurements. See
+[Arch's debuginfod setup](https://wiki.archlinux.org/title/Debuginfod).
+The measurement driver preserves partial results with `complete: false`; only
+`complete: true` means every comparison and allocation measurement succeeded.
+Valgrind failures remain job failures and their logs are printed and uploaded.
+
 ## Documentation and packaging
 
 Configure with `BUILD_DOCS=ON` to enable the `docs` target. Doxygen is required;

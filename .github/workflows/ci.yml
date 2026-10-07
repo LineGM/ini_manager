@@ -96,6 +96,9 @@ jobs:
   benchmarks:
     runs-on: ubuntu-24.04
     container: archlinux:base-devel
+    env:
+      # CI shells do not source Arch's /etc/profile.d/debuginfod.sh.
+      DEBUGINFOD_URLS: https://debuginfod.archlinux.org
     steps:
       # Without Git, checkout downloads an archive and ignores fetch-depth.
       - name: Install Git before checkout
@@ -104,7 +107,15 @@ jobs:
         with:
           fetch-depth: 0
       - uses: ./.github/actions/setup-linux
-      - run: pacman -S --noconfirm --needed valgrind
+      - run: pacman -S --noconfirm --needed valgrind debuginfod
+      - name: Prepare and verify Valgrind runtime
+        run: |
+          debuginfod-find debuginfo /usr/lib/ld-linux-x86-64.so.2
+          mkdir -p build/benchmarks
+          valgrind --tool=memcheck --error-exitcode=99 --log-file=build/benchmarks/preflight.valgrind.txt /usr/bin/true || {
+            cat build/benchmarks/preflight.valgrind.txt
+            exit 1
+          }
       - name: Measure baseline and current API
         # Container users can differ from the checkout owner. Trust only this
         # workspace, for these Git subprocesses; leave global settings alone.

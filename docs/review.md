@@ -154,9 +154,12 @@ on `568c1b3` passed every job except benchmarks. In particular, the Linux Clang
 job passed formatting, spelling and strict tidy; the sanitizer job passed CTest,
 ASan/UBSan with leak detection enabled, and the bounded fuzz run. macOS passed
 the directory-alias regression. Docs were built without publishing from the PR.
-The remaining benchmark failure is Git's ownership check in the container.
-The workflow now trusts only the checkout directory for the measurement step;
-successful measurements and analysis remain pending.
+The benchmark's Git setup was corrected. In
+[run 37578585244](https://github.com/LineGM/ini_manager/actions/runs/37578585244),
+both benchmark executables compiled, but Valgrind could not initialize its
+mandatory loader `memcmp` redirection without glibc debug symbols. The workflow
+now fetches matching loader symbols through Arch debuginfod and checks Valgrind
+before measuring. Successful allocation measurements and analysis remain pending.
 
 The optional benchmark target is part of Clang's compilation database and strict
 analysis. `test/benchmark/compare.py` builds identical public-API workloads against
