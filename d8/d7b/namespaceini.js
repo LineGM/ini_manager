@@ -3,6 +3,7 @@ var namespaceini =
     [ "detail", "d9/dd5/namespaceini_1_1detail.html", [
       [ "data_map", "d9/dd5/namespaceini_1_1detail.html#a071d9227f933ce8f25cb86375181f7b5", null ],
       [ "entries", "d9/dd5/namespaceini_1_1detail.html#aae53327aeb294c5d0d5e4dc2a27e6722", null ],
+      [ "absolute_path", "d9/dd5/namespaceini_1_1detail.html#a74155b83e1bae13d78065f7eba5534ac", null ],
       [ "ascii_equal", "d9/dd5/namespaceini_1_1detail.html#a86af39150a58b93e327e2ec234d39539", null ],
       [ "ascii_lower", "d9/dd5/namespaceini_1_1detail.html#a424c3c69e01792d633f684278cbe792b", null ],
       [ "atomic_write", "d9/dd5/namespaceini_1_1detail.html#a7738968d5710cdb8467c9eaaa38e31fe", null ],
@@ -22,6 +23,7 @@ var namespaceini =
       [ "read_value", "d9/dd5/namespaceini_1_1detail.html#a4be6a26aacc1a8089a44398a127e49f7", null ],
       [ "serialize", "d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb", null ],
       [ "serialize_entries", "d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b", null ],
+      [ "serialized_size", "d9/dd5/namespaceini_1_1detail.html#a59adb7539303ef29cb60d2f3a9fe5149", null ],
       [ "set_state", "d9/dd5/namespaceini_1_1detail.html#ac4e7c428c5ad7216d06b3edde5e408e7", null ],
       [ "string_text", "d9/dd5/namespaceini_1_1detail.html#afa277471262057a56dc3200024ea2311", null ],
       [ "valid_key", "d9/dd5/namespaceini_1_1detail.html#adf855ed7349198d0132fdd413c6dd8eb", null ],

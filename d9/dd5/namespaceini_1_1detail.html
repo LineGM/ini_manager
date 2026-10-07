@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ini_manager<span id="projectnumber">&#160;1.0.0</span>
+   <div id="projectname">ini_manager<span id="projectnumber">&#160;1.1.0</span>
    </div>
   </td>
  </tr>
@@ -141,9 +141,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a64b83eb9b71a1257ed10f21304a59a07" id="r_a64b83eb9b71a1257ed10f21304a59a07"><td class="memItemLeft">auto&#160;</td><td class="memItemRight"><a class="el" href="#a64b83eb9b71a1257ed10f21304a59a07">parse_stream</a> (std::istream &amp;stream, const <a class="el" href="../../db/d42/structini_1_1parse__options.html">parse_options</a> &amp;options) -&gt; <a class="el" href="../../d8/d7b/namespaceini.html#ace357a3478a38901cfd48d90cc89b016">result</a>&lt; <a class="el" href="#a071d9227f933ce8f25cb86375181f7b5">data_map</a> &gt;</td></tr>
 <tr class="memitem:ad62149e066cee9425520ae58f5527b3b" id="r_ad62149e066cee9425520ae58f5527b3b"><td class="memTemplParams" colspan="2">template&lt;class Append&gt; </td></tr>
 <tr class="memitem:ad62149e066cee9425520ae58f5527b3b template"><td class="memItemLeft">auto&#160;</td><td class="memItemRight"><a class="el" href="#ad62149e066cee9425520ae58f5527b3b">serialize_entries</a> (std::string_view section_name, const <a class="el" href="#aae53327aeb294c5d0d5e4dc2a27e6722">entries</a> &amp;values, const <a class="el" href="../../db/d42/structini_1_1parse__options.html">parse_options</a> &amp;options, Append &amp;append) -&gt; <a class="el" href="../../d8/d7b/namespaceini.html#ace357a3478a38901cfd48d90cc89b016">result</a>&lt; void &gt;</td></tr>
+<tr class="memitem:a59adb7539303ef29cb60d2f3a9fe5149" id="r_a59adb7539303ef29cb60d2f3a9fe5149"><td class="memItemLeft">auto&#160;</td><td class="memItemRight"><a class="el" href="#a59adb7539303ef29cb60d2f3a9fe5149">serialized_size</a> (const <a class="el" href="#a071d9227f933ce8f25cb86375181f7b5">data_map</a> &amp;data, const <a class="el" href="../../db/d42/structini_1_1parse__options.html">parse_options</a> &amp;options) -&gt; <a class="el" href="../../d8/d7b/namespaceini.html#ace357a3478a38901cfd48d90cc89b016">result</a>&lt; std::size_t &gt;</td></tr>
 <tr class="memitem:ac606089c222cd93c2f59fc29a8f57cfb" id="r_ac606089c222cd93c2f59fc29a8f57cfb"><td class="memItemLeft">auto&#160;</td><td class="memItemRight"><a class="el" href="#ac606089c222cd93c2f59fc29a8f57cfb">serialize</a> (const <a class="el" href="#a071d9227f933ce8f25cb86375181f7b5">data_map</a> &amp;data, const <a class="el" href="../../db/d42/structini_1_1parse__options.html">parse_options</a> &amp;options) -&gt; <a class="el" href="../../d8/d7b/namespaceini.html#ace357a3478a38901cfd48d90cc89b016">result</a>&lt; std::string &gt;</td></tr>
 <tr class="memitem:a8da2147b8df3292183f9fd4e6c8e92f9" id="r_a8da2147b8df3292183f9fd4e6c8e92f9"><td class="memItemLeft">auto&#160;</td><td class="memItemRight"><a class="el" href="#a8da2147b8df3292183f9fd4e6c8e92f9">native_error</a> () noexcept -&gt; std::error_code</td></tr>
 <tr class="memitem:a6486bd3ef3375de9384e2a1c21b90586" id="r_a6486bd3ef3375de9384e2a1c21b90586"><td class="memItemLeft">auto&#160;</td><td class="memItemRight"><a class="el" href="#a6486bd3ef3375de9384e2a1c21b90586">valid_path</a> (const std::filesystem::path &amp;path) noexcept -&gt; bool</td></tr>
+<tr class="memitem:a74155b83e1bae13d78065f7eba5534ac" id="r_a74155b83e1bae13d78065f7eba5534ac"><td class="memItemLeft">auto&#160;</td><td class="memItemRight"><a class="el" href="#a74155b83e1bae13d78065f7eba5534ac">absolute_path</a> (const std::filesystem::path &amp;path, <a class="el" href="../../d8/d7b/namespaceini.html#a07fbe7cfe37562863c38a572651e4817">operation</a> action) -&gt; <a class="el" href="../../d8/d7b/namespaceini.html#ace357a3478a38901cfd48d90cc89b016">result</a>&lt; std::filesystem::path &gt;</td></tr>
 <tr class="memitem:affe0996c5cb6968d53cc75587322ef75" id="r_affe0996c5cb6968d53cc75587322ef75"><td class="memItemLeft">auto&#160;</td><td class="memItemRight"><a class="el" href="#affe0996c5cb6968d53cc75587322ef75">parse_file</a> (const std::filesystem::path &amp;path, const <a class="el" href="../../db/d42/structini_1_1parse__options.html">parse_options</a> &amp;options) -&gt; <a class="el" href="../../d8/d7b/namespaceini.html#ace357a3478a38901cfd48d90cc89b016">result</a>&lt; <a class="el" href="#a071d9227f933ce8f25cb86375181f7b5">data_map</a> &gt;</td></tr>
 <tr class="memitem:a7738968d5710cdb8467c9eaaa38e31fe" id="r_a7738968d5710cdb8467c9eaaa38e31fe"><td class="memTemplParams" colspan="2">template&lt;class Ops&gt; </td></tr>
 <tr class="memitem:a7738968d5710cdb8467c9eaaa38e31fe template"><td class="memItemLeft">auto&#160;</td><td class="memItemRight"><a class="el" href="#a7738968d5710cdb8467c9eaaa38e31fe">atomic_write</a> (Ops &amp;ops, std::string_view bytes) -&gt; <a class="el" href="../../d8/d7b/namespaceini.html#ace357a3478a38901cfd48d90cc89b016">result</a>&lt; void &gt;</td></tr>
@@ -198,6 +200,69 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a74155b83e1bae13d78065f7eba5534ac" name="a74155b83e1bae13d78065f7eba5534ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74155b83e1bae13d78065f7eba5534ac">&#9670;&#160;</a></span>absolute_path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto ini::detail::absolute_path </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d8/d7b/namespaceini.html#a07fbe7cfe37562863c38a572651e4817">operation</a></td>          <td class="paramname"><span class="paramname"><em>action</em></span>&#160;) -&gt; <a class="el" href="../../d8/d7b/namespaceini.html#ace357a3478a38901cfd48d90cc89b016">result</a>&lt; std::filesystem::path &gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_a74155b83e1bae13d78065f7eba5534ac_cgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_a74155b83e1bae13d78065f7eba5534ac_cgraph" loading="lazy" alt=""/></div>
+<map name="ad9/dd5/namespaceini_1_1detail_a74155b83e1bae13d78065f7eba5534ac_cgraph" id="ad9/dd5/namespaceini_1_1detail_a74155b83e1bae13d78065f7eba5534ac_cgraph">
+<area shape="rect" title=" " alt="" coords="5,79,168,103"/>
+<area shape="poly" title=" " alt="" coords="53,79,47,70,50,60,64,54,87,52,111,55,125,63,120,65,110,60,86,57,65,59,54,64,52,69,58,78"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#aed057b4fdb3b84e9a557d03b1869fdd4" title=" " alt="" coords="223,29,348,54"/>
+<area shape="poly" title=" " alt="" coords="138,76,220,57,216,60,140,81"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a5fd15479d4956566416ec05702c0ea7f" title=" " alt="" coords="403,55,548,79"/>
+<area shape="poly" title=" " alt="" coords="168,83,389,70,387,75,168,89"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a6486bd3ef3375de9384e2a1c21b90586" title=" " alt="" coords="216,152,355,177"/>
+<area shape="poly" title=" " alt="" coords="123,101,238,145,233,148,122,107"/>
+<area shape="poly" title=" " alt="" coords="253,29,247,21,251,11,264,5,285,3,309,5,322,15,317,15,307,10,285,8,265,10,255,15,252,20,259,29"/>
+<area shape="poly" title=" " alt="" coords="348,47,391,55,385,56,348,53"/>
+<area shape="poly" title=" " alt="" coords="444,54,437,46,441,36,454,30,476,28,499,31,513,40,507,40,498,36,476,33,456,35,445,40,443,45,449,55"/>
+<area shape="poly" title=" " alt="" coords="254,151,247,144,251,134,264,128,285,125,309,128,322,138,317,137,307,133,285,131,265,133,255,137,252,143,258,153"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_a74155b83e1bae13d78065f7eba5534ac_icgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_a74155b83e1bae13d78065f7eba5534ac_icgraph" loading="lazy" alt=""/></div>
+<map name="ad9/dd5/namespaceini_1_1detail_a74155b83e1bae13d78065f7eba5534ac_icgraph" id="ad9/dd5/namespaceini_1_1detail_a74155b83e1bae13d78065f7eba5534ac_icgraph">
+<area shape="rect" title=" " alt="" coords="446,40,608,65"/>
+<area shape="poly" title=" " alt="" coords="564,26,553,22,527,19,504,21,492,26,490,31,496,41,491,39,484,32,488,22,503,16,527,14,554,17,569,27"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a5c451a0b3cd5fdf7e6f0f63a1156e794" title=" " alt="" coords="241,5,382,44"/>
+<area shape="poly" title=" " alt="" coords="428,40,383,37,383,31,433,40"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="226,68,398,93"/>
+<area shape="poly" title=" " alt="" coords="433,65,399,72,398,67,428,65"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="5,68,178,93"/>
+<area shape="poly" title=" " alt="" coords="207,81,178,83,178,78,213,81"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a86af39150a58b93e327e2ec234d39539" name="a86af39150a58b93e327e2ec234d39539"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a86af39150a58b93e327e2ec234d39539">&#9670;&#160;</a></span>ascii_equal()</h2>
 
@@ -397,37 +462,38 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_ac32f270e9f3545dd579c050901ff484f_icgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_ac32f270e9f3545dd579c050901ff484f_icgraph" loading="lazy" alt=""/></div>
 <map name="ad9/dd5/namespaceini_1_1detail_ac32f270e9f3545dd579c050901ff484f_icgraph" id="ad9/dd5/namespaceini_1_1detail_ac32f270e9f3545dd579c050901ff484f_icgraph">
-<area shape="rect" title=" " alt="" coords="1335,78,1470,102"/>
-<area shape="poly" title=" " alt="" coords="1431,62,1422,59,1402,56,1384,58,1375,63,1373,68,1378,79,1374,76,1368,69,1371,59,1383,53,1402,51,1424,54,1436,64"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a77288b82c86116589932b83d855c7f94" title=" " alt="" coords="1175,36,1287,75"/>
-<area shape="poly" title=" " alt="" coords="1321,74,1287,69,1287,64,1326,74"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#adf855ed7349198d0132fdd413c6dd8eb" title=" " alt="" coords="993,116,1127,141"/>
-<area shape="poly" title=" " alt="" coords="1322,99,1128,124,1127,118,1317,99"/>
-<area shape="poly" title=" " alt="" coords="1257,20,1248,17,1231,15,1215,17,1205,21,1202,27,1203,37,1199,34,1196,27,1201,17,1213,11,1231,9,1250,12,1263,21"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a5e7bc6cda32024aafcfcfc1275f397c2" title=" " alt="" coords="1006,29,1114,68"/>
-<area shape="poly" title=" " alt="" coords="1157,53,1114,53,1114,48,1163,53"/>
-<area shape="poly" title=" " alt="" coords="1087,13,1078,10,1060,8,1044,10,1034,15,1031,21,1033,31,1028,28,1026,20,1031,11,1042,5,1060,3,1079,5,1092,14"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="820,69,945,108"/>
-<area shape="poly" title=" " alt="" coords="994,64,946,77,945,72,989,64"/>
-<area shape="poly" title=" " alt="" coords="910,53,901,50,882,48,865,50,855,55,852,61,854,71,849,68,846,60,852,51,864,45,882,43,902,45,915,54"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="638,37,767,76"/>
-<area shape="poly" title=" " alt="" coords="802,75,767,71,767,65,807,75"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a41d1e1d09d1137708d8e133b3497d10f" title=" " alt="" coords="633,100,772,139"/>
-<area shape="poly" title=" " alt="" coords="807,102,772,110,772,105,802,102"/>
-<area shape="poly" title=" " alt="" coords="730,21,721,18,702,16,685,18,675,23,672,29,673,38,669,36,666,28,672,19,684,13,703,11,723,13,736,22"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="457,44,585,69"/>
-<area shape="poly" title=" " alt="" coords="620,57,586,59,586,54,625,56"/>
-<area shape="poly" title=" " alt="" coords="551,29,542,25,521,23,502,25,492,30,490,35,496,45,491,43,485,36,488,26,501,20,521,18,544,20,556,30"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,16,409,41"/>
-<area shape="poly" title=" " alt="" coords="439,46,410,44,409,38,444,45"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,65,397,104"/>
-<area shape="poly" title=" " alt="" coords="439,68,398,77,397,72,445,67"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="11,16,183,41"/>
-<area shape="poly" title=" " alt="" coords="219,30,184,31,183,26,224,28"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,72,189,97"/>
-<area shape="poly" title=" " alt="" coords="231,85,189,87,189,82,236,84"/>
-<area shape="poly" title=" " alt="" coords="984,112,945,105,945,100,990,113"/>
-<area shape="poly" title=" " alt="" coords="1088,101,1080,97,1060,95,1042,97,1033,102,1031,107,1036,117,1031,115,1026,108,1029,98,1041,92,1060,90,1082,92,1093,102"/>
+<area shape="rect" title=" " alt="" coords="1538,78,1673,102"/>
+<area shape="poly" title=" " alt="" coords="1634,62,1625,59,1606,56,1588,58,1578,63,1576,68,1582,79,1577,76,1571,69,1574,59,1586,53,1606,51,1627,54,1639,64"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a77288b82c86116589932b83d855c7f94" title=" " alt="" coords="1379,36,1490,75"/>
+<area shape="poly" title=" " alt="" coords="1524,74,1490,69,1490,64,1529,74"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#adf855ed7349198d0132fdd413c6dd8eb" title=" " alt="" coords="1196,116,1331,141"/>
+<area shape="poly" title=" " alt="" coords="1525,99,1331,124,1331,118,1520,99"/>
+<area shape="poly" title=" " alt="" coords="1461,20,1452,17,1434,15,1418,17,1408,21,1405,27,1407,37,1402,34,1400,27,1405,17,1417,11,1434,9,1454,12,1466,21"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a5e7bc6cda32024aafcfcfc1275f397c2" title=" " alt="" coords="1210,29,1317,68"/>
+<area shape="poly" title=" " alt="" coords="1361,53,1317,53,1317,48,1366,53"/>
+<area shape="poly" title=" " alt="" coords="1290,13,1281,10,1263,8,1247,10,1238,15,1234,21,1236,31,1232,28,1229,20,1234,11,1246,5,1264,3,1283,5,1295,14"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="1023,69,1148,108"/>
+<area shape="poly" title=" " alt="" coords="1197,64,1149,77,1148,72,1192,64"/>
+<area shape="poly" title=" " alt="" coords="1113,53,1104,50,1086,48,1069,50,1059,55,1056,61,1057,71,1053,68,1050,60,1055,51,1067,45,1086,43,1105,45,1118,54"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="847,69,975,108"/>
+<area shape="poly" title=" " alt="" coords="1005,89,975,91,975,86,1010,89"/>
+<area shape="poly" title=" " alt="" coords="938,53,929,50,911,48,894,50,884,55,881,61,883,71,878,68,875,60,881,51,893,45,911,43,930,45,943,54"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a59adb7539303ef29cb60d2f3a9fe5149" title=" " alt="" coords="633,76,799,101"/>
+<area shape="poly" title=" " alt="" coords="828,89,799,91,799,86,834,89"/>
+<area shape="poly" title=" " alt="" coords="748,61,739,57,716,55,695,57,684,62,682,67,688,77,684,75,677,68,681,58,694,52,716,50,740,52,754,62"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="457,76,585,101"/>
+<area shape="poly" title=" " alt="" coords="615,89,586,91,585,86,621,89"/>
+<area shape="poly" title=" " alt="" coords="554,61,544,57,521,55,500,57,490,62,487,67,494,77,489,75,482,68,486,58,499,52,521,50,545,52,559,62"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,48,409,73"/>
+<area shape="poly" title=" " alt="" coords="439,78,409,76,410,70,444,77"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,97,397,136"/>
+<area shape="poly" title=" " alt="" coords="445,100,398,109,397,104,439,100"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="11,48,183,73"/>
+<area shape="poly" title=" " alt="" coords="219,61,184,63,183,58,224,60"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,104,189,129"/>
+<area shape="poly" title=" " alt="" coords="231,117,189,119,189,114,236,116"/>
+<area shape="poly" title=" " alt="" coords="1188,112,1148,105,1149,100,1193,113"/>
+<area shape="poly" title=" " alt="" coords="1292,101,1283,97,1263,95,1246,97,1236,102,1234,107,1240,117,1235,115,1229,108,1232,98,1244,92,1264,90,1285,92,1297,102"/>
 </map>
 </div>
 
@@ -473,41 +539,42 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_a0a397eb526c29707788346f0f6f094a4_icgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_a0a397eb526c29707788346f0f6f094a4_icgraph" loading="lazy" alt=""/></div>
 <map name="ad9/dd5/namespaceini_1_1detail_a0a397eb526c29707788346f0f6f094a4_icgraph" id="ad9/dd5/namespaceini_1_1detail_a0a397eb526c29707788346f0f6f094a4_icgraph">
-<area shape="rect" title=" " alt="" coords="1188,109,1309,134"/>
-<area shape="poly" title=" " alt="" coords="1277,94,1269,90,1248,88,1230,90,1220,95,1218,100,1224,110,1219,108,1213,101,1216,91,1229,85,1249,83,1270,85,1283,95"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#adf855ed7349198d0132fdd413c6dd8eb" title=" " alt="" coords="1006,29,1140,54"/>
-<area shape="poly" title=" " alt="" coords="1209,101,1139,68,1113,57,1113,52,1141,63,1214,102"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a8d39afb03e0e9a49593090e8f7eaa6c7" title=" " alt="" coords="1020,189,1127,228"/>
-<area shape="poly" title=" " alt="" coords="1210,141,1115,191,1113,186,1205,142"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a5e7bc6cda32024aafcfcfc1275f397c2" title=" " alt="" coords="1020,102,1127,141"/>
-<area shape="poly" title=" " alt="" coords="1170,122,1127,124,1127,119,1175,121"/>
-<area shape="poly" title=" " alt="" coords="1102,14,1093,10,1073,8,1055,10,1045,15,1043,20,1049,30,1044,28,1038,21,1041,11,1053,5,1073,3,1095,5,1107,15"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="826,102,952,141"/>
-<area shape="poly" title=" " alt="" coords="1023,59,1007,68,930,104,928,99,1005,63,1018,61"/>
-<area shape="poly" title=" " alt="" coords="917,87,908,83,889,81,871,83,861,88,857,94,859,103,854,101,852,93,857,84,870,78,889,76,909,78,923,87"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="638,54,767,93"/>
-<area shape="poly" title=" " alt="" coords="809,102,767,93,767,87,814,102"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a41d1e1d09d1137708d8e133b3497d10f" title=" " alt="" coords="633,117,772,156"/>
-<area shape="poly" title=" " alt="" coords="808,128,772,134,772,128,814,127"/>
-<area shape="poly" title=" " alt="" coords="731,39,721,35,702,33,685,35,675,40,671,46,673,55,669,53,666,45,671,36,684,30,703,28,723,30,736,39"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="457,121,585,146"/>
-<area shape="poly" title=" " alt="" coords="630,98,562,123,560,118,625,99"/>
-<area shape="poly" title=" " alt="" coords="551,106,542,102,521,100,502,102,492,107,490,112,496,122,491,120,485,113,488,103,501,97,521,95,544,97,556,107"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,93,409,118"/>
-<area shape="poly" title=" " alt="" coords="439,123,410,121,409,115,444,122"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,142,397,181"/>
-<area shape="poly" title=" " alt="" coords="439,145,398,154,397,149,445,144"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="11,93,183,118"/>
-<area shape="poly" title=" " alt="" coords="219,107,184,108,183,103,224,105"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,149,189,174"/>
-<area shape="poly" title=" " alt="" coords="231,163,190,164,189,159,236,161"/>
-<area shape="poly" title=" " alt="" coords="1014,182,931,144,932,139,1019,182"/>
-<area shape="poly" title=" " alt="" coords="1002,206,835,197,733,186,633,170,559,149,559,144,634,164,734,181,835,192,1007,206"/>
-<area shape="poly" title=" " alt="" coords="1100,173,1091,170,1073,168,1056,170,1047,174,1043,180,1045,190,1040,187,1038,180,1043,170,1055,164,1073,162,1093,165,1106,174"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a75e8926f9aaf66b5d7c91fad8cbee430" title=" " alt="" coords="820,232,958,270"/>
-<area shape="poly" title=" " alt="" coords="1007,224,959,238,958,232,1002,224"/>
-<area shape="poly" title=" " alt="" coords="1002,122,952,124,951,119,1007,121"/>
-<area shape="poly" title=" " alt="" coords="1100,86,1091,83,1073,81,1056,83,1047,88,1043,94,1045,104,1040,101,1038,93,1043,84,1055,78,1073,76,1093,78,1106,87"/>
+<area shape="rect" title=" " alt="" coords="1392,109,1512,134"/>
+<area shape="poly" title=" " alt="" coords="1481,94,1472,90,1452,88,1433,90,1424,95,1422,100,1427,110,1422,108,1416,101,1420,91,1432,85,1452,83,1474,85,1486,95"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#adf855ed7349198d0132fdd413c6dd8eb" title=" " alt="" coords="1209,29,1344,54"/>
+<area shape="poly" title=" " alt="" coords="1412,101,1343,68,1316,57,1316,52,1345,63,1418,102"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a8d39afb03e0e9a49593090e8f7eaa6c7" title=" " alt="" coords="1223,189,1330,228"/>
+<area shape="poly" title=" " alt="" coords="1414,141,1318,191,1317,186,1408,142"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a5e7bc6cda32024aafcfcfc1275f397c2" title=" " alt="" coords="1223,102,1330,141"/>
+<area shape="poly" title=" " alt="" coords="1373,122,1331,124,1330,119,1379,122"/>
+<area shape="poly" title=" " alt="" coords="1305,14,1297,10,1276,8,1258,10,1248,15,1246,20,1252,30,1247,28,1241,21,1244,11,1257,5,1277,3,1298,5,1311,15"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="1030,102,1155,141"/>
+<area shape="poly" title=" " alt="" coords="1226,59,1210,68,1133,104,1131,99,1208,63,1221,61"/>
+<area shape="poly" title=" " alt="" coords="1120,86,1111,83,1092,81,1075,83,1065,88,1061,94,1063,104,1058,101,1056,93,1061,84,1073,78,1092,76,1112,78,1126,87"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="847,102,975,141"/>
+<area shape="poly" title=" " alt="" coords="1011,122,975,124,975,119,1016,121"/>
+<area shape="poly" title=" " alt="" coords="939,87,929,83,911,81,893,83,883,88,880,94,881,103,877,101,874,93,880,84,892,78,911,76,931,78,944,87"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a59adb7539303ef29cb60d2f3a9fe5149" title=" " alt="" coords="633,139,799,163"/>
+<area shape="poly" title=" " alt="" coords="834,133,800,141,799,136,828,134"/>
+<area shape="poly" title=" " alt="" coords="748,124,739,120,716,117,695,119,684,124,682,129,688,139,683,137,677,130,681,120,694,114,716,112,740,115,754,124"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="457,139,585,163"/>
+<area shape="poly" title=" " alt="" coords="615,151,586,154,585,148,621,151"/>
+<area shape="poly" title=" " alt="" coords="554,124,544,120,521,117,500,119,490,124,487,129,494,139,489,137,482,130,486,120,499,114,521,112,545,115,559,124"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,111,409,135"/>
+<area shape="poly" title=" " alt="" coords="439,140,410,138,409,133,444,140"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,160,397,198"/>
+<area shape="poly" title=" " alt="" coords="439,163,398,171,397,166,445,162"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="11,111,183,135"/>
+<area shape="poly" title=" " alt="" coords="219,124,184,126,183,120,224,122"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,167,189,191"/>
+<area shape="poly" title=" " alt="" coords="231,180,189,182,189,176,236,178"/>
+<area shape="poly" title=" " alt="" coords="1217,181,1134,144,1136,139,1222,182"/>
+<area shape="poly" title=" " alt="" coords="1204,202,799,162,799,157,1210,201"/>
+<area shape="poly" title=" " alt="" coords="1304,173,1294,170,1276,168,1260,170,1250,174,1246,180,1248,190,1244,187,1241,180,1246,170,1258,164,1277,162,1296,165,1309,174"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a75e8926f9aaf66b5d7c91fad8cbee430" title=" " alt="" coords="1023,217,1161,256"/>
+<area shape="poly" title=" " alt="" coords="1210,219,1162,228,1162,223,1205,219"/>
+<area shape="poly" title=" " alt="" coords="1205,122,1155,124,1155,119,1210,122"/>
+<area shape="poly" title=" " alt="" coords="1304,86,1294,83,1276,81,1260,83,1250,88,1246,94,1248,104,1244,101,1241,93,1246,84,1258,78,1277,76,1296,78,1309,87"/>
 </map>
 </div>
 
@@ -552,28 +619,29 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_a77288b82c86116589932b83d855c7f94_icgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_a77288b82c86116589932b83d855c7f94_icgraph" loading="lazy" alt=""/></div>
 <map name="ad9/dd5/namespaceini_1_1detail_a77288b82c86116589932b83d855c7f94_icgraph" id="ad9/dd5/namespaceini_1_1detail_a77288b82c86116589932b83d855c7f94_icgraph">
-<area shape="rect" title=" " alt="" coords="1148,61,1260,100"/>
-<area shape="poly" title=" " alt="" coords="1228,45,1220,42,1204,40,1189,42,1180,47,1177,53,1179,63,1174,59,1172,52,1177,43,1187,37,1204,35,1222,37,1233,47"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a5e7bc6cda32024aafcfcfc1275f397c2" title=" " alt="" coords="993,61,1100,100"/>
-<area shape="poly" title=" " alt="" coords="1130,81,1101,83,1101,78,1135,81"/>
-<area shape="poly" title=" " alt="" coords="1071,45,1063,42,1047,40,1032,42,1023,47,1020,53,1021,63,1017,59,1015,52,1019,43,1030,37,1047,35,1064,37,1076,47"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="820,61,945,100"/>
-<area shape="poly" title=" " alt="" coords="974,81,945,83,945,78,980,81"/>
-<area shape="poly" title=" " alt="" coords="908,45,899,42,882,40,867,42,858,47,854,53,856,63,852,60,849,52,854,43,865,37,882,35,901,37,913,46"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="638,29,767,68"/>
-<area shape="poly" title=" " alt="" coords="802,67,767,63,767,57,807,67"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a41d1e1d09d1137708d8e133b3497d10f" title=" " alt="" coords="633,92,772,131"/>
-<area shape="poly" title=" " alt="" coords="807,94,772,102,772,97,802,94"/>
-<area shape="poly" title=" " alt="" coords="730,13,721,10,702,8,685,10,675,15,672,21,673,30,669,28,666,20,672,11,684,5,703,3,723,5,736,14"/>
+<area shape="rect" title=" " alt="" coords="1352,29,1463,68"/>
+<area shape="poly" title=" " alt="" coords="1431,13,1423,10,1407,8,1392,10,1384,15,1381,21,1382,31,1378,27,1375,20,1380,11,1391,5,1407,3,1425,5,1437,15"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a5e7bc6cda32024aafcfcfc1275f397c2" title=" " alt="" coords="1196,29,1304,68"/>
+<area shape="poly" title=" " alt="" coords="1333,49,1304,51,1304,46,1339,49"/>
+<area shape="poly" title=" " alt="" coords="1274,13,1266,10,1250,8,1235,10,1226,15,1223,21,1225,31,1220,27,1218,20,1223,11,1233,5,1250,3,1268,5,1279,15"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="1023,29,1148,68"/>
+<area shape="poly" title=" " alt="" coords="1178,49,1149,51,1148,46,1183,49"/>
+<area shape="poly" title=" " alt="" coords="1111,13,1102,10,1086,8,1070,10,1061,15,1058,21,1059,31,1055,27,1052,20,1057,11,1068,5,1086,3,1104,5,1116,15"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="847,29,975,68"/>
+<area shape="poly" title=" " alt="" coords="1005,49,975,51,975,46,1010,49"/>
+<area shape="poly" title=" " alt="" coords="938,13,929,10,911,8,894,10,884,15,881,21,883,31,878,28,875,20,881,11,893,5,911,3,930,5,943,14"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a59adb7539303ef29cb60d2f3a9fe5149" title=" " alt="" coords="633,36,799,61"/>
+<area shape="poly" title=" " alt="" coords="828,49,799,51,799,46,834,49"/>
+<area shape="poly" title=" " alt="" coords="748,21,739,17,716,15,695,17,684,22,682,27,688,37,684,35,677,28,681,18,694,12,716,10,740,12,754,22"/>
 <area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="457,36,585,61"/>
-<area shape="poly" title=" " alt="" coords="620,49,586,51,586,46,625,48"/>
-<area shape="poly" title=" " alt="" coords="551,21,542,17,521,15,502,17,492,22,490,27,496,37,491,35,485,28,488,18,501,12,521,10,544,12,556,22"/>
+<area shape="poly" title=" " alt="" coords="615,49,586,51,585,46,621,49"/>
+<area shape="poly" title=" " alt="" coords="554,21,544,17,521,15,500,17,490,22,487,27,494,37,489,35,482,28,486,18,499,12,521,10,545,12,559,22"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,8,409,33"/>
-<area shape="poly" title=" " alt="" coords="439,38,410,36,409,30,444,37"/>
+<area shape="poly" title=" " alt="" coords="439,38,409,36,410,30,444,37"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,57,397,96"/>
-<area shape="poly" title=" " alt="" coords="439,60,398,69,397,64,445,59"/>
+<area shape="poly" title=" " alt="" coords="445,60,398,69,397,64,439,60"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="11,8,183,33"/>
-<area shape="poly" title=" " alt="" coords="219,22,184,23,183,18,224,20"/>
+<area shape="poly" title=" " alt="" coords="219,21,184,23,183,18,224,20"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,64,189,89"/>
 <area shape="poly" title=" " alt="" coords="231,77,189,79,189,74,236,76"/>
 </map>
@@ -624,24 +692,30 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_aed057b4fdb3b84e9a557d03b1869fdd4_icgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_aed057b4fdb3b84e9a557d03b1869fdd4_icgraph" loading="lazy" alt=""/></div>
 <map name="ad9/dd5/namespaceini_1_1detail_aed057b4fdb3b84e9a557d03b1869fdd4_icgraph" id="ad9/dd5/namespaceini_1_1detail_aed057b4fdb3b84e9a557d03b1869fdd4_icgraph">
-<area shape="rect" title=" " alt="" coords="653,123,778,148"/>
-<area shape="poly" title=" " alt="" coords="746,108,737,104,715,102,696,104,686,108,684,114,690,124,685,122,678,115,682,105,695,99,716,96,738,99,751,109"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a7738968d5710cdb8467c9eaaa38e31fe" title=" " alt="" coords="471,29,591,68"/>
-<area shape="poly" title=" " alt="" coords="674,115,604,82,581,71,582,66,606,77,679,115"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a64b83eb9b71a1257ed10f21304a59a07" title=" " alt="" coords="474,116,588,155"/>
-<area shape="poly" title=" " alt="" coords="636,136,589,138,589,133,641,135"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="457,179,605,217"/>
-<area shape="poly" title=" " alt="" coords="665,153,591,181,590,176,660,154"/>
-<area shape="poly" title=" " alt="" coords="560,14,550,10,531,8,513,10,503,15,499,21,501,30,497,28,494,20,499,11,512,5,531,3,552,5,565,14"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="231,36,404,61"/>
-<area shape="poly" title=" " alt="" coords="453,49,404,51,404,46,458,48"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="5,36,178,61"/>
-<area shape="poly" title=" " alt="" coords="213,50,179,51,177,46,218,48"/>
-<area shape="poly" title=" " alt="" coords="560,100,550,97,531,95,513,97,503,101,499,107,501,117,497,114,494,107,499,97,512,91,531,89,552,92,565,101"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1ebf068ee3bd7bb1340613baf2a21c27" title=" " alt="" coords="247,116,388,155"/>
-<area shape="poly" title=" " alt="" coords="456,136,389,138,388,133,461,135"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="226,186,409,210"/>
-<area shape="poly" title=" " alt="" coords="439,198,410,201,410,195,444,198"/>
+<area shape="rect" title=" " alt="" coords="667,153,792,178"/>
+<area shape="poly" title=" " alt="" coords="761,138,752,134,729,132,709,134,699,139,696,144,703,154,698,152,691,145,695,135,708,129,730,127,753,129,767,139"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a74155b83e1bae13d78065f7eba5534ac" title=" " alt="" coords="457,29,619,54"/>
+<area shape="poly" title=" " alt="" coords="705,141,667,105,618,68,594,57,595,52,621,63,671,101,711,142"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a7738968d5710cdb8467c9eaaa38e31fe" title=" " alt="" coords="478,102,598,141"/>
+<area shape="poly" title=" " alt="" coords="655,149,599,138,599,133,661,149"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a64b83eb9b71a1257ed10f21304a59a07" title=" " alt="" coords="481,189,595,228"/>
+<area shape="poly" title=" " alt="" coords="659,181,596,198,595,193,653,182"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="464,252,612,290"/>
+<area shape="poly" title=" " alt="" coords="702,187,664,216,621,241,595,254,593,248,618,237,661,211,697,188"/>
+<area shape="poly" title=" " alt="" coords="570,15,560,10,538,8,518,10,507,15,505,20,511,30,506,28,500,21,503,11,516,5,538,3,562,5,575,15"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a5c451a0b3cd5fdf7e6f0f63a1156e794" title=" " alt="" coords="247,22,388,61"/>
+<area shape="poly" title=" " alt="" coords="439,43,389,44,388,39,444,41"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="231,97,404,122"/>
+<area shape="poly" title=" " alt="" coords="477,60,458,68,360,99,358,94,456,63,482,58"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="5,97,178,122"/>
+<area shape="poly" title=" " alt="" coords="213,111,179,112,177,107,218,108"/>
+<area shape="poly" title=" " alt="" coords="460,118,404,117,404,112,466,117"/>
+<area shape="poly" title=" " alt="" coords="568,87,558,83,538,81,520,83,509,88,505,94,507,103,502,101,500,93,505,84,518,78,538,76,559,78,573,87"/>
+<area shape="poly" title=" " alt="" coords="568,173,558,170,538,168,520,170,509,174,505,180,507,190,503,187,500,180,505,170,518,164,538,162,559,165,573,174"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1ebf068ee3bd7bb1340613baf2a21c27" title=" " alt="" coords="247,189,388,228"/>
+<area shape="poly" title=" " alt="" coords="463,209,389,211,388,206,468,208"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="226,259,409,283"/>
+<area shape="poly" title=" " alt="" coords="446,271,410,274,410,268,451,271"/>
 </map>
 </div>
 
@@ -687,81 +761,88 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_a5fd15479d4956566416ec05702c0ea7f_icgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_a5fd15479d4956566416ec05702c0ea7f_icgraph" loading="lazy" alt=""/></div>
 <map name="ad9/dd5/namespaceini_1_1detail_a5fd15479d4956566416ec05702c0ea7f_icgraph" id="ad9/dd5/namespaceini_1_1detail_a5fd15479d4956566416ec05702c0ea7f_icgraph">
-<area shape="rect" title=" " alt="" coords="1039,521,1184,546"/>
-<area shape="poly" title=" " alt="" coords="1145,506,1135,502,1112,500,1091,502,1079,506,1077,512,1084,521,1078,520,1072,513,1076,503,1089,497,1112,494,1136,497,1150,506"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#aed057b4fdb3b84e9a557d03b1869fdd4" title=" " alt="" coords="653,160,777,184"/>
-<area shape="poly" title=" " alt="" coords="1107,504,1100,442,1082,360,1067,317,1047,275,1021,238,989,206,966,191,940,179,884,165,828,162,779,164,777,160,828,157,885,160,942,174,968,186,993,202,1026,234,1052,273,1072,315,1087,358,1106,441,1112,507"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="11,77,183,102"/>
-<area shape="poly" title=" " alt="" coords="1106,504,1097,439,1077,350,1062,301,1042,253,1018,207,989,164,929,94,901,67,872,45,841,29,806,17,765,10,716,8,525,8,414,16,305,35,209,58,139,78,135,75,208,53,304,29,413,10,525,3,716,3,765,5,807,12,843,24,875,41,904,63,932,90,993,161,1023,204,1047,251,1067,299,1082,348,1102,438,1111,507"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#add2439c89f4cacfb1e5781ab0c83c9c1" title=" " alt="" coords="836,422,990,447"/>
-<area shape="poly" title=" " alt="" coords="1077,512,1037,488,990,462,959,450,959,445,992,458,1040,483,1083,512"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a41d1e1d09d1137708d8e133b3497d10f" title=" " alt="" coords="457,419,595,458"/>
-<area shape="poly" title=" " alt="" coords="1026,549,947,561,848,565,744,557,692,548,642,533,612,519,585,500,544,461,545,456,588,495,615,514,644,528,694,542,745,552,849,559,946,556,1031,548"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#affe0996c5cb6968d53cc75587322ef75" title=" " alt="" coords="844,618,982,643"/>
-<area shape="poly" title=" " alt="" coords="1073,552,941,620,939,615,1068,554"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ae35fccd5a5275a5bbc04e7493250c3f8" title=" " alt="" coords="844,888,982,912"/>
-<area shape="poly" title=" " alt="" coords="1107,559,1095,618,1073,692,1039,772,1018,811,993,847,968,871,941,890,939,885,965,867,989,844,1013,808,1034,770,1068,690,1090,616,1104,563"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a4be6a26aacc1a8089a44398a127e49f7" title=" " alt="" coords="643,789,787,814"/>
-<area shape="poly" title=" " alt="" coords="1109,559,1101,616,1081,683,1065,718,1046,750,1022,780,992,804,964,818,933,828,869,834,808,828,757,817,758,812,809,823,869,828,932,822,962,813,990,799,1018,776,1041,747,1061,715,1076,681,1096,614,1106,563"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a6f5282a1bc45b1933db1f0ad98459912" title=" " alt="" coords="835,692,991,716"/>
-<area shape="poly" title=" " alt="" coords="1092,556,1048,606,993,657,938,693,936,689,989,653,1044,602,1087,559"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ae611b079b35e66462c1d4579c4b701c7" title=" " alt="" coords="835,765,991,790"/>
-<area shape="poly" title=" " alt="" coords="1101,558,1059,641,1029,687,993,730,968,751,942,767,939,762,965,746,989,726,1024,684,1055,638,1097,562"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="462,292,590,316"/>
-<area shape="poly" title=" " alt="" coords="1105,504,1094,453,1074,388,1059,354,1040,322,1017,293,989,269,945,241,904,223,865,215,827,213,787,218,744,226,644,251,591,270,549,293,545,289,589,265,643,245,743,221,786,212,826,208,866,209,906,218,947,236,993,265,1021,289,1044,319,1063,352,1079,386,1099,452,1109,507"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="651,285,779,323"/>
-<area shape="poly" title=" " alt="" coords="1103,504,1092,459,1070,401,1055,372,1037,345,1015,321,990,301,965,289,939,281,884,274,829,278,781,287,779,282,828,273,884,269,940,275,967,284,992,296,1019,317,1041,341,1060,369,1075,399,1097,457,1108,507"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a75e8926f9aaf66b5d7c91fad8cbee430" title=" " alt="" coords="844,937,982,975"/>
-<area shape="poly" title=" " alt="" coords="1111,559,1106,633,1088,729,1073,781,1053,833,1026,882,993,926,977,939,975,934,989,922,1022,879,1048,831,1068,780,1083,728,1101,632,1108,563"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#afa277471262057a56dc3200024ea2311" title=" " alt="" coords="842,496,984,520"/>
-<area shape="poly" title=" " alt="" coords="1021,523,984,520,984,514,1026,522"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="850,335,976,374"/>
-<area shape="poly" title=" " alt="" coords="1092,507,1050,449,1022,417,989,389,971,377,971,372,993,385,1025,413,1055,446,1098,508"/>
-<area shape="poly" title=" " alt="" coords="746,145,737,141,715,138,695,140,685,145,682,150,689,159,683,159,677,151,681,141,694,135,715,133,739,136,752,145"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a7738968d5710cdb8467c9eaaa38e31fe" title=" " alt="" coords="466,154,586,193"/>
-<area shape="poly" title=" " alt="" coords="635,174,588,175,585,170,639,171"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a64b83eb9b71a1257ed10f21304a59a07" title=" " alt="" coords="469,67,583,106"/>
-<area shape="poly" title=" " alt="" coords="670,154,594,120,572,109,571,104,596,115,675,152"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,247,397,286"/>
-<area shape="poly" title=" " alt="" coords="651,190,596,207,399,253,396,248,595,201,655,187"/>
-<area shape="poly" title=" " alt="" coords="556,139,546,135,526,133,508,135,497,139,493,145,496,154,491,153,488,145,494,135,507,129,526,127,547,130,561,138"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,161,409,186"/>
-<area shape="poly" title=" " alt="" coords="448,175,411,176,408,171,453,172"/>
-<area shape="poly" title=" " alt="" coords="271,157,134,105,132,100,275,154"/>
-<area shape="poly" title=" " alt="" coords="556,53,546,48,526,46,508,48,497,53,493,59,496,67,491,67,488,58,494,49,507,43,526,41,547,43,561,51"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1ebf068ee3bd7bb1340613baf2a21c27" title=" " alt="" coords="252,67,394,106"/>
-<area shape="poly" title=" " alt="" coords="451,88,395,89,393,84,456,85"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,254,189,279"/>
-<area shape="poly" title=" " alt="" coords="231,268,191,269,188,264,236,265"/>
-<area shape="poly" title=" " alt="" coords="946,408,936,403,913,401,892,403,881,408,879,413,885,422,880,422,873,414,877,404,890,398,913,396,937,398,951,408"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a3ac4ff8a8237af144b67940528fcf35e" title=" " alt="" coords="645,426,785,451"/>
-<area shape="poly" title=" " alt="" coords="818,437,786,440,784,435,823,436"/>
-<area shape="poly" title=" " alt="" coords="746,412,737,407,715,405,695,407,685,412,682,417,689,426,683,426,677,418,681,408,694,402,715,400,739,402,752,411"/>
-<area shape="poly" title=" " alt="" coords="627,440,597,441,595,436,632,438"/>
-<area shape="poly" title=" " alt="" coords="946,603,936,599,913,597,892,599,881,604,879,609,885,619,880,617,873,610,877,600,890,594,913,592,937,594,951,604"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a5c451a0b3cd5fdf7e6f0f63a1156e794" title=" " alt="" coords="644,611,786,650"/>
-<area shape="poly" title=" " alt="" coords="826,631,787,633,786,628,831,630"/>
-<area shape="poly" title=" " alt="" coords="946,872,936,869,913,866,892,868,881,873,879,878,885,888,880,886,873,879,877,869,890,863,913,861,937,864,951,873"/>
-<area shape="poly" title=" " alt="" coords="870,880,741,817,742,812,875,881"/>
-<area shape="poly" title=" " alt="" coords="746,774,737,770,715,768,695,770,685,774,682,780,688,790,683,788,677,781,681,771,694,765,715,762,739,765,752,775"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a186ca7e66e3bf57d8aa1702996230611" title=" " alt="" coords="457,782,595,821"/>
-<area shape="poly" title=" " alt="" coords="625,802,596,804,595,799,630,801"/>
-<area shape="poly" title=" " alt="" coords="855,721,836,732,780,762,736,791,733,786,778,757,834,727,850,723"/>
-<area shape="poly" title=" " alt="" coords="946,677,936,673,913,670,892,672,881,677,879,682,885,692,880,691,873,683,877,673,890,667,913,665,937,668,951,677"/>
-<area shape="poly" title=" " alt="" coords="817,789,788,795,787,790,822,788"/>
-<area shape="poly" title=" " alt="" coords="946,750,936,746,913,744,892,746,881,750,879,756,885,766,880,764,873,757,877,747,890,741,913,738,937,741,951,751"/>
-<area shape="poly" title=" " alt="" coords="490,284,344,189,343,183,495,282"/>
-<area shape="poly" title=" " alt="" coords="444,291,398,283,396,278,449,288"/>
-<area shape="poly" title=" " alt="" coords="558,277,548,273,526,270,506,272,496,277,494,282,500,291,494,291,488,283,492,273,505,267,526,265,550,268,563,276"/>
-<area shape="poly" title=" " alt="" coords="633,305,591,306,589,302,638,303"/>
-<area shape="poly" title=" " alt="" coords="744,270,734,266,715,263,697,265,686,270,682,276,685,285,680,284,677,275,683,266,695,260,715,258,736,260,750,269"/>
-<area shape="poly" title=" " alt="" coords="858,491,753,454,752,449,864,490"/>
-<area shape="poly" title=" " alt="" coords="946,481,936,477,913,474,892,476,881,481,879,486,885,496,880,495,873,487,877,477,890,471,913,469,937,472,951,481"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a6b88e3f19e7cf2b3ab0c23de753bd649" title=" " alt="" coords="646,481,784,519"/>
-<area shape="poly" title=" " alt="" coords="823,505,785,505,784,500,828,504"/>
-<area shape="poly" title=" " alt="" coords="832,361,743,373,644,393,569,421,567,417,643,388,742,368,837,359"/>
-<area shape="poly" title=" " alt="" coords="833,336,780,323,779,318,838,334"/>
-<area shape="poly" title=" " alt="" coords="944,320,933,316,913,314,894,316,882,321,878,327,881,336,876,334,873,326,879,317,892,311,913,309,935,311,949,320"/>
+<area shape="rect" title=" " alt="" coords="1261,521,1407,546"/>
+<area shape="poly" title=" " alt="" coords="1367,506,1357,502,1334,500,1313,502,1302,507,1300,512,1306,522,1301,520,1294,513,1298,503,1312,497,1334,495,1359,497,1372,507"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a74155b83e1bae13d78065f7eba5534ac" title=" " alt="" coords="847,104,1009,129"/>
+<area shape="poly" title=" " alt="" coords="1329,505,1320,444,1301,363,1286,320,1266,277,1242,238,1212,204,1166,170,1113,147,1059,132,1010,124,1009,119,1061,127,1115,142,1168,166,1215,200,1246,235,1271,275,1291,318,1306,361,1325,443,1333,507"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="11,396,183,421"/>
+<area shape="poly" title=" " alt="" coords="1243,521,1098,507,1013,501,929,499,520,499,464,497,408,491,300,471,205,446,136,424,134,419,206,441,301,465,409,485,465,491,520,494,929,494,1013,496,1098,502,1248,520"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#aed057b4fdb3b84e9a557d03b1869fdd4" title=" " alt="" coords="1073,237,1197,262"/>
+<area shape="poly" title=" " alt="" coords="1323,505,1309,461,1286,404,1253,344,1211,290,1193,276,1174,265,1174,260,1196,271,1215,286,1258,341,1290,402,1314,460,1328,507"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#add2439c89f4cacfb1e5781ab0c83c9c1" title=" " alt="" coords="1058,557,1212,582"/>
+<area shape="poly" title=" " alt="" coords="1244,550,1208,559,1207,554,1250,549"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#affe0996c5cb6968d53cc75587322ef75" title=" " alt="" coords="859,29,997,54"/>
+<area shape="poly" title=" " alt="" coords="1330,504,1323,435,1306,340,1291,289,1270,239,1244,191,1211,149,1189,128,1163,110,1107,82,1050,63,998,52,997,47,1051,58,1109,77,1166,105,1192,124,1215,145,1249,188,1275,236,1296,287,1311,339,1329,434,1334,507"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ae35fccd5a5275a5bbc04e7493250c3f8" title=" " alt="" coords="1066,900,1204,925"/>
+<area shape="poly" title=" " alt="" coords="1330,559,1319,620,1296,697,1263,781,1241,822,1215,859,1190,884,1163,902,1161,897,1187,880,1211,856,1236,819,1258,779,1291,695,1313,619,1326,563"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a4be6a26aacc1a8089a44398a127e49f7" title=" " alt="" coords="856,801,1000,826"/>
+<area shape="poly" title=" " alt="" coords="1332,559,1324,618,1305,689,1290,725,1270,760,1245,791,1215,816,1185,831,1153,841,1120,846,1086,847,1022,841,970,829,970,824,1023,836,1086,842,1119,841,1152,836,1183,826,1212,811,1241,787,1265,757,1285,723,1300,687,1319,617,1329,563"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a6f5282a1bc45b1933db1f0ad98459912" title=" " alt="" coords="1057,704,1213,729"/>
+<area shape="poly" title=" " alt="" coords="1316,557,1272,612,1215,669,1161,706,1159,701,1212,665,1268,609,1312,560"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ae611b079b35e66462c1d4579c4b701c7" title=" " alt="" coords="1057,777,1213,802"/>
+<area shape="poly" title=" " alt="" coords="1324,559,1283,647,1252,697,1215,742,1190,763,1164,779,1162,774,1187,759,1211,738,1248,693,1278,644,1320,562"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="864,369,992,408"/>
+<area shape="poly" title=" " alt="" coords="1323,505,1310,466,1287,418,1255,371,1235,351,1212,335,1181,322,1147,317,1113,318,1078,324,1014,346,963,371,960,366,1012,341,1077,319,1112,312,1147,311,1182,317,1215,330,1238,347,1259,367,1292,415,1315,464,1328,508"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a59adb7539303ef29cb60d2f3a9fe5149" title=" " alt="" coords="633,376,799,401"/>
+<area shape="poly" title=" " alt="" coords="1294,514,1256,497,1213,480,1112,455,1031,445,950,438,846,422,769,404,768,399,847,416,950,432,1032,440,1113,450,1214,475,1258,492,1299,514"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a75e8926f9aaf66b5d7c91fad8cbee430" title=" " alt="" coords="1066,949,1204,988"/>
+<area shape="poly" title=" " alt="" coords="1334,559,1329,635,1312,734,1297,788,1276,842,1249,893,1215,938,1200,951,1198,946,1211,934,1245,890,1271,840,1292,787,1307,733,1324,634,1331,563"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#afa277471262057a56dc3200024ea2311" title=" " alt="" coords="1064,631,1206,655"/>
+<area shape="poly" title=" " alt="" coords="1299,553,1161,632,1159,628,1294,555"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="1072,369,1198,408"/>
+<area shape="poly" title=" " alt="" coords="1307,510,1265,471,1212,429,1181,411,1181,406,1215,425,1269,467,1313,511"/>
+<area shape="poly" title=" " alt="" coords="963,90,952,85,928,83,906,85,894,89,892,95,899,104,893,104,886,96,890,86,904,80,928,77,953,80,968,89"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a5c451a0b3cd5fdf7e6f0f63a1156e794" title=" " alt="" coords="645,22,787,61"/>
+<area shape="poly" title=" " alt="" coords="874,99,774,64,773,59,879,98"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,187,409,211"/>
+<area shape="poly" title=" " alt="" coords="829,106,750,102,655,101,555,108,458,127,424,139,392,155,343,188,339,184,389,151,422,134,456,122,555,103,655,96,750,96,834,103"/>
+<area shape="poly" title=" " alt="" coords="286,222,238,261,214,288,191,317,113,397,109,394,187,313,210,284,235,257,289,218"/>
+<area shape="poly" title=" " alt="" coords="1107,227,1063,190,1008,152,966,132,966,127,1010,147,1066,186,1112,227"/>
+<area shape="poly" title=" " alt="" coords="1168,223,1158,218,1135,216,1114,218,1103,223,1101,228,1107,237,1102,237,1095,229,1099,219,1113,213,1135,211,1160,213,1174,223"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a7738968d5710cdb8467c9eaaa38e31fe" title=" " alt="" coords="461,161,581,200"/>
+<area shape="poly" title=" " alt="" coords="1096,230,1056,212,1008,196,891,178,774,171,667,172,583,177,581,172,666,167,774,166,892,172,1010,191,1058,207,1102,229"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a64b83eb9b71a1257ed10f21304a59a07" title=" " alt="" coords="871,230,985,269"/>
+<area shape="poly" title=" " alt="" coords="1055,251,986,252,985,247,1060,249"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,272,397,310"/>
+<area shape="poly" title=" " alt="" coords="1074,268,1009,283,838,298,668,303,515,302,399,298,396,293,515,297,667,298,838,293,1009,278,1079,265"/>
+<area shape="poly" title=" " alt="" coords="443,189,411,193,408,189,448,186"/>
+<area shape="poly" title=" " alt="" coords="552,146,541,142,521,140,502,142,491,146,487,152,490,161,485,160,482,151,488,142,501,136,521,134,543,137,557,145"/>
+<area shape="poly" title=" " alt="" coords="960,215,949,211,928,209,908,211,896,216,892,222,894,231,889,229,886,221,893,212,906,206,928,204,951,206,966,215"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1ebf068ee3bd7bb1340613baf2a21c27" title=" " alt="" coords="645,230,787,269"/>
+<area shape="poly" title=" " alt="" coords="853,251,788,252,786,247,858,249"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,279,189,303"/>
+<area shape="poly" title=" " alt="" coords="231,293,191,293,188,289,236,289"/>
+<area shape="poly" title=" " alt="" coords="1168,542,1158,538,1135,536,1114,538,1103,543,1101,548,1107,558,1102,556,1095,549,1099,539,1113,533,1135,531,1160,533,1174,543"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a3ac4ff8a8237af144b67940528fcf35e" title=" " alt="" coords="858,565,998,590"/>
+<area shape="poly" title=" " alt="" coords="1041,574,999,578,998,572,1046,573"/>
+<area shape="poly" title=" " alt="" coords="962,551,952,546,928,544,906,546,894,551,892,556,898,566,893,564,886,557,890,547,904,541,928,539,953,541,968,551"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a41d1e1d09d1137708d8e133b3497d10f" title=" " alt="" coords="647,558,785,597"/>
+<area shape="poly" title=" " alt="" coords="840,578,786,580,785,575,845,577"/>
+<area shape="poly" title=" " alt="" coords="840,43,788,44,786,39,845,40"/>
+<area shape="poly" title=" " alt="" coords="963,15,952,10,928,8,906,10,894,15,892,20,899,29,893,29,886,21,890,11,904,5,928,3,953,5,968,14"/>
+<area shape="poly" title=" " alt="" coords="1168,885,1158,881,1135,879,1114,881,1103,885,1101,891,1107,901,1102,899,1095,892,1099,882,1113,876,1135,873,1160,876,1174,886"/>
+<area shape="poly" title=" " alt="" coords="1091,893,955,829,956,824,1096,893"/>
+<area shape="poly" title=" " alt="" coords="963,786,952,782,928,780,906,782,894,787,892,792,898,802,893,800,886,793,890,783,904,777,928,775,953,777,968,787"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a186ca7e66e3bf57d8aa1702996230611" title=" " alt="" coords="647,794,785,833"/>
+<area shape="poly" title=" " alt="" coords="838,814,786,816,785,811,843,813"/>
+<area shape="poly" title=" " alt="" coords="1078,733,1058,744,999,774,950,803,948,798,996,770,1056,739,1073,735"/>
+<area shape="poly" title=" " alt="" coords="1168,689,1158,685,1135,683,1114,685,1103,689,1101,695,1107,705,1102,703,1095,696,1099,686,1113,680,1135,677,1160,680,1174,690"/>
+<area shape="poly" title=" " alt="" coords="1039,801,1000,808,1000,803,1044,800"/>
+<area shape="poly" title=" " alt="" coords="1168,762,1158,758,1135,756,1114,758,1103,763,1101,768,1107,778,1102,776,1095,769,1099,759,1113,753,1135,751,1160,753,1174,763"/>
+<area shape="poly" title=" " alt="" coords="960,354,949,350,928,348,908,350,896,354,892,360,894,370,889,368,886,359,893,350,906,344,928,342,951,345,966,353"/>
+<area shape="poly" title=" " alt="" coords="846,389,800,391,798,386,851,387"/>
+<area shape="poly" title=" " alt="" coords="748,362,739,357,716,355,695,357,684,361,682,367,689,376,683,375,677,368,681,358,694,352,716,349,740,352,754,361"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="457,248,585,273"/>
+<area shape="poly" title=" " alt="" coords="680,368,541,276,541,270,685,366"/>
+<area shape="poly" title=" " alt="" coords="462,244,366,214,365,209,467,242"/>
+<area shape="poly" title=" " alt="" coords="440,274,399,282,396,277,444,271"/>
+<area shape="poly" title=" " alt="" coords="554,234,544,229,521,227,500,229,490,233,487,239,494,248,488,248,482,240,486,230,499,224,521,221,545,224,559,233"/>
+<area shape="poly" title=" " alt="" coords="1076,626,970,593,970,588,1081,625"/>
+<area shape="poly" title=" " alt="" coords="1168,616,1158,612,1135,609,1114,611,1103,616,1101,621,1107,631,1102,630,1095,622,1099,612,1113,606,1135,604,1160,607,1174,616"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a6b88e3f19e7cf2b3ab0c23de753bd649" title=" " alt="" coords="859,624,997,662"/>
+<area shape="poly" title=" " alt="" coords="1046,643,998,646,997,640,1051,643"/>
+<area shape="poly" title=" " alt="" coords="1054,389,993,391,992,386,1059,388"/>
+<area shape="poly" title=" " alt="" coords="1166,354,1156,350,1135,348,1116,350,1105,354,1101,360,1103,370,1098,368,1095,359,1101,350,1115,344,1135,342,1157,345,1172,354"/>
 </map>
 </div>
 
@@ -1274,45 +1355,48 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_ac606089c222cd93c2f59fc29a8f57cfb_cgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_ac606089c222cd93c2f59fc29a8f57cfb_cgraph" loading="lazy" alt=""/></div>
 <map name="ad9/dd5/namespaceini_1_1detail_ac606089c222cd93c2f59fc29a8f57cfb_cgraph" id="ad9/dd5/namespaceini_1_1detail_ac606089c222cd93c2f59fc29a8f57cfb_cgraph">
 <area shape="rect" title=" " alt="" coords="5,100,134,125"/>
-<area shape="poly" title=" " alt="" coords="40,100,34,91,37,82,49,76,70,73,92,76,104,84,99,86,90,81,69,79,51,81,41,85,39,91,45,99"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a5fd15479d4956566416ec05702c0ea7f" title=" " alt="" coords="531,29,677,54"/>
-<area shape="poly" title=" " alt="" coords="88,98,130,74,181,54,269,37,359,30,443,29,518,33,513,35,443,34,359,35,270,43,182,59,132,79,92,101"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="182,93,310,132"/>
+<area shape="poly" title=" " alt="" coords="37,100,30,92,34,82,47,76,70,73,94,76,107,84,102,86,92,81,69,79,49,81,38,85,36,91,42,99"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a59adb7539303ef29cb60d2f3a9fe5149" title=" " alt="" coords="182,100,347,125"/>
 <area shape="poly" title=" " alt="" coords="133,110,168,111,164,114,135,115"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a8d39afb03e0e9a49593090e8f7eaa6c7" title=" " alt="" coords="550,176,658,214"/>
-<area shape="poly" title=" " alt="" coords="112,123,182,140,277,158,373,171,537,189,532,191,373,176,277,163,181,146,113,128"/>
-<area shape="poly" title=" " alt="" coords="574,28,568,21,571,11,583,5,604,3,627,5,639,15,634,15,625,10,604,8,585,10,575,15,573,20,579,30"/>
-<area shape="poly" title=" " alt="" coords="309,91,357,79,519,52,514,55,359,84,311,96"/>
-<area shape="poly" title=" " alt="" coords="213,92,210,84,216,74,228,68,246,66,265,69,278,77,273,78,264,74,246,72,229,74,219,78,216,84,218,93"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="358,118,483,157"/>
-<area shape="poly" title=" " alt="" coords="310,119,345,126,340,127,311,124"/>
-<area shape="poly" title=" " alt="" coords="447,116,486,90,530,65,549,59,545,61,533,69,488,94,450,120"/>
-<area shape="poly" title=" " alt="" coords="388,117,385,109,390,100,402,94,421,92,440,94,453,103,448,103,439,99,421,97,404,99,394,104,391,110,393,119"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#adf855ed7349198d0132fdd413c6dd8eb" title=" " alt="" coords="537,103,671,127"/>
-<area shape="poly" title=" " alt="" coords="483,127,524,125,519,126,484,133"/>
-<area shape="poly" title=" " alt="" coords="484,155,538,173,533,174,484,160"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a5e7bc6cda32024aafcfcfc1275f397c2" title=" " alt="" coords="550,262,658,301"/>
-<area shape="poly" title=" " alt="" coords="447,155,533,225,567,253,562,252,530,229,445,160"/>
-<area shape="poly" title=" " alt="" coords="574,102,568,94,571,84,583,78,604,76,627,79,639,88,634,88,625,84,604,81,585,83,575,88,573,93,579,103"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac32f270e9f3545dd579c050901ff484f" title=" " alt="" coords="893,185,1028,210"/>
-<area shape="poly" title=" " alt="" coords="668,99,708,95,754,93,800,97,846,107,874,120,899,136,941,175,935,173,896,141,871,124,844,112,800,102,754,98,709,100,669,105"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a0a397eb526c29707788346f0f6f094a4" title=" " alt="" coords="725,219,845,243"/>
-<area shape="poly" title=" " alt="" coords="653,125,678,137,704,157,726,180,759,209,754,208,723,184,700,161,675,141,652,131"/>
-<area shape="rect" href="../../d8/d7b/namespaceini.html#a27168fa772e66a8dcd5dbb78ac79c2aa" title=" " alt="" coords="753,145,817,170"/>
-<area shape="poly" title=" " alt="" coords="659,125,740,146,735,147,659,131"/>
-<area shape="poly" title=" " alt="" coords="931,184,925,177,928,167,941,161,961,159,983,161,995,171,990,170,981,166,961,164,942,166,932,171,930,176,936,186"/>
-<area shape="poly" title=" " alt="" coords="755,217,749,210,753,200,765,194,785,192,807,195,819,204,814,203,805,200,785,197,766,199,757,204,755,209,760,219"/>
-<area shape="poly" title=" " alt="" coords="755,144,749,137,753,127,765,121,785,119,807,121,819,131,814,130,805,126,785,124,766,126,757,131,755,136,760,146"/>
-<area shape="poly" title=" " alt="" coords="658,203,712,216,707,216,658,208"/>
-<area shape="poly" title=" " alt="" coords="658,181,740,167,735,168,659,187"/>
-<area shape="poly" title=" " alt="" coords="570,174,568,166,573,157,585,151,604,149,624,151,637,161,632,160,623,157,604,154,587,156,576,161,573,167,575,177"/>
-<area shape="poly" title=" " alt="" coords="658,264,721,248,727,247,659,269"/>
-<area shape="poly" title=" " alt="" coords="631,259,675,225,698,202,723,181,736,176,741,174,726,185,702,206,678,229,634,264"/>
-<area shape="poly" title=" " alt="" coords="570,261,568,253,573,244,585,238,604,236,624,238,637,247,632,246,623,243,604,241,587,243,576,248,573,254,575,264"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a77288b82c86116589932b83d855c7f94" title=" " alt="" coords="729,292,840,330"/>
-<area shape="poly" title=" " alt="" coords="658,288,716,300,711,299,658,293"/>
-<area shape="poly" title=" " alt="" coords="815,289,925,219,930,218,817,294"/>
-<area shape="poly" title=" " alt="" coords="752,290,749,282,754,273,767,267,785,265,805,268,817,277,812,276,803,273,785,270,768,272,758,277,755,283,756,293"/>
+<area shape="poly" title=" " alt="" coords="232,100,225,92,229,82,242,76,264,73,289,76,302,85,297,86,287,81,264,79,244,81,233,85,231,91,237,100"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a5fd15479d4956566416ec05702c0ea7f" title=" " alt="" coords="745,29,890,54"/>
+<area shape="poly" title=" " alt="" coords="287,97,335,74,394,54,483,39,572,32,657,31,732,35,727,36,657,36,573,37,483,44,396,59,337,79,290,102"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="395,93,523,132"/>
+<area shape="poly" title=" " alt="" coords="347,110,382,112,377,113,348,115"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a8d39afb03e0e9a49593090e8f7eaa6c7" title=" " alt="" coords="764,176,871,214"/>
+<area shape="poly" title=" " alt="" coords="315,123,395,140,587,170,751,189,746,190,586,175,395,146,315,128"/>
+<area shape="poly" title=" " alt="" coords="787,28,781,21,784,11,797,5,817,3,840,5,853,15,847,14,838,10,817,8,798,10,788,15,786,20,792,30"/>
+<area shape="poly" title=" " alt="" coords="523,91,571,79,732,53,727,54,572,84,524,96"/>
+<area shape="poly" title=" " alt="" coords="426,92,424,84,429,74,441,68,459,66,479,69,492,78,486,78,477,74,459,72,442,74,433,78,429,84,431,94"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="571,118,697,157"/>
+<area shape="poly" title=" " alt="" coords="523,119,558,126,553,127,524,124"/>
+<area shape="poly" title=" " alt="" coords="661,115,699,90,743,65,758,61,763,59,746,69,702,94,663,120"/>
+<area shape="poly" title=" " alt="" coords="601,117,599,109,604,100,616,94,634,92,654,94,666,103,661,103,652,99,634,97,617,99,607,104,604,110,606,119"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#adf855ed7349198d0132fdd413c6dd8eb" title=" " alt="" coords="750,103,884,127"/>
+<area shape="poly" title=" " alt="" coords="696,127,737,125,732,126,698,133"/>
+<area shape="poly" title=" " alt="" coords="697,155,751,174,746,174,697,160"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a5e7bc6cda32024aafcfcfc1275f397c2" title=" " alt="" coords="764,262,871,301"/>
+<area shape="poly" title=" " alt="" coords="660,155,746,225,781,253,775,252,743,229,658,160"/>
+<area shape="poly" title=" " alt="" coords="787,101,781,94,784,84,797,78,817,76,840,79,853,88,847,88,838,84,817,81,798,83,788,88,786,93,792,103"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac32f270e9f3545dd579c050901ff484f" title=" " alt="" coords="1106,185,1242,210"/>
+<area shape="poly" title=" " alt="" coords="881,99,922,95,967,93,1014,97,1059,107,1087,120,1112,136,1154,175,1149,173,1109,141,1084,124,1057,112,1013,102,967,98,922,100,882,105"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a0a397eb526c29707788346f0f6f094a4" title=" " alt="" coords="938,219,1058,243"/>
+<area shape="poly" title=" " alt="" coords="866,125,891,137,917,157,940,180,972,209,967,208,936,184,913,161,889,141,866,131"/>
+<area shape="rect" href="../../d8/d7b/namespaceini.html#a27168fa772e66a8dcd5dbb78ac79c2aa" title=" " alt="" coords="966,145,1030,170"/>
+<area shape="poly" title=" " alt="" coords="873,125,953,147,948,147,873,131"/>
+<area shape="poly" title=" " alt="" coords="1144,184,1139,177,1142,167,1154,161,1174,159,1196,161,1208,171,1203,170,1194,166,1174,164,1155,166,1146,171,1144,176,1149,186"/>
+<area shape="poly" title=" " alt="" coords="969,217,963,210,966,200,978,194,998,192,1020,195,1032,205,1027,203,1018,200,998,197,980,199,970,204,968,209,973,219"/>
+<area shape="poly" title=" " alt="" coords="969,144,963,137,966,127,978,121,998,119,1020,121,1032,131,1027,130,1018,126,998,124,980,126,970,131,968,136,974,146"/>
+<area shape="poly" title=" " alt="" coords="872,203,925,216,920,216,872,208"/>
+<area shape="poly" title=" " alt="" coords="871,181,948,168,953,167,872,187"/>
+<area shape="poly" title=" " alt="" coords="784,174,781,166,786,157,799,151,817,149,838,151,851,161,845,160,836,157,817,154,800,156,790,161,786,167,788,177"/>
+<area shape="poly" title=" " alt="" coords="871,264,935,248,940,247,872,269"/>
+<area shape="poly" title=" " alt="" coords="845,259,888,225,911,202,936,181,950,176,955,174,940,185,915,206,892,229,847,264"/>
+<area shape="poly" title=" " alt="" coords="784,261,781,253,786,244,799,238,817,236,838,238,851,247,845,246,836,243,817,241,800,243,790,248,786,254,788,264"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a77288b82c86116589932b83d855c7f94" title=" " alt="" coords="942,292,1054,330"/>
+<area shape="poly" title=" " alt="" coords="872,288,929,300,924,299,871,293"/>
+<area shape="poly" title=" " alt="" coords="1029,289,1138,219,1143,218,1031,294"/>
+<area shape="poly" title=" " alt="" coords="965,290,963,282,968,273,980,267,998,265,1018,268,1031,277,1025,276,1016,273,998,270,981,272,971,277,968,283,970,293"/>
 </map>
 </div>
 <div class="dynheader">
@@ -1412,11 +1496,14 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_ad62149e066cee9425520ae58f5527b3b_icgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_ad62149e066cee9425520ae58f5527b3b_icgraph" loading="lazy" alt=""/></div>
 <map name="ad9/dd5/namespaceini_1_1detail_ad62149e066cee9425520ae58f5527b3b_icgraph" id="ad9/dd5/namespaceini_1_1detail_ad62149e066cee9425520ae58f5527b3b_icgraph">
-<area shape="rect" title=" " alt="" coords="633,29,762,68"/>
-<area shape="poly" title=" " alt="" coords="725,13,716,10,697,8,681,10,671,15,667,21,669,31,665,28,662,20,667,11,679,5,698,3,717,5,730,14"/>
+<area shape="rect" title=" " alt="" coords="847,29,975,68"/>
+<area shape="poly" title=" " alt="" coords="941,13,931,10,911,8,892,10,881,15,877,21,879,31,875,28,872,20,877,11,891,5,911,3,933,5,947,14"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a59adb7539303ef29cb60d2f3a9fe5149" title=" " alt="" coords="633,36,799,61"/>
+<area shape="poly" title=" " alt="" coords="828,49,799,51,799,46,834,49"/>
+<area shape="poly" title=" " alt="" coords="748,21,739,17,716,15,695,17,684,22,682,27,688,37,684,35,677,28,681,18,694,12,716,10,740,12,754,22"/>
 <area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="457,36,585,61"/>
-<area shape="poly" title=" " alt="" coords="615,49,586,51,586,46,621,49"/>
-<area shape="poly" title=" " alt="" coords="550,21,541,17,521,15,503,17,493,22,491,27,496,37,492,35,486,28,489,18,501,12,521,10,543,12,556,22"/>
+<area shape="poly" title=" " alt="" coords="615,49,586,51,585,46,621,49"/>
+<area shape="poly" title=" " alt="" coords="554,21,544,17,521,15,500,17,490,22,487,27,494,37,489,35,482,28,486,18,499,12,521,10,545,12,559,22"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,8,409,33"/>
 <area shape="poly" title=" " alt="" coords="439,38,409,36,410,30,444,37"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,57,397,96"/>
@@ -1425,6 +1512,102 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="219,21,184,23,183,18,224,20"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,64,189,89"/>
 <area shape="poly" title=" " alt="" coords="231,77,189,79,189,74,236,76"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a59adb7539303ef29cb60d2f3a9fe5149" name="a59adb7539303ef29cb60d2f3a9fe5149"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59adb7539303ef29cb60d2f3a9fe5149">&#9670;&#160;</a></span>serialized_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto ini::detail::serialized_size </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a071d9227f933ce8f25cb86375181f7b5">data_map</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../db/d42/structini_1_1parse__options.html">parse_options</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>options</em></span>&#160;) -&gt; <a class="el" href="../../d8/d7b/namespaceini.html#ace357a3478a38901cfd48d90cc89b016">result</a>&lt; std::size_t &gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_a59adb7539303ef29cb60d2f3a9fe5149_cgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_a59adb7539303ef29cb60d2f3a9fe5149_cgraph" loading="lazy" alt=""/></div>
+<map name="ad9/dd5/namespaceini_1_1detail_a59adb7539303ef29cb60d2f3a9fe5149_cgraph" id="ad9/dd5/namespaceini_1_1detail_a59adb7539303ef29cb60d2f3a9fe5149_cgraph">
+<area shape="rect" title=" " alt="" coords="5,100,171,125"/>
+<area shape="poly" title=" " alt="" coords="55,100,49,92,53,82,66,76,88,73,112,76,126,84,121,86,111,81,88,79,67,81,56,85,54,91,61,99"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a5fd15479d4956566416ec05702c0ea7f" title=" " alt="" coords="568,29,714,54"/>
+<area shape="poly" title=" " alt="" coords="110,97,159,74,218,54,306,39,396,32,480,31,555,35,550,36,480,36,396,37,307,44,219,59,161,79,114,102"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="219,93,347,132"/>
+<area shape="poly" title=" " alt="" coords="170,110,206,111,201,114,172,115"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a8d39afb03e0e9a49593090e8f7eaa6c7" title=" " alt="" coords="587,176,695,214"/>
+<area shape="poly" title=" " alt="" coords="138,123,219,140,411,170,575,189,569,190,410,175,218,146,139,128"/>
+<area shape="poly" title=" " alt="" coords="611,28,605,21,608,11,620,5,641,3,664,5,676,15,671,15,662,10,641,8,622,10,612,15,610,20,616,30"/>
+<area shape="poly" title=" " alt="" coords="346,91,394,79,556,52,551,55,396,84,348,96"/>
+<area shape="poly" title=" " alt="" coords="250,92,247,84,253,74,265,68,283,66,302,69,315,77,310,78,301,74,283,72,266,74,256,78,253,84,255,93"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="395,118,520,157"/>
+<area shape="poly" title=" " alt="" coords="347,119,382,126,377,127,348,124"/>
+<area shape="poly" title=" " alt="" coords="484,115,523,90,567,65,586,59,582,61,570,69,525,94,487,120"/>
+<area shape="poly" title=" " alt="" coords="425,117,422,109,427,100,439,94,458,92,477,94,490,103,485,103,476,99,458,97,441,99,431,104,428,110,430,119"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#adf855ed7349198d0132fdd413c6dd8eb" title=" " alt="" coords="574,103,708,127"/>
+<area shape="poly" title=" " alt="" coords="520,127,561,125,556,126,521,133"/>
+<area shape="poly" title=" " alt="" coords="521,155,575,173,570,174,521,160"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a5e7bc6cda32024aafcfcfc1275f397c2" title=" " alt="" coords="587,262,695,301"/>
+<area shape="poly" title=" " alt="" coords="484,155,570,225,604,253,599,252,567,229,482,160"/>
+<area shape="poly" title=" " alt="" coords="611,102,605,94,608,84,620,78,641,76,664,79,676,88,671,88,662,84,641,81,622,83,612,88,610,93,616,103"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac32f270e9f3545dd579c050901ff484f" title=" " alt="" coords="930,185,1065,210"/>
+<area shape="poly" title=" " alt="" coords="705,99,745,95,791,93,837,97,883,107,911,120,936,136,978,175,972,173,933,141,908,124,881,112,837,102,791,98,746,100,706,105"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a0a397eb526c29707788346f0f6f094a4" title=" " alt="" coords="762,219,882,243"/>
+<area shape="poly" title=" " alt="" coords="690,125,715,137,741,157,763,180,796,209,791,208,760,184,737,161,712,141,689,131"/>
+<area shape="rect" href="../../d8/d7b/namespaceini.html#a27168fa772e66a8dcd5dbb78ac79c2aa" title=" " alt="" coords="790,145,854,170"/>
+<area shape="poly" title=" " alt="" coords="696,125,777,146,772,147,696,131"/>
+<area shape="poly" title=" " alt="" coords="968,184,962,177,965,167,978,161,998,159,1020,161,1032,171,1027,170,1018,166,998,164,979,166,969,171,967,176,973,186"/>
+<area shape="poly" title=" " alt="" coords="792,217,786,210,790,200,802,194,822,192,844,195,856,204,851,203,842,200,822,197,803,199,794,204,792,209,797,219"/>
+<area shape="poly" title=" " alt="" coords="792,144,786,137,790,127,802,121,822,119,844,121,856,131,851,130,842,126,822,124,803,126,794,131,792,136,797,146"/>
+<area shape="poly" title=" " alt="" coords="695,203,749,216,744,216,695,208"/>
+<area shape="poly" title=" " alt="" coords="695,181,777,167,772,168,696,187"/>
+<area shape="poly" title=" " alt="" coords="607,174,605,166,610,157,622,151,641,149,661,151,674,161,669,160,660,157,641,154,624,156,613,161,610,167,612,177"/>
+<area shape="poly" title=" " alt="" coords="695,264,758,248,764,247,696,269"/>
+<area shape="poly" title=" " alt="" coords="668,259,712,225,735,202,760,181,773,176,778,174,763,185,739,206,715,229,671,264"/>
+<area shape="poly" title=" " alt="" coords="607,261,605,253,610,244,622,238,641,236,661,238,674,247,669,246,660,243,641,241,624,243,613,248,610,254,612,264"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a77288b82c86116589932b83d855c7f94" title=" " alt="" coords="766,292,878,330"/>
+<area shape="poly" title=" " alt="" coords="695,288,753,300,748,299,695,293"/>
+<area shape="poly" title=" " alt="" coords="852,289,962,219,967,218,854,294"/>
+<area shape="poly" title=" " alt="" coords="789,290,786,282,791,273,804,267,822,265,842,268,854,277,849,276,840,273,822,270,805,272,795,277,792,283,793,293"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_a59adb7539303ef29cb60d2f3a9fe5149_icgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_a59adb7539303ef29cb60d2f3a9fe5149_icgraph" loading="lazy" alt=""/></div>
+<map name="ad9/dd5/namespaceini_1_1detail_a59adb7539303ef29cb60d2f3a9fe5149_icgraph" id="ad9/dd5/namespaceini_1_1detail_a59adb7539303ef29cb60d2f3a9fe5149_icgraph">
+<area shape="rect" title=" " alt="" coords="633,33,799,58"/>
+<area shape="poly" title=" " alt="" coords="748,18,739,14,716,12,695,14,684,19,682,24,688,34,684,32,677,25,681,15,694,9,716,7,740,9,754,19"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="457,33,585,58"/>
+<area shape="poly" title=" " alt="" coords="615,46,586,48,585,43,621,46"/>
+<area shape="poly" title=" " alt="" coords="554,18,544,14,521,12,500,14,490,19,487,24,494,34,489,32,482,25,486,15,499,9,521,7,545,9,559,19"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,5,409,30"/>
+<area shape="poly" title=" " alt="" coords="439,35,409,33,410,27,444,34"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,54,397,93"/>
+<area shape="poly" title=" " alt="" coords="445,57,398,66,397,61,439,57"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="11,5,183,30"/>
+<area shape="poly" title=" " alt="" coords="219,18,184,20,183,15,224,17"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,61,189,86"/>
+<area shape="poly" title=" " alt="" coords="231,74,189,76,189,71,236,73"/>
 </map>
 </div>
 
@@ -1589,25 +1772,26 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_adf855ed7349198d0132fdd413c6dd8eb_icgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_adf855ed7349198d0132fdd413c6dd8eb_icgraph" loading="lazy" alt=""/></div>
 <map name="ad9/dd5/namespaceini_1_1detail_adf855ed7349198d0132fdd413c6dd8eb_icgraph" id="ad9/dd5/namespaceini_1_1detail_adf855ed7349198d0132fdd413c6dd8eb_icgraph">
-<area shape="rect" title=" " alt="" coords="993,68,1127,93"/>
-<area shape="poly" title=" " alt="" coords="1090,53,1081,49,1060,47,1041,49,1032,54,1030,59,1035,69,1030,67,1024,60,1028,50,1040,44,1060,42,1082,44,1095,54"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="820,61,945,100"/>
-<area shape="poly" title=" " alt="" coords="975,81,945,83,945,78,980,81"/>
-<area shape="poly" title=" " alt="" coords="910,45,901,42,882,40,865,42,855,47,852,53,854,63,849,60,846,52,852,43,864,37,882,35,902,37,915,46"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="638,29,767,68"/>
-<area shape="poly" title=" " alt="" coords="802,67,767,63,767,57,807,67"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a41d1e1d09d1137708d8e133b3497d10f" title=" " alt="" coords="633,92,772,131"/>
-<area shape="poly" title=" " alt="" coords="807,94,772,102,772,97,802,94"/>
-<area shape="poly" title=" " alt="" coords="730,13,721,10,702,8,685,10,675,15,672,21,673,30,669,28,666,20,672,11,684,5,703,3,723,5,736,14"/>
+<area shape="rect" title=" " alt="" coords="1196,36,1331,61"/>
+<area shape="poly" title=" " alt="" coords="1293,21,1284,17,1263,15,1245,17,1235,22,1233,27,1238,37,1234,35,1228,28,1231,18,1243,12,1264,10,1286,12,1298,22"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="1023,29,1148,68"/>
+<area shape="poly" title=" " alt="" coords="1178,49,1149,51,1149,46,1183,49"/>
+<area shape="poly" title=" " alt="" coords="1113,13,1104,10,1086,8,1069,10,1059,15,1056,21,1057,31,1053,28,1050,20,1055,11,1067,5,1086,3,1105,5,1118,14"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="847,29,975,68"/>
+<area shape="poly" title=" " alt="" coords="1005,49,975,51,975,46,1010,49"/>
+<area shape="poly" title=" " alt="" coords="938,13,929,10,911,8,894,10,884,15,881,21,883,31,878,28,875,20,881,11,893,5,911,3,930,5,943,14"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a59adb7539303ef29cb60d2f3a9fe5149" title=" " alt="" coords="633,36,799,61"/>
+<area shape="poly" title=" " alt="" coords="828,49,799,51,799,46,834,49"/>
+<area shape="poly" title=" " alt="" coords="748,21,739,17,716,15,695,17,684,22,682,27,688,37,684,35,677,28,681,18,694,12,716,10,740,12,754,22"/>
 <area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="457,36,585,61"/>
-<area shape="poly" title=" " alt="" coords="620,49,586,51,586,46,625,48"/>
-<area shape="poly" title=" " alt="" coords="551,21,542,17,521,15,502,17,492,22,490,27,496,37,491,35,485,28,488,18,501,12,521,10,544,12,556,22"/>
+<area shape="poly" title=" " alt="" coords="615,49,586,51,585,46,621,49"/>
+<area shape="poly" title=" " alt="" coords="554,21,544,17,521,15,500,17,490,22,487,27,494,37,489,35,482,28,486,18,499,12,521,10,545,12,559,22"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,8,409,33"/>
-<area shape="poly" title=" " alt="" coords="439,38,410,36,409,30,444,37"/>
+<area shape="poly" title=" " alt="" coords="439,38,409,36,410,30,444,37"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,57,397,96"/>
-<area shape="poly" title=" " alt="" coords="439,60,398,69,397,64,445,59"/>
+<area shape="poly" title=" " alt="" coords="445,60,398,69,397,64,439,60"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="11,8,183,33"/>
-<area shape="poly" title=" " alt="" coords="219,22,184,23,183,18,224,20"/>
+<area shape="poly" title=" " alt="" coords="219,21,184,23,183,18,224,20"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,64,189,89"/>
 <area shape="poly" title=" " alt="" coords="231,77,189,79,189,74,236,76"/>
 </map>
@@ -1651,13 +1835,21 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_a6486bd3ef3375de9384e2a1c21b90586_icgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_a6486bd3ef3375de9384e2a1c21b90586_icgraph" loading="lazy" alt=""/></div>
 <map name="ad9/dd5/namespaceini_1_1detail_a6486bd3ef3375de9384e2a1c21b90586_icgraph" id="ad9/dd5/namespaceini_1_1detail_a6486bd3ef3375de9384e2a1c21b90586_icgraph">
-<area shape="rect" title=" " alt="" coords="381,29,520,54"/>
-<area shape="poly" title=" " alt="" coords="482,14,472,10,451,8,431,10,421,15,418,20,424,30,419,28,413,21,417,11,429,5,451,3,474,5,487,15"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#affe0996c5cb6968d53cc75587322ef75" title=" " alt="" coords="195,29,333,54"/>
-<area shape="poly" title=" " alt="" coords="363,42,333,44,333,39,368,42"/>
-<area shape="poly" title=" " alt="" coords="295,14,285,10,264,8,244,10,234,15,232,20,238,30,233,28,226,21,230,11,243,5,264,3,287,5,300,15"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a5c451a0b3cd5fdf7e6f0f63a1156e794" title=" " alt="" coords="5,22,147,61"/>
-<area shape="poly" title=" " alt="" coords="176,42,147,44,147,39,181,41"/>
+<area shape="rect" title=" " alt="" coords="656,67,796,91"/>
+<area shape="poly" title=" " alt="" coords="759,51,749,48,726,45,705,47,694,52,692,57,698,67,693,65,686,58,690,48,704,42,726,40,751,43,764,52"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a74155b83e1bae13d78065f7eba5534ac" title=" " alt="" coords="446,103,608,127"/>
+<area shape="poly" title=" " alt="" coords="644,94,599,105,599,99,638,95"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#affe0996c5cb6968d53cc75587322ef75" title=" " alt="" coords="458,29,596,54"/>
+<area shape="poly" title=" " alt="" coords="639,63,596,57,597,52,644,63"/>
+<area shape="poly" title=" " alt="" coords="560,87,550,84,527,81,506,83,495,88,493,93,499,103,494,101,487,94,491,84,505,78,527,76,552,79,566,89"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a5c451a0b3cd5fdf7e6f0f63a1156e794" title=" " alt="" coords="241,32,382,70"/>
+<area shape="poly" title=" " alt="" coords="466,98,379,74,380,68,471,98"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="226,103,398,127"/>
+<area shape="poly" title=" " alt="" coords="428,115,399,118,399,112,433,115"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="5,103,178,127"/>
+<area shape="poly" title=" " alt="" coords="207,115,178,118,178,112,213,115"/>
+<area shape="poly" title=" " alt="" coords="440,46,383,51,383,45,445,45"/>
+<area shape="poly" title=" " alt="" coords="560,14,550,10,527,8,506,10,495,15,493,20,499,30,494,28,487,21,491,11,505,5,527,3,552,5,566,15"/>
 </map>
 </div>
 
@@ -1705,30 +1897,31 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_a8d39afb03e0e9a49593090e8f7eaa6c7_icgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_a8d39afb03e0e9a49593090e8f7eaa6c7_icgraph" loading="lazy" alt=""/></div>
 <map name="ad9/dd5/namespaceini_1_1detail_a8d39afb03e0e9a49593090e8f7eaa6c7_icgraph" id="ad9/dd5/namespaceini_1_1detail_a8d39afb03e0e9a49593090e8f7eaa6c7_icgraph">
-<area shape="rect" title=" " alt="" coords="1006,42,1113,81"/>
-<area shape="poly" title=" " alt="" coords="1086,26,1077,23,1060,21,1043,23,1034,28,1030,34,1032,44,1028,41,1025,33,1030,24,1042,18,1060,16,1079,18,1091,27"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="457,33,585,58"/>
-<area shape="poly" title=" " alt="" coords="989,37,958,32,867,22,796,20,634,32,586,38,585,32,633,27,796,15,868,16,958,27,995,37"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a75e8926f9aaf66b5d7c91fad8cbee430" title=" " alt="" coords="820,42,958,81"/>
-<area shape="poly" title=" " alt="" coords="988,62,958,64,958,59,993,62"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="826,129,952,168"/>
-<area shape="poly" title=" " alt="" coords="1009,88,929,131,928,126,1004,89"/>
-<area shape="poly" title=" " alt="" coords="551,18,542,14,521,12,502,14,492,19,490,24,496,34,491,32,485,25,488,15,501,9,521,7,544,9,556,19"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,5,409,30"/>
-<area shape="poly" title=" " alt="" coords="439,35,410,33,409,27,444,34"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,54,397,93"/>
-<area shape="poly" title=" " alt="" coords="439,57,398,66,397,61,445,56"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="11,5,183,30"/>
-<area shape="poly" title=" " alt="" coords="219,19,184,20,183,15,224,17"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,61,189,86"/>
-<area shape="poly" title=" " alt="" coords="231,74,190,76,189,71,236,73"/>
-<area shape="poly" title=" " alt="" coords="915,113,906,110,889,108,873,110,863,114,860,120,861,130,857,127,854,120,859,110,871,104,889,102,908,105,920,114"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="638,66,767,105"/>
-<area shape="poly" title=" " alt="" coords="812,123,762,108,763,103,818,124"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a41d1e1d09d1137708d8e133b3497d10f" title=" " alt="" coords="633,129,772,168"/>
-<area shape="poly" title=" " alt="" coords="808,148,772,151,772,146,813,148"/>
-<area shape="poly" title=" " alt="" coords="620,68,580,61,581,56,626,68"/>
-<area shape="poly" title=" " alt="" coords="731,50,721,47,702,45,685,47,675,52,671,58,673,67,669,65,666,57,671,48,684,42,703,40,723,42,736,51"/>
+<area shape="rect" title=" " alt="" coords="1209,29,1317,68"/>
+<area shape="poly" title=" " alt="" coords="1289,13,1280,10,1263,8,1247,10,1237,15,1234,21,1235,31,1231,28,1228,20,1233,11,1245,5,1263,3,1282,5,1295,14"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a59adb7539303ef29cb60d2f3a9fe5149" title=" " alt="" coords="633,51,799,76"/>
+<area shape="poly" title=" " alt="" coords="1193,24,1161,19,1106,14,1050,12,940,20,841,36,765,53,764,48,840,31,939,15,1050,7,1106,8,1162,14,1198,24"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a75e8926f9aaf66b5d7c91fad8cbee430" title=" " alt="" coords="1023,29,1161,68"/>
+<area shape="poly" title=" " alt="" coords="1191,49,1162,51,1161,46,1196,49"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="1030,116,1155,155"/>
+<area shape="poly" title=" " alt="" coords="1212,75,1133,118,1131,113,1207,76"/>
+<area shape="poly" title=" " alt="" coords="748,36,739,32,716,30,695,32,684,36,682,42,688,52,683,50,677,43,681,33,694,27,716,24,740,27,754,37"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="457,51,585,76"/>
+<area shape="poly" title=" " alt="" coords="615,64,586,66,585,61,621,63"/>
+<area shape="poly" title=" " alt="" coords="554,36,544,32,521,30,500,32,490,36,487,42,494,52,489,50,482,43,486,33,499,27,521,24,545,27,559,37"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,23,409,48"/>
+<area shape="poly" title=" " alt="" coords="439,52,410,50,409,45,444,52"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,72,397,111"/>
+<area shape="poly" title=" " alt="" coords="439,75,398,83,397,78,445,74"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="11,23,183,48"/>
+<area shape="poly" title=" " alt="" coords="219,36,184,38,183,33,224,34"/>
+<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,79,189,104"/>
+<area shape="poly" title=" " alt="" coords="231,92,189,94,189,89,236,91"/>
+<area shape="poly" title=" " alt="" coords="1119,100,1110,97,1092,95,1076,97,1066,101,1063,107,1065,117,1060,114,1058,107,1063,97,1074,91,1092,89,1111,92,1124,101"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="847,84,975,123"/>
+<area shape="poly" title=" " alt="" coords="1011,121,975,117,975,112,1017,122"/>
+<area shape="poly" title=" " alt="" coords="828,87,779,79,780,74,834,87"/>
+<area shape="poly" title=" " alt="" coords="939,68,929,65,911,63,893,65,883,69,880,75,881,85,877,82,874,75,880,65,892,59,911,57,931,60,944,69"/>
 </map>
 </div>
 
@@ -1786,25 +1979,26 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_a5e7bc6cda32024aafcfcfc1275f397c2_icgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_a5e7bc6cda32024aafcfcfc1275f397c2_icgraph" loading="lazy" alt=""/></div>
 <map name="ad9/dd5/namespaceini_1_1detail_a5e7bc6cda32024aafcfcfc1275f397c2_icgraph" id="ad9/dd5/namespaceini_1_1detail_a5e7bc6cda32024aafcfcfc1275f397c2_icgraph">
-<area shape="rect" title=" " alt="" coords="993,61,1100,100"/>
-<area shape="poly" title=" " alt="" coords="1072,45,1063,42,1047,40,1031,42,1022,47,1019,53,1020,63,1016,59,1013,52,1018,43,1029,37,1047,35,1065,37,1077,47"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="820,61,945,100"/>
-<area shape="poly" title=" " alt="" coords="974,81,945,83,945,78,980,81"/>
-<area shape="poly" title=" " alt="" coords="908,45,899,42,882,40,867,42,858,47,854,53,856,63,852,60,849,52,854,43,865,37,882,35,901,37,913,46"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="638,29,767,68"/>
-<area shape="poly" title=" " alt="" coords="802,67,767,63,767,57,807,67"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a41d1e1d09d1137708d8e133b3497d10f" title=" " alt="" coords="633,92,772,131"/>
-<area shape="poly" title=" " alt="" coords="807,94,772,102,772,97,802,94"/>
-<area shape="poly" title=" " alt="" coords="730,13,721,10,702,8,685,10,675,15,672,21,673,30,669,28,666,20,672,11,684,5,703,3,723,5,736,14"/>
+<area shape="rect" title=" " alt="" coords="1196,29,1304,68"/>
+<area shape="poly" title=" " alt="" coords="1275,13,1267,10,1250,8,1234,10,1225,15,1222,21,1224,31,1219,27,1217,20,1221,11,1233,5,1250,3,1269,5,1280,15"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a963a04e473e890abe5aca6dafe13b0b5" title=" " alt="" coords="1023,29,1148,68"/>
+<area shape="poly" title=" " alt="" coords="1178,49,1149,51,1148,46,1183,49"/>
+<area shape="poly" title=" " alt="" coords="1111,13,1102,10,1086,8,1070,10,1061,15,1058,21,1059,31,1055,27,1052,20,1057,11,1068,5,1086,3,1104,5,1116,15"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="847,29,975,68"/>
+<area shape="poly" title=" " alt="" coords="1005,49,975,51,975,46,1010,49"/>
+<area shape="poly" title=" " alt="" coords="938,13,929,10,911,8,894,10,884,15,881,21,883,31,878,28,875,20,881,11,893,5,911,3,930,5,943,14"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a59adb7539303ef29cb60d2f3a9fe5149" title=" " alt="" coords="633,36,799,61"/>
+<area shape="poly" title=" " alt="" coords="828,49,799,51,799,46,834,49"/>
+<area shape="poly" title=" " alt="" coords="748,21,739,17,716,15,695,17,684,22,682,27,688,37,684,35,677,28,681,18,694,12,716,10,740,12,754,22"/>
 <area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="457,36,585,61"/>
-<area shape="poly" title=" " alt="" coords="620,49,586,51,586,46,625,48"/>
-<area shape="poly" title=" " alt="" coords="551,21,542,17,521,15,502,17,492,22,490,27,496,37,491,35,485,28,488,18,501,12,521,10,544,12,556,22"/>
+<area shape="poly" title=" " alt="" coords="615,49,586,51,585,46,621,49"/>
+<area shape="poly" title=" " alt="" coords="554,21,544,17,521,15,500,17,490,22,487,27,494,37,489,35,482,28,486,18,499,12,521,10,545,12,559,22"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,8,409,33"/>
-<area shape="poly" title=" " alt="" coords="439,38,410,36,409,30,444,37"/>
+<area shape="poly" title=" " alt="" coords="439,38,409,36,410,30,444,37"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,57,397,96"/>
-<area shape="poly" title=" " alt="" coords="439,60,398,69,397,64,445,59"/>
+<area shape="poly" title=" " alt="" coords="445,60,398,69,397,64,439,60"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="11,8,183,33"/>
-<area shape="poly" title=" " alt="" coords="219,22,184,23,183,18,224,20"/>
+<area shape="poly" title=" " alt="" coords="219,21,184,23,183,18,224,20"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,64,189,89"/>
 <area shape="poly" title=" " alt="" coords="231,77,189,79,189,74,236,76"/>
 </map>
@@ -1891,22 +2085,23 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dd5/namespaceini_1_1detail_a963a04e473e890abe5aca6dafe13b0b5_icgraph.png" border="0" usemap="#ad9/dd5/namespaceini_1_1detail_a963a04e473e890abe5aca6dafe13b0b5_icgraph" loading="lazy" alt=""/></div>
 <map name="ad9/dd5/namespaceini_1_1detail_a963a04e473e890abe5aca6dafe13b0b5_icgraph" id="ad9/dd5/namespaceini_1_1detail_a963a04e473e890abe5aca6dafe13b0b5_icgraph">
-<area shape="rect" title=" " alt="" coords="820,61,945,100"/>
-<area shape="poly" title=" " alt="" coords="910,45,901,42,882,40,865,42,855,47,851,53,853,63,849,60,846,52,851,43,864,37,882,35,902,37,915,46"/>
-<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="638,29,767,68"/>
-<area shape="poly" title=" " alt="" coords="802,67,767,63,767,57,807,67"/>
-<area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a41d1e1d09d1137708d8e133b3497d10f" title=" " alt="" coords="633,92,772,131"/>
-<area shape="poly" title=" " alt="" coords="807,94,772,102,772,97,802,94"/>
-<area shape="poly" title=" " alt="" coords="730,13,721,10,702,8,685,10,675,15,672,21,673,30,669,28,666,20,672,11,684,5,703,3,723,5,736,14"/>
+<area shape="rect" title=" " alt="" coords="1023,29,1148,68"/>
+<area shape="poly" title=" " alt="" coords="1113,13,1104,10,1086,8,1069,10,1059,15,1056,21,1057,31,1053,28,1050,20,1055,11,1067,5,1086,3,1105,5,1118,14"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b" title=" " alt="" coords="847,29,975,68"/>
+<area shape="poly" title=" " alt="" coords="1005,49,975,51,975,46,1010,49"/>
+<area shape="poly" title=" " alt="" coords="938,13,929,10,911,8,894,10,884,15,881,21,883,31,878,28,875,20,881,11,893,5,911,3,930,5,943,14"/>
+<area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#a59adb7539303ef29cb60d2f3a9fe5149" title=" " alt="" coords="633,36,799,61"/>
+<area shape="poly" title=" " alt="" coords="828,49,799,51,799,46,834,49"/>
+<area shape="poly" title=" " alt="" coords="748,21,739,17,716,15,695,17,684,22,682,27,688,37,684,35,677,28,681,18,694,12,716,10,740,12,754,22"/>
 <area shape="rect" href="../../d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb" title=" " alt="" coords="457,36,585,61"/>
-<area shape="poly" title=" " alt="" coords="620,49,586,51,586,46,625,48"/>
-<area shape="poly" title=" " alt="" coords="551,21,542,17,521,15,502,17,492,22,490,27,496,37,491,35,485,28,488,18,501,12,521,10,544,12,556,22"/>
+<area shape="poly" title=" " alt="" coords="615,49,586,51,585,46,621,49"/>
+<area shape="poly" title=" " alt="" coords="554,21,544,17,521,15,500,17,490,22,487,27,494,37,489,35,482,28,486,18,499,12,521,10,545,12,559,22"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a8e73dce1310e1c1dbc5030ad9bb46cf3" title=" " alt="" coords="237,8,409,33"/>
-<area shape="poly" title=" " alt="" coords="439,38,410,36,409,30,444,37"/>
+<area shape="poly" title=" " alt="" coords="439,38,409,36,410,30,444,37"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a86097e83985b6fc4cf48138923ea7403" title=" " alt="" coords="249,57,397,96"/>
-<area shape="poly" title=" " alt="" coords="439,60,398,69,397,64,445,59"/>
+<area shape="poly" title=" " alt="" coords="445,60,398,69,397,64,439,60"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a1402381192ea04244c0225b32e73d24d" title=" " alt="" coords="11,8,183,33"/>
-<area shape="poly" title=" " alt="" coords="219,22,184,23,183,18,224,20"/>
+<area shape="poly" title=" " alt="" coords="219,21,184,23,183,18,224,20"/>
 <area shape="rect" href="../../d4/d05/classini_1_1ini__manager.html#a4a2f4bc8e4bc82964692aa553bdc7994" title=" " alt="" coords="5,64,189,89"/>
 <area shape="poly" title=" " alt="" coords="231,77,189,79,189,74,236,76"/>
 </map>

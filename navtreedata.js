@@ -25,19 +25,20 @@
 var NAVTREE =
 [
   [ "ini_manager", "index.html", [
-    [ "ini_manager 1.0.0", "index.html", "index" ],
-    [ "Building and installing ini_manager 1.0.0", "d6/dd0/md_BUILDING.html", [
+    [ "ini_manager 1.1.0", "index.html", "index" ],
+    [ "Building and installing ini_manager 1.1.0", "d6/dd0/md_BUILDING.html", [
       [ "Install a package", "d6/dd0/md_BUILDING.html#autotoc_md9", null ],
       [ "Include source directly", "d6/dd0/md_BUILDING.html#autotoc_md10", null ],
       [ "Create distributable archives", "d6/dd0/md_BUILDING.html#autotoc_md11", null ]
     ] ],
-    [ "Developing ini_manager 1.0.0", "d6/de0/md_HACKING.html", [
+    [ "Developing ini_manager 1.1.0", "d6/de0/md_HACKING.html", [
       [ "Build and verify", "d6/de0/md_HACKING.html#autotoc_md13", null ],
       [ "Code quality", "d6/de0/md_HACKING.html#autotoc_md14", null ],
       [ "Sanitizers, coverage and fuzzing", "d6/de0/md_HACKING.html#autotoc_md15", null ],
-      [ "Documentation and packaging", "d6/de0/md_HACKING.html#autotoc_md16", null ]
+      [ "Performance measurements", "d6/de0/md_HACKING.html#autotoc_md16", null ],
+      [ "Documentation and packaging", "d6/de0/md_HACKING.html#autotoc_md17", null ]
     ] ],
-    [ "About ini_manager 1.0.0", "db/d07/about.html", null ],
+    [ "About ini_manager 1.1.0", "db/d07/about.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [

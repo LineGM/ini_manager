@@ -51,6 +51,7 @@ var ini__manager_8hpp =
       [ "ini::replacement_state::replaced", "d8/d7b/namespaceini.html#abfb17c8fee7b65ed3265a9b53c5f2377a91bb248359043fe98416e259c9bdf10d", null ],
       [ "ini::replacement_state::unknown", "d8/d7b/namespaceini.html#abfb17c8fee7b65ed3265a9b53c5f2377aad921d60486366258809553a3db49a4a", null ]
     ] ],
+    [ "ini::detail::absolute_path", "d9/dd5/namespaceini_1_1detail.html#a74155b83e1bae13d78065f7eba5534ac", null ],
     [ "ini::detail::ascii_equal", "d9/dd5/namespaceini_1_1detail.html#a86af39150a58b93e327e2ec234d39539", null ],
     [ "ini::detail::ascii_lower", "d9/dd5/namespaceini_1_1detail.html#a424c3c69e01792d633f684278cbe792b", null ],
     [ "ini::detail::atomic_write", "d9/dd5/namespaceini_1_1detail.html#a7738968d5710cdb8467c9eaaa38e31fe", null ],
@@ -70,6 +71,7 @@ var ini__manager_8hpp =
     [ "ini::detail::read_value", "d9/dd5/namespaceini_1_1detail.html#a4be6a26aacc1a8089a44398a127e49f7", null ],
     [ "ini::detail::serialize", "d9/dd5/namespaceini_1_1detail.html#ac606089c222cd93c2f59fc29a8f57cfb", null ],
     [ "ini::detail::serialize_entries", "d9/dd5/namespaceini_1_1detail.html#ad62149e066cee9425520ae58f5527b3b", null ],
+    [ "ini::detail::serialized_size", "d9/dd5/namespaceini_1_1detail.html#a59adb7539303ef29cb60d2f3a9fe5149", null ],
     [ "ini::detail::set_state", "d9/dd5/namespaceini_1_1detail.html#ac4e7c428c5ad7216d06b3edde5e408e7", null ],
     [ "ini::detail::string_text", "d9/dd5/namespaceini_1_1detail.html#afa277471262057a56dc3200024ea2311", null ],
     [ "ini::trim", "d8/d7b/namespaceini.html#a27168fa772e66a8dcd5dbb78ac79c2aa", null ],

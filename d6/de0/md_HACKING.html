@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ini_manager: Developing ini_manager 1.0.0</title>
+<title>ini_manager: Developing ini_manager 1.1.0</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../codefolding.js"></script>
 <script type="text/javascript" src="../../clipboard.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ini_manager<span id="projectnumber">&#160;1.0.0</span>
+   <div id="projectname">ini_manager<span id="projectnumber">&#160;1.1.0</span>
    </div>
   </td>
  </tr>
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('d6/de0/md_HACK
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Developing ini_manager 1.0.0 </div></div>
+  <div class="headertitle"><div class="title">Developing ini_manager 1.1.0 </div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md12"></a></p>
@@ -124,7 +124,7 @@ Build and verify</h1>
 <div class="line">cmake --build --preset=dev-linux-clang --target run-examples</div>
 </div><!-- fragment --><p>Developer mode is active only when this repository is the top-level project. Compiler and linker warnings are errors for project executables; this is controlled by <span class="tt">INI_MANAGER_WARNINGS_AS_ERRORS</span>. Warning flags, sanitizer flags and coverage instrumentation are private to those targets. Consumer targets and dependency builds receive none of these settings. No global compiler/linker flags are changed. The exported interface uses a <span class="tt">HEADERS</span> file set and <span class="tt">cxx_std_26</span>.</p>
 <p>On non-Windows developer builds a compilation database link is created only if no existing file or link occupies that path. <span class="tt">tidy-check</span> uses the selected build directory explicitly. Module scanning is disabled on project executables because the library is distributed as a header.</p>
-<p>Tests use a pinned Boost.UT revision fetched into the build tree. For offline builds configure with <span class="tt">-DFETCHCONTENT_SOURCE_DIR_BOOST.UT=/path/to/boost.ut</span>. CTest labels <span class="tt">unit</span>, <span class="tt">integration</span>, <span class="tt">headers</span> and <span class="tt">package</span> allow focused runs. Package tests verify add_subdirectory, local FetchContent and installed find_package consumers, including the absence of developer settings in their builds.</p>
+<p>Tests require Python 3 for tooling integration checks and use a pinned Boost.UT revision fetched into the build tree. For offline builds configure with <span class="tt">-DFETCHCONTENT_SOURCE_DIR_BOOST.UT=/path/to/boost.ut</span>. CTest labels <span class="tt">unit</span>, <span class="tt">integration</span>, <span class="tt">headers</span> and <span class="tt">package</span> allow focused runs. Package tests verify add_subdirectory, local FetchContent and installed find_package consumers, including the absence of developer settings in their builds.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
 Code quality</h1>
 <div class="fragment"><div class="line">cmake --build --preset=dev-linux-clang --target tidy-check</div>
@@ -142,7 +142,7 @@ Sanitizers, coverage and fuzzing</h1>
 <div class="line">cmake --build --preset=ci-coverage --parallel 2</div>
 <div class="line">ctest --preset=ci-coverage</div>
 <div class="line">cmake --build --preset=ci-coverage --target coverage</div>
-</div><!-- fragment --><p><span class="tt">INI_MANAGER_ENABLE_SANITIZERS=ON</span> enables ASan/UBSan on project executables. The sanitizer preset explicitly selects <span class="tt">clang++</span>; use Clang 22. <span class="tt">ENABLE_COVERAGE=ON</span> uses GCC coverage instrumentation and the <span class="tt">coverage</span> target requires lcov. Each preset has its own build directory. LeakSanitizer cannot run under ptrace; when necessary, use <span class="tt">ASAN_OPTIONS=detect_leaks=0</span> and report that limitation with the results.</p>
+</div><!-- fragment --><p><span class="tt">INI_MANAGER_ENABLE_SANITIZERS=ON</span> enables ASan/UBSan on project executables. The sanitizer preset explicitly selects <span class="tt">clang++</span>; use the same supported LLVM toolchain as the Clang quality checks. <span class="tt">ENABLE_COVERAGE=ON</span> uses GCC coverage instrumentation and the <span class="tt">coverage</span> target requires lcov. Each preset has its own build directory. LeakSanitizer cannot run under ptrace; when necessary, use <span class="tt">ASAN_OPTIONS=detect_leaks=0</span> and report that limitation with the results.</p>
 <div class="fragment"><div class="line">cmake --preset=fuzz</div>
 <div class="line">cmake --build --preset=fuzz --parallel 2</div>
 <div class="line">mkdir -p build/fuzz/corpus</div>
@@ -150,6 +150,12 @@ Sanitizers, coverage and fuzzing</h1>
 <div class="line">build/fuzz/ini_manager_fuzz -max_total_time=30 -max_len=65536 build/fuzz/corpus</div>
 </div><!-- fragment --><p>The optional <span class="tt">INI_MANAGER_BUILD_FUZZER</span> target requires Clang/libFuzzer and enables its own sanitizer instrumentation. The first input byte selects dialect options; remaining bytes form the document. Successful parses are serialized, reparsed and compared. Keep tracked seeds unchanged and write generated corpus inputs into the build tree.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
+Performance measurements</h1>
+<p><span class="tt">INI_MANAGER_BUILD_BENCHMARKS=ON</span> adds <span class="tt">ini_manager_benchmark</span> to developer builds, including compilation-database analysis. It uses only the public API and the standard library. The CI measurement job compares the same workload source against the review's fixed baseline and the current header:</p>
+<div class="fragment"><div class="line">python3 test/benchmark/compare.py --output build/benchmarks --compiler g++</div>
+</div><!-- fragment --><p>This requires a full Git checkout, Python 3, a supported C++26 compiler and Valgrind. Run substantial measurements on a dedicated runner. The job records six alternating native timing samples per workload, whole-process allocation counts/bytes under Valgrind, and three compiler wall-time samples per header. Compile samples include linking and are sequential, so cache effects remain. Timings include scenario setup but exclude process startup; allocation counts include both. Reporting does not count C++ copy/move constructor calls and does not infer them from heap allocations. Checksums must agree, but performance thresholds do not gate shared runners. Inspect raw samples before claiming a speedup; these scenarios are not a general-purpose workload distribution.</p>
+<p>On Arch, Valgrind needs matching loader debug symbols. CI installs <span class="tt">debuginfod</span>, sets <span class="tt">DEBUGINFOD_URLS=<a href="https://debuginfod.archlinux.org">https://debuginfod.archlinux.org</a></span>, fetches the loader's debug information and checks Valgrind on <span class="tt">/usr/bin/true</span> before measurements. See <a href="https://wiki.archlinux.org/title/Debuginfod">Arch's debuginfod setup</a>. The measurement driver preserves partial results with <span class="tt">complete: false</span>; only <span class="tt">complete: true</span> means every comparison and allocation measurement succeeded. Valgrind failures remain job failures and their logs are printed and uploaded.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
 Documentation and packaging</h1>
 <p>Configure with <span class="tt">BUILD_DOCS=ON</span> to enable the <span class="tt">docs</span> target. Doxygen is required; Graphviz is optional. All generated documentation goes beneath the binary tree. The independent CI entry point follows the same convention:</p>
 <div class="fragment"><div class="line">cmake -DPROJECT_SOURCE_DIR=&quot;$PWD&quot; -DPROJECT_BINARY_DIR=&quot;$PWD/build/docs-ci&quot; -P cmake/docs-ci.cmake</div>

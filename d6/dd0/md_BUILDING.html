@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ini_manager: Building and installing ini_manager 1.0.0</title>
+<title>ini_manager: Building and installing ini_manager 1.1.0</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../codefolding.js"></script>
 <script type="text/javascript" src="../../clipboard.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ini_manager<span id="projectnumber">&#160;1.0.0</span>
+   <div id="projectname">ini_manager<span id="projectnumber">&#160;1.1.0</span>
    </div>
   </td>
  </tr>
@@ -108,11 +108,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('d6/dd0/md_BUIL
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Building and installing ini_manager 1.0.0 </div></div>
+  <div class="headertitle"><div class="title">Building and installing ini_manager 1.1.0 </div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md8"></a></p>
-<p>Use CMake 4.0+ and a C++26 compiler and standard library meeting the requirements in <a class="el" href="../../index.html#md_README" title="ini_manager 1.0.0">README.md</a>. Consuming the library requires only its public header and the platform's standard and system libraries.</p>
+<p>Use CMake 4.0+ and a C++26 compiler and standard library meeting the requirements in <a class="el" href="../../index.html#md_README" title="ini_manager 1.1.0">README.md</a>. Consuming the library requires only its public header and the platform's standard and system libraries.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
 Install a package</h1>
 <div class="fragment"><div class="line">cmake --preset=release</div>
@@ -121,7 +121,7 @@ Install a package</h1>
 </div><!-- fragment --><p>With a multi-configuration generator, pass <span class="tt">--config Release</span> to build/install. The package provides the target <span class="tt">ini_manager::ini_manager</span>:</p>
 <div class="fragment"><div class="line">cmake_minimum_required(VERSION 4.0)</div>
 <div class="line">project(my_app LANGUAGES CXX)</div>
-<div class="line">find_package(ini_manager 1.0 CONFIG REQUIRED)</div>
+<div class="line">find_package(ini_manager 1.1 CONFIG REQUIRED)</div>
 <div class="line">add_executable(my_app main.cpp)</div>
 <div class="line">target_link_libraries(my_app PRIVATE ini_manager::ini_manager)</div>
 </div><!-- fragment --><p>Set <span class="tt">CMAKE_PREFIX_PATH</span> to the installation prefix when it is outside CMake's search paths. Package version matching accepts compatible releases within the requested major version. The exported target carries the C++26 requirement and header include directories. A relocated installation remains usable.</p>
@@ -140,7 +140,7 @@ Include source directly</h1>
 Create distributable archives</h1>
 <div class="fragment"><div class="line">cmake --workflow --preset=package-release</div>
 </div><!-- fragment --><p>The TGZ and ZIP archives under <span class="tt">build/release/packages</span> contain the public header and relocatable CMake package files. Installation uses the target's <span class="tt">HEADERS</span> file set, so the installed files and the exported interface describe the same API.</p>
-<p>See <a class="el" href="../../d6/de0/md_HACKING.html" title="Developing ini_manager 1.0.0">HACKING.md</a> for tests, analysis, examples and documentation. Standalone <span class="tt">example</span> and <span class="tt">test</span> CMake projects can use an installed package via <span class="tt">CMAKE_PREFIX_PATH</span>. </p>
+<p>See <a class="el" href="../../d6/de0/md_HACKING.html" title="Developing ini_manager 1.1.0">HACKING.md</a> for tests, analysis, examples and documentation. Standalone <span class="tt">example</span> and <span class="tt">test</span> CMake projects can use an installed package via <span class="tt">CMAKE_PREFIX_PATH</span>. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

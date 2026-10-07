@@ -10,7 +10,7 @@ var indexSectionsWithContent =
   7: "deor",
   8: "cdfilmnopruvw",
   9: "os",
-  10: "01abcdefilopqrstvw",
+  10: "01abcdefilmopqrstvw",
   11: "rw"
 };
 
