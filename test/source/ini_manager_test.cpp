@@ -2,8 +2,10 @@
 #include "boost/ut.hpp"
 #include "ini_manager/ini_manager.hpp"
 #include <concepts>
+#include <cstddef>
 #include <cstdint>
 #include <exception>
+#include <filesystem>
 #include <format>
 #include <iostream>
 #include <limits>
@@ -197,7 +199,8 @@ void test_string_sinks_preserve_aliased_names()
 								  std::string(size - group.size() - name.size(), 'x');
 			auto value = expected;
 			const ini::section borrowed_group{
-				std::string_view(value).substr(0, group.size())};
+				std::string_view(value).substr(0, group.size()),
+			};
 			const ini::key borrowed_key{std::string_view(value).substr(group.size())};
 			const auto expected_key = std::string(borrowed_key.value);
 			must(config.set_value(borrowed_group, borrowed_key, std::move(value)));
@@ -482,6 +485,8 @@ void test_key_limit_tracks_value_operations()
 	must(config.set_value({"new"}, {"a"}, "1"));
 	expect(!moved.set_value({"loaded"}, {"c"}, "3"));
 	copy = moved;
+	// Copy assignment must retain the source's resource-limit state as well.
+	expect(!moved.set_value({"loaded"}, {"c"}, "3"));
 	expect(!copy.set_value({"loaded"}, {"c"}, "3"));
 	config = std::move(copy);
 	expect(!config.set_value({"loaded"}, {"c"}, "3"));

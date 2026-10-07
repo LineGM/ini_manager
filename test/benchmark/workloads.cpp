@@ -149,12 +149,12 @@ auto run(std::span<const char *const> arguments) -> int
 		throw std::runtime_error("Invalid iteration count");
 	}
 	constexpr std::array workloads{
-		workload{"set_strings", set_strings},
-		workload{"string_defaults", string_defaults},
-		workload{"custom_reads", custom_reads},
-		workload{"insert_sections", insert_sections},
-		workload{"merge_documents", merge_documents},
-		workload{"serialize_documents", serialize_documents},
+		workload{.name = "set_strings", .run = set_strings},
+		workload{.name = "string_defaults", .run = string_defaults},
+		workload{.name = "custom_reads", .run = custom_reads},
+		workload{.name = "insert_sections", .run = insert_sections},
+		workload{.name = "merge_documents", .run = merge_documents},
+		workload{.name = "serialize_documents", .run = serialize_documents},
 	};
 	for (const auto &[name, execute] : workloads)
 	{

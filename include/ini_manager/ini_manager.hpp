@@ -1671,7 +1671,7 @@ class ini_manager
 		if constexpr (std::same_as<T, std::string>)
 		{
 			// Binding the reference does not move yet: names may borrow value's bytes.
-			return store_value(group, name, std::move(value));
+			return store_value(group, name, std::forward<T>(value));
 		}
 		else
 		{
