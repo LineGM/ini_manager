@@ -5,17 +5,18 @@ examples, CMake integration, CI and documentation. The comparison baseline is
 commit `824a2acd2886aa9e0ee3d8c390ac5e70b3fa18c6`; published release artifacts
 remain unchanged. Changes are on `review/cxx26-modernization`.
 
-**Performance acceptance is pending.** Compilation, tests, strict clang-tidy,
-sanitizers, fuzzing, docs and packaging passed on runners at `568c1b3`.
-The benchmark infrastructure still needs a successful run and artifact review.
-The acceptance record below identifies the exact run; no speedup is claimed.
+**Review and verification are complete for the code at `e85a555`.** All eight CI
+jobs passed, the benchmark artifact was inspected, and both package archives
+contain the verified header. Measured benefits and costs are recorded below.
+The published release is unchanged; these changes are proposed in
+[PR #1](https://github.com/LineGM/ini_manager/pull/1).
 
 ## Findings and corrective changes
 
 Locations name functions in `include/ini_manager/ini_manager.hpp` unless a path
 is given. High means possible unintended configuration modification; medium
-means misleading diagnostics or verification; performance items are candidates
-whose benefit must be measured. No timing improvement is asserted here.
+means misleading diagnostics or verification. Performance findings are supported
+by the specific workloads below, not a claim about every application.
 
 | ID / priority | Location and evidence | Change and compatibility | Regression / measurement |
 | --- | --- | --- | --- |
@@ -149,17 +150,16 @@ Useful primary references also include
 
 ## Measurements and acceptance record
 
-[Run 37576969951](https://github.com/LineGM/ini_manager/actions/runs/37576969951)
-on `568c1b3` passed every job except benchmarks. In particular, the Linux Clang
-job passed formatting, spelling and strict tidy; the sanitizer job passed CTest,
-ASan/UBSan with leak detection enabled, and the bounded fuzz run. macOS passed
-the directory-alias regression. Docs were built without publishing from the PR.
-The benchmark's Git setup was corrected. In
-[run 37578585244](https://github.com/LineGM/ini_manager/actions/runs/37578585244),
-both benchmark executables compiled, but Valgrind could not initialize its
-mandatory loader `memcmp` redirection without glibc debug symbols. The workflow
-now fetches matching loader symbols through Arch debuginfod and checks Valgrind
-before measuring. Successful allocation measurements and analysis remain pending.
+[Run 37581313104](https://github.com/LineGM/ini_manager/actions/runs/37581313104)
+passed all eight jobs for branch commit `e85a55579040980c4d582e92252d8275f4bcb7c0`.
+GitHub measured its PR merge commit `09fcd5efd909f62cfab9d1ec12e08597d43a3e80`;
+both commits have the same verified tree `c6801f76660c733ce1ef5b4d09b5b228c3c60b8c`.
+The baseline was `824a2acd2886aa9e0ee3d8c390ac5e70b3fa18c6`.
+
+Linux used GCC 16.2.1, LLVM 23.1.1, CMake 4.4.4, glibc 2.44 and Valgrind 3.25.1.
+macOS used Homebrew GCC 16. CI explicitly ran leak detection; no local
+LeakSanitizer result is claimed. The bounded parser fuzz run completed 509,638
+executions in 31 seconds without a reported failure.
 
 The optional benchmark target is part of Clang's compilation database and strict
 analysis. `test/benchmark/compare.py` builds identical public-API workloads against
@@ -170,18 +170,60 @@ Allocation counts are not constructor-copy counts. Setters, defaults and getters
 have explicit input/setup costs in both versions; see HACKING for measurement
 scope. Short timing samples and shared-runner noise can invalidate small deltas.
 
+The complete, unmodified [measurement summary](measurements/37581313104.json)
+is retained in this repository. `complete` is true, all scenario checksums
+agree, and all twelve workload Valgrind logs report zero errors (no suppressed
+contexts). Native timings use `-std=c++26 -O3 -DNDEBUG`; Valgrind runs are
+separate. The time column is the median of six samples of the entire scenario,
+including setup, not the duration of one API call. Allocation counts cover the
+entire process, including reporting.
+
+| Workload | Iterations | Baseline / current time, ms | Baseline / current allocations | Baseline / current allocated bytes |
+| --- | ---: | ---: | ---: | ---: |
+| 4 KiB string rvalue setter | 5,000 | 14.140 / 13.666 | 10,005 / 5,005 | 41,052,129 / 20,567,129 |
+| Missing string rvalue default | 5,000 | 0.896 / 0.617 | 10,002 / 5,002 | 41,047,824 / 20,562,824 |
+| Custom extraction over 4 KiB | 5,000 | 7.408 / 6.997 | 5,006 / 5 | 20,571,226 / 82,129 |
+| Insert one key per section | 3,000 | 29.937 / 1.641 | 6,003 / 6,003 | 797,824 / 797,824 |
+| Merge into 100 large values | 64 | 43.080 / 19.451 | 13,936 / 13,324 | 94,750,872 / 27,363,380 |
+| Serialize 100 large values | 128 | 119.292 / 102.938 | 2,735 / 1,739 | 269,016,120 / 187,155,924 |
+
+These measurements support retaining the string ownership transfers, bounded
+span stream, maintained key count and separate canonical sizing. The largest
+observed time reductions are section insertion (18.24x) and merge (2.21x).
+Setter/custom-read timing changes are small; the stronger evidence is reduced
+allocation. Serialization's median improved, but its current samples ranged
+from 102.654 to 125.737 ms, overlapping and exceeding the baseline's
+119.089 to 119.746 ms. It is not uniformly faster in every sample.
+
+Costs are material: compiling and linking the same benchmark translation unit
+took a median 5.028 seconds for the baseline and 6.655 seconds for the current
+header (**+32.4%**, three sequential samples each). The unstripped executable
+grew from 159,424 to 246,624 bytes (**+54.7%**). These are aggregate costs of
+the full change set, including diagnostics; individual changes were not isolated
+for attribution. No general build-time or binary-size improvement is claimed.
+The additional cost is accepted here for the corrected behavior, explicit
+diagnostics and measured allocation/runtime benefits; applications with strict
+binary-size budgets should measure their own translation units.
+
 | Check | Current evidence |
 | --- | --- |
 | Tooling selection regression | Passed locally without a C++ compiler or real analyzer. |
 | Consumer install-directory defaults | Failed before the fix and passed afterward using compiler-free CMake configure comparisons. |
-| Formatting, whitespace and Python syntax | Local checks passed; formatting and spelling also passed in run 37576969951. |
-| GCC / Clang / macOS builds, tests and examples | Passed in run 37576969951, including independent header compilation. |
-| Strict clang-tidy for all enabled project translation units | Passed in run 37576969951, including benchmark, sanitizer and fuzz targets. |
-| ASan / UBSan / LeakSanitizer and parser fuzzing | Passed in run 37576969951 with leak detection enabled. No local sanitizer result is claimed. |
-| Consumer integration, docs and distributable archives | Tests, documentation build and package job passed in run 37576969951. |
-| Before/after timing, allocations and compilation cost | Harness prepared; no result or speedup claimed yet. |
+| Formatting, whitespace and Python syntax | Local checks passed; formatting and spelling also passed in run 37581313104. |
+| GCC / Clang / macOS builds, tests and examples | Passed in run 37581313104: all 7 CTest entries in each configuration, examples and independent header compilation. |
+| Strict clang-tidy for all enabled project translation units | Passed in run 37581313104, including benchmark, sanitizer and fuzz targets. |
+| ASan / UBSan / LeakSanitizer and parser fuzzing | Passed in run 37581313104 with leak detection enabled and the bounded fuzz run described above. |
+| Consumer integration, docs and distributable archives | Consumer CTest, documentation build and package job passed. Both downloaded archives have the byte-identical verified header, config/export files and license; neither includes CPack staging directories. |
+| Before/after timing, allocations and compilation cost | Complete artifact inspected; results, variation and costs recorded above. |
 
-CI is not polled continuously. Review its completed results and measurement
-artifacts on the maintainer's signal before accepting performance claims or
-declaring this review complete. Keep changes as Conventional Commits and leave
-the published release untouched.
+The final evidence update changes documentation only; it does not change the
+verified public header, tests, build scripts or workflows. All review commits use
+Conventional Commits. The remote `main` and `1.0.0` tag still pointed to the
+baseline when acceptance was recorded. No merge or replacement release was made.
+
+Remaining limits: Windows/Apple Clang toolchains are not supported; native
+Windows code was not exercised. A bounded fuzz run is not exhaustive, tests do
+not prove absence of all bugs, and six shared-runner samples are not a universal
+performance guarantee. File writes still do not promise power-loss durability,
+hostile-directory protection or conflict detection. Those contracts remain
+explicit in README.
