@@ -7,7 +7,7 @@ endfunction()
 if(NOT INI_CONFIG)
     set(INI_CONFIG Release)
 endif()
-set(root "${INI_BINARY}/consumer-check-1.0.0")
+set(root "${INI_BINARY}/consumer-check-1.1.0")
 run("${CMAKE_COMMAND}" --install "${INI_BINARY}" --prefix "${root}/prefix" --config "${INI_CONFIG}")
 # Relocate a complete installed tree; exported paths must remain prefix-relative.
 file(REMOVE_RECURSE "${root}/relocated")

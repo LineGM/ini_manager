@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 4.0...4.4)
 include(cmake/prelude.cmake)
 project(
     ini_manager
-    VERSION 1.0.0
+    VERSION 1.1.0
     DESCRIPTION "Strict header-only C++26 INI configuration library"
     HOMEPAGE_URL "https://github.com/LineGM/ini_manager"
     LANGUAGES CXX

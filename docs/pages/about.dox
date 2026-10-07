@@ -1,5 +1,5 @@
 /**
-@page about About ini_manager 1.0.0
+@page about About ini_manager 1.1.0
 
 ini_manager is a header-only C++26 value object for strict INI configuration.
 See the main page for the dialect, checked API, resource limits, stream behavior

@@ -245,7 +245,7 @@
     }
   ],
   "$schema": "https://cmake.org/cmake/help/v4.0/manual/presets/schema.json",
-  "$comment": "ini_manager 1.0.0: shared build, verification and packaging workflows.",
+  "$comment": "ini_manager 1.1.0: shared build, verification and packaging workflows.",
   "packagePresets": [
     {
       "name": "release",

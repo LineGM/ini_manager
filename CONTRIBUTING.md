@@ -1,4 +1,4 @@
-# Contributing to ini_manager 1.0.0
+# Contributing to ini_manager 1.1.0
 
 Read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and the setup instructions in
 [HACKING.md](HACKING.md).

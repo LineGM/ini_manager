@@ -1,4 +1,4 @@
-# Building and installing ini_manager 1.0.0
+# Building and installing ini_manager 1.1.0
 
 Use CMake 4.0+ and a C++26 compiler and standard library meeting the requirements
 in [README.md](README.md). Consuming the library requires only its public header
@@ -18,7 +18,7 @@ The package provides the target `ini_manager::ini_manager`:
 ```cmake
 cmake_minimum_required(VERSION 4.0)
 project(my_app LANGUAGES CXX)
-find_package(ini_manager 1.0 CONFIG REQUIRED)
+find_package(ini_manager 1.1 CONFIG REQUIRED)
 add_executable(my_app main.cpp)
 target_link_libraries(my_app PRIVATE ini_manager::ini_manager)
 ```

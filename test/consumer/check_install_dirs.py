@@ -10,7 +10,7 @@ def configure(cmake, root, library, with_library, prefix):
     root.mkdir()
     project = [
         "cmake_minimum_required(VERSION 4.0...4.4)",
-        "project(install_defaults VERSION 1.0.0 LANGUAGES NONE)",
+        "project(install_defaults VERSION 1.1.0 LANGUAGES NONE)",
         # Only header installation rules are exercised; no compiler is needed.
         "set(CMAKE_SIZEOF_VOID_P 8)",
     ]

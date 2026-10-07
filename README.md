@@ -1,4 +1,4 @@
-# ini_manager 1.0.0
+# ini_manager 1.1.0
 
 A small header-only C++26 INI library with independent copies, strict parsing,
 transactional loading and checked file replacement. Include
@@ -56,7 +56,7 @@ target_link_libraries(my_app PRIVATE ini_manager::ini_manager)
 ```
 
 Alternatively use `FetchContent_Declare` with this repository and a pinned
-revision, or install the project and use `find_package(ini_manager 1.0 REQUIRED)`.
+revision, or install the project and use `find_package(ini_manager 1.1 REQUIRED)`.
 All forms expose the same target. Consumer builds do not download tests, change
 global compiler flags, add developer targets, or create compilation database links.
 See [BUILDING.md](BUILDING.md) and [HACKING.md](HACKING.md).

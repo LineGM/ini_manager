@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.0...4.4)
 project(ini_managerTests LANGUAGES CXX)
 if(PROJECT_IS_TOP_LEVEL)
-    find_package(ini_manager 1.0 REQUIRED)
+    find_package(ini_manager 1.1 REQUIRED)
     include(../cmake/developer-targets.cmake)
     enable_testing()
 endif()

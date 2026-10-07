@@ -1,4 +1,4 @@
-# Developing ini_manager 1.0.0
+# Developing ini_manager 1.1.0
 
 Use CMake 4.0+ and a supported C++26 toolchain from README. Shared presets live in
 `CMakePresets.json` (schema 10); `CMakeUserPresets.json` is ignored and reserved for
