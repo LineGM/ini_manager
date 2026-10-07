@@ -28,6 +28,12 @@ whose benefit must be measured. No timing improvement is asserted here.
 | R6 / performance | `merge`: serializing a candidate merely to validate it allocates and fills a complete document that is immediately discarded. | Separate validation and checked canonical sizing from materialization. Merge only measures; actual serialization reserves the measured size. Two traversals during writing are an explicit tradeoff. | Canonical-size boundary regression; existing transactional merge and round-trip tests; `merge_documents` and `serialize_documents` measurements. |
 | R7 / performance | `set_value`: inserting each new key recounts every section's keys; adding one key per section incurs a quadratic section traversal. | Maintain the total through insertion, removal, load, merge, copy, move and swap. Update it only after successful changes. Private object layout changes; rebuild consumers. | `test_key_limit_tracks_value_operations`; `insert_sections` measurement with 3,000 sections. |
 | R8 / low | `.github/workflows/ci.yml`: package wildcard also selects CPack staging directories; docs are not built for pull requests. | Upload only distributable archives. Validate docs in PRs; retain the main-only publication condition. | Runner package artifact and PR docs job. |
+| R9 / medium | `cmake/install-rules.cmake` prepopulates the shared `CMAKE_INSTALL_LIBDIR` cache with `lib`, despite never using it. With prefix `/`, a clean GNUInstallDirs configuration chooses `usr/lib`, but including the library first changes the consumer default to `lib`. | Remove the unnecessary cache write and let GNUInstallDirs select its normal default. The header/config installation layout is unchanged. | `check_install_dirs.py` reproduced the mismatch before the fix and passed afterward for `/`, `/usr` and `/usr/local`; it configures header-only fixtures without compilation or installation. |
+
+R9's expected prefix behavior is documented by CMake's
+[CMP0193](https://cmake.org/cmake/help/latest/policy/CMP0193.html). The regression
+compares against the installed CMake's own GNUInstallDirs result rather than
+hard-coding a platform-specific library directory.
 
 ## Ownership and move audit
 
@@ -156,6 +162,7 @@ scope. Short timing samples and shared-runner noise can invalidate small deltas.
 | Check | Current evidence |
 | --- | --- |
 | Tooling selection regression | Passed locally without a C++ compiler or real analyzer. |
+| Consumer install-directory defaults | Failed before the fix and passed afterward using compiler-free CMake configure comparisons. |
 | Formatting, whitespace and Python syntax | Checked locally; runner tool versions still gate acceptance. |
 | GCC / Clang / macOS builds, tests and examples | Pending branch CI. |
 | Strict clang-tidy for all enabled project translation units | Pending branch CI, including benchmark code. |
