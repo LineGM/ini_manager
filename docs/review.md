@@ -150,6 +150,14 @@ Useful primary references also include
 
 ## Measurements and acceptance record
 
+[Run 37573522645](https://github.com/LineGM/ini_manager/actions/runs/37573522645)
+on `2752ab0` passed Linux GCC tests, coverage and packaging. Linux Clang and the
+sanitizer job stopped at strict tidy diagnostics; the macOS path regression
+incorrectly assumed that a temporary-directory alias and `current_path()` have
+identical spelling. The benchmark job received an archive instead of a Git
+checkout because Git was installed too late. These causes have corrections in
+the review branch; their acceptance still requires another runner result.
+
 The optional benchmark target is part of Clang's compilation database and strict
 analysis. `test/benchmark/compare.py` builds identical public-API workloads against
 the fixed baseline and current header on a GitHub runner. It records compiler

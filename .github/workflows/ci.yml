@@ -97,6 +97,9 @@ jobs:
     runs-on: ubuntu-24.04
     container: archlinux:base-devel
     steps:
+      # Without Git, checkout downloads an archive and ignores fetch-depth.
+      - name: Install Git before checkout
+        run: pacman -Syu --noconfirm --needed git
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
