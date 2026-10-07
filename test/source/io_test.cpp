@@ -429,8 +429,10 @@ void test_loaded_path_survives_working_directory_changes()
 	test::write(first.path / "config.ini", "[s]\nx=first\n");
 	test::write(second.path / "config.ini", "[s]\nx=second\n");
 	std::filesystem::current_path(first.path);
+	// current_path may spell a directory alias differently (for example on macOS).
+	const auto associated_path = std::filesystem::current_path() / "config.ini";
 	auto config = must(ini::ini_manager::from_file("config.ini"));
-	expect(config.file_path() == first.path / "config.ini");
+	expect(config.file_path() == associated_path);
 	std::filesystem::current_path(second.path);
 	must(config.set_value({"s"}, {"x"}, "changed"));
 	must(config.write_file());
@@ -438,10 +440,10 @@ void test_loaded_path_survives_working_directory_changes()
 	expect(must(saved.get_value({"s"}, {"x"})) == "changed");
 	expect(test::read(second.path / "config.ini") == "[s]\nx=second\n");
 	expect(!config.load_file("missing.ini"));
-	expect(config.file_path() == first.path / "config.ini");
+	expect(config.file_path() == associated_path);
 	must(config.write_file("explicit.ini"));
 	expect(std::filesystem::exists(second.path / "explicit.ini"));
-	expect(config.file_path() == first.path / "config.ini");
+	expect(config.file_path() == associated_path);
 }
 
 void test_stream_buffers_preserve_available_system_error_codes()
