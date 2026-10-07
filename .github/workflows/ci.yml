@@ -105,7 +105,17 @@ jobs:
           fetch-depth: 0
       - uses: ./.github/actions/setup-linux
       - run: pacman -S --noconfirm --needed valgrind
-      - run: python3 test/benchmark/compare.py --output build/benchmarks
+      - name: Measure baseline and current API
+        # Container users can differ from the checkout owner. Trust only this
+        # workspace, for these Git subprocesses; leave global settings alone.
+        env:
+          GIT_CONFIG_COUNT: '1'
+          GIT_CONFIG_KEY_0: safe.directory
+          GIT_CONFIG_VALUE_0: ${{ github.workspace }}
+        run: |
+          git rev-parse --verify HEAD
+          git cat-file -e 824a2acd2886aa9e0ee3d8c390ac5e70b3fa18c6^{commit}
+          python3 test/benchmark/compare.py --output build/benchmarks
       - uses: actions/upload-artifact@v4
         if: always()
         with:

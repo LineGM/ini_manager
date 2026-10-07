@@ -5,11 +5,10 @@ examples, CMake integration, CI and documentation. The comparison baseline is
 commit `824a2acd2886aa9e0ee3d8c390ac5e70b3fa18c6`; published release artifacts
 remain unchanged. Changes are on `review/cxx26-modernization`.
 
-**Verification is pending on runners.** Code inspection, regression additions
-and a measurement harness are complete for the findings below. This document
-does not claim that the changed branch has passed compilation, clang-tidy,
-sanitizers or performance acceptance. Update the results after reviewing CI
-artifacts; a green baseline is not evidence about this branch.
+**Performance acceptance is pending.** Compilation, tests, strict clang-tidy,
+sanitizers, fuzzing, docs and packaging passed on runners at `568c1b3`.
+The benchmark infrastructure still needs a successful run and artifact review.
+The acceptance record below identifies the exact run; no speedup is claimed.
 
 ## Findings and corrective changes
 
@@ -150,13 +149,14 @@ Useful primary references also include
 
 ## Measurements and acceptance record
 
-[Run 37573522645](https://github.com/LineGM/ini_manager/actions/runs/37573522645)
-on `2752ab0` passed Linux GCC tests, coverage and packaging. Linux Clang and the
-sanitizer job stopped at strict tidy diagnostics; the macOS path regression
-incorrectly assumed that a temporary-directory alias and `current_path()` have
-identical spelling. The benchmark job received an archive instead of a Git
-checkout because Git was installed too late. These causes have corrections in
-the review branch; their acceptance still requires another runner result.
+[Run 37576969951](https://github.com/LineGM/ini_manager/actions/runs/37576969951)
+on `568c1b3` passed every job except benchmarks. In particular, the Linux Clang
+job passed formatting, spelling and strict tidy; the sanitizer job passed CTest,
+ASan/UBSan with leak detection enabled, and the bounded fuzz run. macOS passed
+the directory-alias regression. Docs were built without publishing from the PR.
+The remaining benchmark failure is Git's ownership check in the container.
+The workflow now trusts only the checkout directory for the measurement step;
+successful measurements and analysis remain pending.
 
 The optional benchmark target is part of Clang's compilation database and strict
 analysis. `test/benchmark/compare.py` builds identical public-API workloads against
@@ -171,11 +171,11 @@ scope. Short timing samples and shared-runner noise can invalidate small deltas.
 | --- | --- |
 | Tooling selection regression | Passed locally without a C++ compiler or real analyzer. |
 | Consumer install-directory defaults | Failed before the fix and passed afterward using compiler-free CMake configure comparisons. |
-| Formatting, whitespace and Python syntax | Checked locally; runner tool versions still gate acceptance. |
-| GCC / Clang / macOS builds, tests and examples | Pending branch CI. |
-| Strict clang-tidy for all enabled project translation units | Pending branch CI, including benchmark code. |
-| ASan / UBSan / LeakSanitizer and parser fuzzing | Pending runner jobs. No local sanitizer result is claimed. |
-| Consumer integration, docs and distributable archives | Pending branch CI. |
+| Formatting, whitespace and Python syntax | Local checks passed; formatting and spelling also passed in run 37576969951. |
+| GCC / Clang / macOS builds, tests and examples | Passed in run 37576969951, including independent header compilation. |
+| Strict clang-tidy for all enabled project translation units | Passed in run 37576969951, including benchmark, sanitizer and fuzz targets. |
+| ASan / UBSan / LeakSanitizer and parser fuzzing | Passed in run 37576969951 with leak detection enabled. No local sanitizer result is claimed. |
+| Consumer integration, docs and distributable archives | Tests, documentation build and package job passed in run 37576969951. |
 | Before/after timing, allocations and compilation cost | Harness prepared; no result or speedup claimed yet. |
 
 CI is not polled continuously. Review its completed results and measurement
