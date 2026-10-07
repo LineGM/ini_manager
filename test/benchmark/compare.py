@@ -8,6 +8,7 @@ import re
 import shutil
 import statistics
 import subprocess
+import sys
 import time
 
 
@@ -26,6 +27,22 @@ def capture(command, **kwargs):
     return subprocess.check_output(command, text=True, **kwargs).strip()
 
 
+def write_summary(output, summary):
+    (output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+
+
+def memcheck(executable, name, iterations, log):
+    try:
+        return json.loads(capture([
+            "valgrind", "--tool=memcheck", "--leak-check=no", "--error-exitcode=99",
+            f"--log-file={log}", str(executable), name, str(iterations),
+        ]))
+    except subprocess.CalledProcessError:
+        if log.exists():
+            print(log.read_text(encoding="utf-8", errors="replace"), file=sys.stderr)
+        raise
+
+
 def compare(source, output, compiler):
     output.mkdir(parents=True, exist_ok=True)
     baseline_include = output / "baseline" / "include"
@@ -36,6 +53,7 @@ def compare(source, output, compiler):
     ], cwd=source) + "\n", encoding="utf-8")
     flags = ["-std=c++26", "-O3", "-DNDEBUG"]
     summary = {
+        "complete": False,
         "baseline": BASELINE,
         "current": capture(["git", "rev-parse", "HEAD"], cwd=source),
         "compiler": capture([compiler, "--version"]),
@@ -64,6 +82,7 @@ def compare(source, output, compiler):
             "executable_bytes": executable.stat().st_size,
             "workloads": {},
         }
+        write_summary(output, summary)
     for name, iterations in WORKLOADS.items():
         timings = {label: [] for label in executables}
         checksums = set()
@@ -76,12 +95,19 @@ def compare(source, output, compiler):
                 result = json.loads(capture([str(executables[label]), name, str(iterations)]))
                 checksums.add(result["checksum"])
                 timings[label].append(result["elapsed_ns"])
+        if len(checksums) != 1:
+            raise RuntimeError(f"Behavior mismatch in {name}: {checksums}")
+        for label in executables:
+            summary["builds"][label]["workloads"][name] = {
+                "iterations": iterations,
+                "elapsed_ns": timings[label],
+                "median_elapsed_ns": statistics.median(timings[label]),
+                "checksum": next(iter(checksums)),
+            }
+        write_summary(output, summary)
         for label, executable in executables.items():
             log = output / f"{label}-{name}.valgrind.txt"
-            result = json.loads(capture([
-                "valgrind", "--tool=memcheck", "--leak-check=no", "--error-exitcode=99",
-                f"--log-file={log}", str(executable), name, str(iterations),
-            ]))
+            result = memcheck(executable, name, iterations, log)
             checksums.add(result["checksum"])
             match = re.search(
                 r"total heap usage: ([\d,]+) allocs, ([\d,]+) frees, ([\d,]+) bytes allocated",
@@ -90,18 +116,16 @@ def compare(source, output, compiler):
             if not match:
                 raise RuntimeError(f"Missing allocation summary in {log}")
             allocations, frees, allocated_bytes = (int(value.replace(",", "")) for value in match.groups())
-            summary["builds"][label]["workloads"][name] = {
-                "iterations": iterations,
-                "elapsed_ns": timings[label],
-                "median_elapsed_ns": statistics.median(timings[label]),
-                "checksum": result["checksum"],
+            summary["builds"][label]["workloads"][name].update({
                 "allocations": allocations,
                 "frees": frees,
                 "allocated_bytes": allocated_bytes,
-            }
+            })
+            write_summary(output, summary)
         if len(checksums) != 1:
             raise RuntimeError(f"Behavior mismatch in {name}: {checksums}")
-    (output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+    summary["complete"] = True
+    write_summary(output, summary)
     print(json.dumps(summary, indent=2))
 
 
