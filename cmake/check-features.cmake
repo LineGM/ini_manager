@@ -16,7 +16,7 @@ int main() {
 }
 ]=] INI_MANAGER_HAS_CXX26_LIBRARY)
     if(NOT INI_MANAGER_HAS_CXX26_LIBRARY)
-        message(FATAL_ERROR "ini_manager requires C++26 heterogeneous map insertion, charconv result testing, expected, format and floating-point charconv (including long double). Select a supported compiler AND standard library; see README.md.")
+        message(FATAL_ERROR "ini_manager requires C++26 heterogeneous map insertion, charconv result testing, filesystem path formatting, span streams, expected, format and floating-point charconv (including long double). Select a supported compiler AND standard library; see README.md.")
     endif()
     if(NOT CMAKE_CROSSCOMPILING OR CMAKE_CROSSCOMPILING_EMULATOR)
         check_cxx_source_runs([=[

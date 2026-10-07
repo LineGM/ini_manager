@@ -1,4 +1,4 @@
-# ini_manager 1.0.0
+# ini_manager 1.1.0
 
 A small header-only C++26 INI library with independent copies, strict parsing,
 transactional loading and checked file replacement. Include
@@ -10,10 +10,12 @@ No third-party runtime libraries are required.
 C++26 mode is required, with these **standard library** features:
 
 - `std::expected`, `std::formattable`/`std::format`;
+- span-based input streams (`std::ispanstream`);
 - integer and floating-point `from_chars`/`to_chars`, including `long double`;
 - heterogeneous map insertion (P2363R5,
   `__cpp_lib_associative_heterogeneous_insertion >= 202306L`);
-- boolean testing of charconv results (P2497R0, `__cpp_lib_to_chars >= 202306L`).
+- boolean testing of charconv results (P2497R0, `__cpp_lib_to_chars >= 202306L`);
+- filesystem path formatting (P2845R8, `__cpp_lib_format_path >= 202403L`).
 
 The C++26 insertions accept borrowed `string_view` names directly: replacing an
 existing key does not first allocate temporary section/key strings. Stored names
@@ -38,6 +40,10 @@ header also diagnoses missing C++26 mode and feature-test macros. C++26 compiler
 support is still evolving: use the toolchains above, and keep compiler and standard
 library versions together.
 
+Strict project analysis uses LLVM 23 clang-tidy/clang-format. CI installs rolling
+Linux packages and records actual tool versions; the requirements above are
+capabilities, not a promise that every package with a matching version works.
+
 File I/O provides POSIX (including Linux/macOS) and Windows adapters. It uses a
 small native adapter for exclusive creation, reliable system error codes, and
 explicit closing. This is still one header; no compiled library is shipped.
@@ -50,7 +56,7 @@ target_link_libraries(my_app PRIVATE ini_manager::ini_manager)
 ```
 
 Alternatively use `FetchContent_Declare` with this repository and a pinned
-revision, or install the project and use `find_package(ini_manager 1.0 REQUIRED)`.
+revision, or install the project and use `find_package(ini_manager 1.1 REQUIRED)`.
 All forms expose the same target. Consumer builds do not download tests, change
 global compiler flags, add developer targets, or create compilation database links.
 See [BUILDING.md](BUILDING.md) and [HACKING.md](HACKING.md).
@@ -95,7 +101,10 @@ int main() {
 streams. File counterparts take `std::filesystem::path`, including native Unicode
 paths on Windows. A successful `load_file` associates its path; `load_stream`
 clears the association. Merge and explicit `write_file(path)` do not change it.
-`file_path()` returns an owning `optional<filesystem::path>`.
+`file_path()` returns an owning `optional<filesystem::path>`. File operations
+resolve relative paths to absolute paths once. A successful file load stores that
+absolute path, so changing the working directory does not redirect `write_file()`.
+This does not canonicalize symlinks or track files across directory renames.
 
 `set_section({"empty"})` preserves a section without keys. `remove_value(section,
 key)` and `remove_section(section)` return whether anything was removed. Removing
@@ -108,6 +117,7 @@ Maps are stored directly. Copy construction/assignment creates independent data;
 move operations leave the source empty, with default options and no associated
 path. Moving is conditionally noexcept because some standard libraries allocate
 an empty map sentinel. Copy assignment, load, and merge commit only after successful preparation.
+Self-copy and self-move assignment preserve the object, including its options.
 Parse, read, allocation, and merge failures preserve the previous manager state.
 A failed setter also preserves its data. Reading from an input stream is not
 rewound on failure; output streams can contain a partial write on failure.
@@ -118,6 +128,12 @@ destruction. Getters on temporary managers are safe because they return owned
 values. `section` and `key` are **borrowed call arguments**, wrapping `string_view`;
 keep their source strings alive until the call returns. Do not retain a wrapper
 constructed from a temporary string. Managers never retain argument views.
+
+String rvalues passed to setters or a needed default can transfer their storage;
+lvalues are copied. Setters validate string rvalues before consuming them, and
+section/key arguments may refer into that string. Allocation failures during an
+insertion can leave an explicitly moved argument in a valid but unspecified state;
+the manager itself retains its previous data.
 
 Operations that can fail return `ini::result<T>` (`std::expected<T, ini::error>`)
 and are `[[nodiscard]]`. The diagnostic owns its context and contains:
@@ -132,6 +148,10 @@ and are `[[nodiscard]]`. The diagnostic owns its context and contains:
 `message()` renders a readable diagnostic, but callers should branch on enums,
 not message text. Missing section/key, invalid format and out-of-range values
 are distinct. String values are returned as `std::string`.
+
+Diagnostic context is quoted and escaped for display, including native paths,
+control characters and system messages. Structured fields retain their original
+bytes. A leftover temporary file's path is included in the message when available.
 
 `get_value_or_default` substitutes **only for absence**. A present empty string
 is not absent. A malformed typed value remains an error. String literals,
@@ -240,7 +260,19 @@ Custom types must be default-initializable, movable and extractable using an
 `istream& operator>>(istream&, T&)`. Extraction uses the classic locale and must
 succeed, leaving only spaces/tabs or EOF. EOF alone is not proof of success.
 Custom setters accept `std::formattable` types and validate the formatted result.
+Custom extraction uses a classic-locale input stream over borrowed, read-only
+configuration bytes. Extractors must not modify that buffer or retain references
+to the stream or its storage; returned custom values must own any data they need.
+Move-only extractable types are supported, including as defaults passed by value.
 The library cannot guarantee a custom formatter/extractor pair round-trips.
+
+Concurrent const operations on a manager are permitted if user conversions and
+their dependencies are also safe for concurrent use. Synchronize mutation,
+assignment, moving and destruction against all access to the same manager.
+Callbacks must not mutate or destroy that manager reentrantly during a call;
+extraction borrows its stored bytes until the callback returns. Independent
+manager copies have independent storage. Synchronization of shared streams and
+other callback state remains the caller's responsibility.
 
 ## Streams and file preservation
 
@@ -252,6 +284,9 @@ exceptions without changing masks or clearing existing errors. They report
 syntax diagnostics through the result; `operator>>` additionally sets failbit.
 A streambuf reporting EOF is treated as EOF; a custom source must signal actual
 read failures with an exception rather than silently returning EOF.
+Byte/count limits do not impose a timeout: reading a pipe, device or stalled
+stream can block. File loads follow symlinks; the regular-file and symlink
+restrictions below apply to save destinations.
 
 `write_stream` checks both writing and `pubsync` (flush); it never closes a caller's
 stream. Stream operators use the same mechanisms. Stream locale and formatting

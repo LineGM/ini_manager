@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-linux
-      - run: cmake --preset=${{ matrix.preset }} -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
+      - run: cmake --preset=${{ matrix.preset }} -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DINI_MANAGER_BUILD_BENCHMARKS=ON
       - run: cmake --build --preset=${{ matrix.preset }} --parallel 2
       - run: ctest --preset=${{ matrix.preset }}
       - run: cmake --build --preset=${{ matrix.preset }} --target run-examples all_verify_interface_header_sets
@@ -88,13 +88,57 @@ jobs:
       - run: cmake --workflow --preset=package-release
       - uses: actions/upload-artifact@v4
         with:
-          name: ini_manager-1.0.0
-          path: build/release/packages/*
+          name: ini_manager-1.1.0
+          path: |
+            build/release/packages/*.tar.gz
+            build/release/packages/*.zip
+          if-no-files-found: error
+  benchmarks:
+    runs-on: ubuntu-24.04
+    container: archlinux:base-devel
+    env:
+      # CI shells do not source Arch's /etc/profile.d/debuginfod.sh.
+      DEBUGINFOD_URLS: https://debuginfod.archlinux.org
+    steps:
+      # Without Git, checkout downloads an archive and ignores fetch-depth.
+      - name: Install Git before checkout
+        run: pacman -Syu --noconfirm --needed git
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup-linux
+      - run: pacman -S --noconfirm --needed valgrind debuginfod
+      - name: Prepare and verify Valgrind runtime
+        run: |
+          debuginfod-find debuginfo /usr/lib/ld-linux-x86-64.so.2
+          mkdir -p build/benchmarks
+          valgrind --tool=memcheck --error-exitcode=99 --log-file=build/benchmarks/preflight.valgrind.txt /usr/bin/true || {
+            cat build/benchmarks/preflight.valgrind.txt
+            exit 1
+          }
+      - name: Measure baseline and current API
+        # Container users can differ from the checkout owner. Trust only this
+        # workspace, for these Git subprocesses; leave global settings alone.
+        env:
+          GIT_CONFIG_COUNT: '1'
+          GIT_CONFIG_KEY_0: safe.directory
+          GIT_CONFIG_VALUE_0: ${{ github.workspace }}
+        run: |
+          git rev-parse --verify HEAD
+          git cat-file -e 824a2acd2886aa9e0ee3d8c390ac5e70b3fa18c6^{commit}
+          python3 test/benchmark/compare.py --output build/benchmarks
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-measurements
+          path: |
+            build/benchmarks/summary.json
+            build/benchmarks/*.valgrind.txt
+          if-no-files-found: warn
   docs:
     needs: [linux, macos, sanitize]
     runs-on: ubuntu-24.04
     container: archlinux:base-devel
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && github.repository_owner == 'LineGM'
     permissions:
       contents: write
     steps:
@@ -102,6 +146,7 @@ jobs:
       - uses: ./.github/actions/setup-linux
       - run: cmake -DPROJECT_SOURCE_DIR="$PWD" -DPROJECT_BINARY_DIR="$PWD/build" -P cmake/docs-ci.cmake
       - uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && github.repository_owner == 'LineGM'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: build/docs/html

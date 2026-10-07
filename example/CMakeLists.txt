@@ -5,7 +5,7 @@ project(ini_managerExamples CXX)
 include(../cmake/folders.cmake)
 
 if(PROJECT_IS_TOP_LEVEL)
-	find_package(ini_manager 1.0 REQUIRED)
+	find_package(ini_manager 1.1 REQUIRED)
     include(../cmake/developer-targets.cmake)
 endif()
 

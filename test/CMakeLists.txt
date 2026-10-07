@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.0...4.4)
 project(ini_managerTests LANGUAGES CXX)
 if(PROJECT_IS_TOP_LEVEL)
-    find_package(ini_manager 1.0 REQUIRED)
+    find_package(ini_manager 1.1 REQUIRED)
     include(../cmake/developer-targets.cmake)
     enable_testing()
 endif()
@@ -26,6 +26,15 @@ ini_manager_developer_target(header_test)
 add_test(NAME header_test COMMAND header_test)
 set_tests_properties(header_test PROPERTIES LABELS "integration;headers")
 if(NOT PROJECT_IS_TOP_LEVEL)
+    find_package(Python3 COMPONENTS Interpreter REQUIRED)
+    add_test(NAME tidy_selection_test COMMAND "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/consumer/check_tidy.py" "${CMAKE_COMMAND}"
+        "${ini_manager_SOURCE_DIR}/cmake/tidy.cmake")
+    set_tests_properties(tidy_selection_test PROPERTIES LABELS "integration;tooling")
+    add_test(NAME install_dirs_test COMMAND "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/consumer/check_install_dirs.py" "${CMAKE_COMMAND}"
+        "${ini_manager_SOURCE_DIR}")
+    set_tests_properties(install_dirs_test PROPERTIES LABELS "integration;package")
     add_test(NAME consumer_test COMMAND ${CMAKE_COMMAND}
         "-DINI_SOURCE=${ini_manager_SOURCE_DIR}" "-DINI_BINARY=${ini_manager_BINARY_DIR}"
         "-DINI_COMPILER=${CMAKE_CXX_COMPILER}" "-DINI_FLAGS=${CMAKE_CXX_FLAGS}"

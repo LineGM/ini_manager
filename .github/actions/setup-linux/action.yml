@@ -5,7 +5,7 @@ runs:
   steps:
     - shell: bash
       run: |
-        pacman -Syu --noconfirm --needed gcc clang clang-tools-extra compiler-rt cmake ninja git codespell lcov doxygen graphviz
+        pacman -Syu --noconfirm --needed gcc clang clang-tools-extra compiler-rt cmake ninja git python codespell lcov doxygen graphviz
         g++ --version
         clang++ --version
         cmake --version

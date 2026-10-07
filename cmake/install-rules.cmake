@@ -6,9 +6,6 @@ if(PROJECT_IS_TOP_LEVEL)
 	set_property(CACHE CMAKE_INSTALL_INCLUDEDIR PROPERTY TYPE PATH)
 endif()
 
-# Header-only package: use a platform-independent config install directory
-set(CMAKE_INSTALL_LIBDIR lib CACHE PATH "")
-
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 

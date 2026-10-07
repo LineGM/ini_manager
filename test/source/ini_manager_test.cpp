@@ -2,8 +2,10 @@
 #include "boost/ut.hpp"
 #include "ini_manager/ini_manager.hpp"
 #include <concepts>
+#include <cstddef>
 #include <cstdint>
 #include <exception>
+#include <filesystem>
 #include <format>
 #include <iostream>
 #include <limits>
@@ -12,6 +14,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -36,6 +39,22 @@ struct throwing_value
 struct throwing_format
 {
 };
+struct move_only_value
+{
+	int value = 0;
+	move_only_value() = default;
+	~move_only_value() = default;
+	move_only_value(const move_only_value &) =
+		delete ("This test requires move-only values");
+	move_only_value(move_only_value &&) = default;
+	auto operator=(const move_only_value &)
+		-> move_only_value & = delete ("This test requires move-only values");
+	auto operator=(move_only_value &&) -> move_only_value & = default;
+	friend auto operator>>(std::istream &input, move_only_value &result) -> std::istream &
+	{
+		return input >> result.value;
+	}
+};
 } // namespace
 template <> struct std::formatter<throwing_format> : std::formatter<std::string_view>
 {
@@ -58,6 +77,15 @@ static_assert(!ini::readable_value<unsupported>);
 static_assert(!ini::readable_value<const char *>);
 static_assert(!ini::readable_value<std::string_view>);
 static_assert(ini::readable_value<user_value>);
+static_assert(ini::readable_value<move_only_value>);
+static_assert(!std::copy_constructible<move_only_value>);
+static_assert(!ini::readable_value<std::string &>);
+static_assert(!ini::writable_value<unsupported>);
+static_assert(std::is_nothrow_swappable_v<ini::ini_manager>);
+static_assert(std::is_nothrow_move_constructible_v<ini::ini_manager> ==
+			  std::is_nothrow_default_constructible_v<ini::detail::data_map>);
+static_assert(std::is_nothrow_move_assignable_v<ini::ini_manager> ==
+			  std::is_nothrow_default_constructible_v<ini::detail::data_map>);
 static_assert(!noexcept(std::declval<const ini::ini_manager &>().get_value<int>({"s"},
 																				{"k"})));
 static_assert(std::same_as<decltype(std::declval<ini::ini_manager>().get_value_or_default(
@@ -109,6 +137,22 @@ void test_value_semantics_and_owning_results()
 	expect(must(std::move(temporary_result)) == "owning");
 }
 
+void test_self_assignment_preserves_data_and_options()
+{
+	const ini::parse_options options{.max_keys = 1};
+	auto config = test::parse("[s]\nk=value", options);
+	auto &alias = config;
+	config = alias;
+	expect(config.options() == options);
+	expect(must(config.get_value({"s"}, {"k"})) == "value");
+	config = std::move(alias);
+	// Self-move through an alias is supported by the manager's assignment contract.
+	// NOLINTNEXTLINE(bugprone-use-after-move,hicpp-invalid-access-moved)
+	expect(config.options() == options);
+	expect(must(config.get_value({"s"}, {"k"})) == "value");
+	expect(!config.set_value({"s"}, {"another"}, "full"));
+}
+
 void test_borrowed_substrings_are_copied_only_when_inserted()
 {
 	ini::ini_manager config;
@@ -141,6 +185,35 @@ void test_diagnostics_tolerate_unrecognized_public_enum_values()
 	expect(diagnostic.message() == "unknown operation: unknown reason");
 }
 
+void test_string_sinks_preserve_aliased_names()
+{
+	constexpr std::string_view group = "server";
+	constexpr std::string_view name = "port";
+	constexpr std::size_t long_size = 1024;
+	for (const auto size : {group.size() + name.size(), long_size})
+	{
+		ini::ini_manager config;
+		for (const auto *suffix : {"", "new", "new"})
+		{
+			const auto expected = std::string(group) + std::string(name) + suffix +
+								  std::string(size - group.size() - name.size(), 'x');
+			auto value = expected;
+			const ini::section borrowed_group{
+				std::string_view(value).substr(0, group.size()),
+			};
+			const ini::key borrowed_key{std::string_view(value).substr(group.size())};
+			const auto expected_key = std::string(borrowed_key.value);
+			must(config.set_value(borrowed_group, borrowed_key, std::move(value)));
+			expect(must(config.get_value({group}, {expected_key})) == expected);
+		}
+		std::string invalid = " padded";
+		expect(!config.set_value({group}, {name}, std::move(invalid)));
+		// Validation precedes consumption of a string rvalue.
+		// NOLINTNEXTLINE(bugprone-use-after-move,hicpp-invalid-access-moved)
+		expect(invalid == " padded");
+	}
+}
+
 void test_default_only_for_missing_data()
 {
 	constexpr int fallback_number = 8;
@@ -162,6 +235,27 @@ void test_default_only_for_missing_data()
 		   ini::error_reason::missing_section);
 	expect(config.get_value({"s"}, {"absent"}).error().reason ==
 		   ini::error_reason::missing_key);
+}
+
+void test_diagnostics_escape_untrusted_context()
+{
+	ini::ini_manager config;
+	auto outcome = config.set_value({"bad\nsection"}, {"bad\tkey"}, "value");
+	test::require(!outcome);
+	auto &diagnostic = outcome.error();
+	diagnostic.path = std::filesystem::path("bad\npath");
+	diagnostic.temporary_path = std::filesystem::path("temporary\tpath");
+	diagnostic.key_name.push_back('\0');
+	const auto message = diagnostic.message();
+	expect(!message.contains('\n'));
+	expect(!message.contains('\t'));
+	expect(!message.contains('\0'));
+	expect(message.contains("bad\\nsection"));
+	expect(message.contains("bad\\tkey"));
+	expect(message.contains("bad\\npath"));
+	expect(message.contains("temporary\\tpath"));
+	expect(diagnostic.section_name == "bad\nsection");
+	expect(diagnostic.key_name.back() == '\0');
 }
 
 void test_string_arguments_preserve_array_lengths_and_reject_null_pointers()
@@ -226,6 +320,20 @@ void test_integer_ranges_and_full_consumption()
 		   ini::error_reason::out_of_range);
 	must(config.set_value({"s"}, {"x"}, "256"));
 	expect(!config.get_value<std::uint8_t>({"s"}, {"x"}));
+}
+
+void test_move_only_conversions_and_defaults()
+{
+	constexpr int expected = 42;
+	const auto config = test::parse("[s]\nx=42\nbad=42junk\n");
+	expect(must(config.get_value<move_only_value>({"s"}, {"x"})).value == expected);
+	expect(must(config.get_value_or_default({"s"}, {"x"}, move_only_value{})).value ==
+		   expected);
+	expect(
+		must(config.get_value_or_default({"s"}, {"missing"}, move_only_value{})).value ==
+		0);
+	expect(!config.get_value_or_default({"s"}, {"bad"}, move_only_value{}));
+	expect(must(config.get_value({"s"}, {"x"})) == "42");
 }
 
 void test_floating_conversions_are_finite_exact_and_locale_independent()
@@ -344,6 +452,45 @@ void test_validation_prevents_injection_and_leaves_values_unchanged()
 	expect(config.remove_section({"s"}));
 	expect(!config.remove_section({"s"}));
 }
+
+void test_key_limit_tracks_value_operations()
+{
+	const ini::parse_options options{.max_keys = 2};
+	auto config = test::parse("[s]\na=1\nb=2", options);
+	expect(!config.set_value({"s"}, {"c"}, "3"));
+	must(config.set_value({"s"}, {"a"}, "updated"));
+	expect(config.remove_value({"s"}, {"a"}));
+	must(config.set_value({"s"}, {"c"}, "3"));
+	auto copy = config;
+	expect(copy.remove_section({"s"}));
+	must(copy.set_value({"new"}, {"a"}, "1"));
+	must(copy.set_value({"new"}, {"b"}, "2"));
+	expect(!copy.set_value({"new"}, {"c"}, "3"));
+	expect(!config.set_value({"new"}, {"a"}, "1"));
+	std::istringstream too_many("[new]\na=1\nb=2\nc=3");
+	expect(!config.load_stream(too_many, options));
+	expect(!config.set_value({"s"}, {"a"}, "1"));
+	std::istringstream load("[loaded]\na=1");
+	must(config.load_stream(load, options));
+	std::istringstream merge("[loaded]\na=updated\n[extra]\nb=2");
+	must(config.add_from_stream(merge));
+	expect(!config.set_value({"s"}, {"a"}, "1"));
+	std::istringstream rejected("[overflow]\nc=3");
+	expect(!config.add_from_stream(rejected));
+	expect(config.remove_section({"extra"}));
+	must(config.set_value({"loaded"}, {"b"}, "2"));
+	auto moved = std::move(config);
+	// A moved-from manager is empty and has default limits.
+	// NOLINTNEXTLINE(bugprone-use-after-move,hicpp-invalid-access-moved)
+	must(config.set_value({"new"}, {"a"}, "1"));
+	expect(!moved.set_value({"loaded"}, {"c"}, "3"));
+	copy = moved;
+	// Copy assignment must retain the source's resource-limit state as well.
+	expect(!moved.set_value({"loaded"}, {"c"}, "3"));
+	expect(!copy.set_value({"loaded"}, {"c"}, "3"));
+	config = std::move(copy);
+	expect(!config.set_value({"loaded"}, {"c"}, "3"));
+}
 } // namespace
 
 auto main() -> int
@@ -351,21 +498,28 @@ try
 {
 	using boost::ut::operator""_test;
 	"value semantics and owning results"_test = test_value_semantics_and_owning_results;
+	"self assignment preserves data and options"_test =
+		test_self_assignment_preserves_data_and_options;
 	"borrowed substrings are copied only when inserted"_test =
 		test_borrowed_substrings_are_copied_only_when_inserted;
+	"string sinks preserve aliased names"_test = test_string_sinks_preserve_aliased_names;
 	"diagnostics tolerate unrecognized public enum values"_test =
 		test_diagnostics_tolerate_unrecognized_public_enum_values;
 	"default only for missing data"_test = test_default_only_for_missing_data;
+	"diagnostics escape untrusted context"_test =
+		test_diagnostics_escape_untrusted_context;
 	"string arguments preserve array lengths and reject null pointers"_test =
 		test_string_arguments_preserve_array_lengths_and_reject_null_pointers;
 	"exceptions in user conversions propagate without mutation"_test =
 		test_exceptions_in_user_conversions_propagate_without_mutation;
 	"integer ranges and full consumption"_test = test_integer_ranges_and_full_consumption;
+	"move-only conversions and defaults"_test = test_move_only_conversions_and_defaults;
 	"floating conversions are finite exact and locale independent"_test =
 		test_floating_conversions_are_finite_exact_and_locale_independent;
 	"ASCII bool and single byte char"_test = test_ascii_bool_and_single_byte_char;
 	"validation prevents injection and leaves values unchanged"_test =
 		test_validation_prevents_injection_and_leaves_values_unchanged;
+	"key limit tracks value operations"_test = test_key_limit_tracks_value_operations;
 }
 
 catch (const std::exception &error)

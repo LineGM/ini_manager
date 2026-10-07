@@ -29,7 +29,7 @@
 #include <optional>
 #include <ostream>
 #include <span>
-#include <sstream>
+#include <spanstream>
 #include <streambuf>
 #include <string>
 #include <string_view>
@@ -49,6 +49,9 @@
 #endif
 #if !defined(__cpp_lib_to_chars) || __cpp_lib_to_chars < 202306L
 #error "ini_manager requires C++26 charconv result testing (P2497R0)"
+#endif
+#if !defined(__cpp_lib_format_path) || __cpp_lib_format_path < 202403L
+#error "ini_manager requires C++26 filesystem path formatting (P2845R8)"
 #endif
 
 #ifdef _WIN32
@@ -199,15 +202,15 @@ struct error
 		}
 		if (path)
 		{
-			result += " (" + path->string() + ")";
+			result += std::format(" ({:?})", *path);
 		}
 		if (!section_name.empty() || !key_name.empty())
 		{
-			result += " [" + section_name + "] " + key_name;
+			result += std::format(" [section={:?}, key={:?}]", section_name, key_name);
 		}
 		if (system_code)
 		{
-			result += ": " + system_code.message();
+			result += std::format(": {:?}", system_code.message());
 		}
 		if (replacement == replacement_state::replaced)
 		{
@@ -219,7 +222,11 @@ struct error
 		}
 		if (cleanup_code)
 		{
-			result += "; cleanup failed: " + cleanup_code.message();
+			result += std::format("; cleanup failed: {:?}", cleanup_code.message());
+		}
+		if (temporary_path)
+		{
+			result += std::format("; temporary file: {:?}", *temporary_path);
 		}
 		return result;
 	}
@@ -670,10 +677,10 @@ auto serialize_entries(std::string_view section_name, const entries &values,
 	return {};
 }
 
-inline auto serialize(const data_map &data, const parse_options &options)
-	-> result<std::string>
+inline auto serialized_size(const data_map &data, const parse_options &options)
+	-> result<std::size_t>
 {
-	std::string output;
+	std::size_t size = 0;
 	const auto limit_error = [] -> std::unexpected<ini::error> {
 		return std::unexpected(
 			make_error(error_reason::resource_limit, operation::validate));
@@ -684,11 +691,11 @@ inline auto serialize(const data_map &data, const parse_options &options)
 	}
 	std::size_t keys = 0;
 	auto append = [&](std::string_view section_name) -> bool {
-		if (section_name.size() > options.max_input_bytes - output.size())
+		if (section_name.size() > options.max_input_bytes - size)
 		{
 			return false;
 		}
-		output.append(section_name);
+		size += section_name.size();
 		return true;
 	};
 	for (const auto &[section_name, entries] : data)
@@ -721,6 +728,34 @@ inline auto serialize(const data_map &data, const parse_options &options)
 		{
 			return limit_error();
 		}
+	}
+	return size;
+}
+
+inline auto serialize(const data_map &data, const parse_options &options)
+	-> result<std::string>
+{
+	auto size = serialized_size(data, options);
+	if (!size)
+	{
+		return std::unexpected(std::move(size.error()));
+	}
+	std::string output;
+	output.reserve(*size);
+	// The owning map is stable for this read: validation and sizing are complete.
+	for (const auto &[section_name, entries] : data)
+	{
+		output += '[';
+		output += section_name;
+		output += "]\n";
+		for (const auto &[name, value] : entries)
+		{
+			output += name;
+			output += " = ";
+			output += value;
+			output += '\n';
+		}
+		output += '\n';
 	}
 	return output;
 }
@@ -865,6 +900,25 @@ class native_file
 inline auto valid_path(const std::filesystem::path &path) noexcept -> bool
 {
 	return !path.empty() && !path.native().contains(std::filesystem::path::value_type{});
+}
+inline auto absolute_path(const std::filesystem::path &path, operation action)
+	-> result<std::filesystem::path>
+{
+	if (!valid_path(path))
+	{
+		auto diagnostic = make_error(error_reason::invalid_target, action);
+		diagnostic.path = path;
+		return std::unexpected(std::move(diagnostic));
+	}
+	std::error_code code;
+	auto resolved = std::filesystem::absolute(path, code);
+	if (code)
+	{
+		auto diagnostic = io_error(action, code);
+		diagnostic.path = path;
+		return std::unexpected(std::move(diagnostic));
+	}
+	return resolved;
 }
 inline auto parse_file(const std::filesystem::path &path, const parse_options &options)
 	-> result<data_map>
@@ -1200,7 +1254,8 @@ template <class T> auto read_number(std::string_view text) -> result<T>
 }
 template <custom_readable T> auto read_custom(const std::string &text) -> result<T>
 {
-	std::istringstream input(text);
+	// The stream borrows immutable bytes only for this synchronous conversion.
+	std::ispanstream input{std::span<const char>(text)};
 	input.imbue(std::locale::classic());
 	T converted{};
 	if (input >> converted)
@@ -1258,7 +1313,11 @@ template <class S> auto string_text(S &&source, operation action) -> result<std:
 			return std::unexpected(make_error(error_reason::invalid_value, action));
 		}
 	}
-	if constexpr (std::is_array_v<value_type>)
+	if constexpr (std::same_as<value_type, std::string>)
+	{
+		return std::forward<S>(source);
+	}
+	else if constexpr (std::is_array_v<value_type>)
 	{
 		const auto bytes = std::span(source);
 		const auto length =
@@ -1325,6 +1384,17 @@ class ini_manager
 	std::optional<std::filesystem::path> m_path;
 	parse_options m_options;
 
+	std::size_t m_key_count = 0;
+	static auto count_keys(const detail::data_map &data) noexcept -> std::size_t
+	{
+		std::size_t count = 0;
+		for (const auto &[ignored, entries] : data)
+		{
+			count += entries.size();
+		}
+		return count;
+	}
+
 	auto lookup(section group, key name) const -> result<const std::string *>
 	{
 		const auto sec = m_data.find(group.value);
@@ -1344,6 +1414,48 @@ class ini_manager
 		diagnostic.key_name = name.value;
 		return std::unexpected(std::move(diagnostic));
 	}
+	auto store_value(section group, key name, std::string &&text) -> result<void>
+	{
+		if (auto valid = detail::validate_entry(group, name, text, m_options); !valid)
+		{
+			return valid;
+		}
+		const auto sec = m_data.find(group.value);
+		if (sec != m_data.end())
+		{
+			const auto entry = sec->second.find(name.value);
+			if (entry != sec->second.end())
+			{
+				entry->second = std::move(text);
+				return {};
+			}
+		}
+		else if (m_data.size() >= m_options.max_sections)
+		{
+			return std::unexpected(
+				detail::make_error(error_reason::resource_limit, operation::validate));
+		}
+		if (m_key_count >= m_options.max_keys)
+		{
+			return std::unexpected(
+				detail::make_error(error_reason::resource_limit, operation::validate));
+		}
+		// Own every required name before moving text; borrowed names may alias it.
+		if (sec == m_data.end())
+		{
+			auto section_name = std::string(group.value);
+			detail::entries values;
+			values.try_emplace(std::string(name.value), std::move(text));
+			m_data.try_emplace(std::move(section_name), std::move(values));
+		}
+		else
+		{
+			sec->second.try_emplace(std::string(name.value), std::move(text));
+		}
+		++m_key_count;
+		return {};
+	}
+
 	auto merge(detail::data_map incoming) -> result<void>
 	{
 		auto candidate = m_data;
@@ -1356,11 +1468,13 @@ class ini_manager
 			}
 		}
 		// Check resulting counts and canonical resource limits before committing.
-		if (auto valid = detail::serialize(candidate, m_options); !valid)
+		if (auto valid = detail::serialized_size(candidate, m_options); !valid)
 		{
 			return std::unexpected(std::move(valid.error()));
 		}
+		const auto count = count_keys(candidate);
 		m_data.swap(candidate);
+		m_key_count = count;
 		return {};
 	}
 
@@ -1401,6 +1515,7 @@ class ini_manager
 		m_data.swap(other.m_data);
 		m_path.swap(other.m_path);
 		std::swap(m_options, other.m_options);
+		std::swap(m_key_count, other.m_key_count);
 	}
 	friend void swap(ini_manager &left, ini_manager &right) noexcept
 	{
@@ -1439,15 +1554,21 @@ class ini_manager
 	[[nodiscard]] auto load_file(const std::filesystem::path &path,
 								 parse_options options = {}) -> result<void>
 	{
-		auto parsed = detail::parse_file(path, options);
+		auto resolved = detail::absolute_path(path, operation::open);
+		if (!resolved)
+		{
+			return std::unexpected(std::move(resolved.error()));
+		}
+		auto parsed = detail::parse_file(*resolved, options);
 		if (!parsed)
 		{
-			parsed.error().path = path;
+			parsed.error().path = *resolved;
 			return std::unexpected(std::move(parsed.error()));
 		}
 		ini_manager candidate(options);
 		candidate.m_data = std::move(*parsed);
-		candidate.m_path = path;
+		candidate.m_key_count = count_keys(candidate.m_data);
+		candidate.m_path = std::move(*resolved);
 		swap(candidate);
 		return {};
 	}
@@ -1461,21 +1582,27 @@ class ini_manager
 		}
 		ini_manager candidate(options);
 		candidate.m_data = std::move(*parsed);
+		candidate.m_key_count = count_keys(candidate.m_data);
 		swap(candidate);
 		return {};
 	}
 	[[nodiscard]] auto add_from_file(const std::filesystem::path &path) -> result<void>
 	{
-		auto parsed = detail::parse_file(path, m_options);
+		auto resolved = detail::absolute_path(path, operation::open);
+		if (!resolved)
+		{
+			return std::unexpected(std::move(resolved.error()));
+		}
+		auto parsed = detail::parse_file(*resolved, m_options);
 		if (!parsed)
 		{
-			parsed.error().path = path;
+			parsed.error().path = *resolved;
 			return std::unexpected(std::move(parsed.error()));
 		}
 		auto outcome = merge(std::move(*parsed));
 		if (!outcome)
 		{
-			outcome.error().path = path;
+			outcome.error().path = *resolved;
 		}
 		return outcome;
 	}
@@ -1541,48 +1668,20 @@ class ini_manager
 	template <writable_value T>
 	[[nodiscard]] auto set_value(section group, key name, T &&value) -> result<void>
 	{
-		auto formatted = detail::value_text(std::forward<T>(value));
-		if (!formatted)
+		if constexpr (std::same_as<T, std::string>)
 		{
-			return std::unexpected(std::move(formatted.error()));
-		}
-		auto text = std::move(*formatted);
-		if (auto valid = detail::validate_entry(group, name, text, m_options); !valid)
-		{
-			return valid;
-		}
-		// Prepare all potentially throwing work before touching the stored map.
-		const auto sec = m_data.find(group.value);
-		if (sec == m_data.end() && m_data.size() >= m_options.max_sections)
-		{
-			return std::unexpected(
-				detail::make_error(error_reason::resource_limit, operation::validate));
-		}
-		const bool new_key = sec == m_data.end() || !sec->second.contains(name.value);
-		if (new_key)
-		{
-			std::size_t count = 0;
-			for (const auto &entry : m_data)
-			{
-				count += entry.second.size();
-			}
-			if (count >= m_options.max_keys)
-			{
-				return std::unexpected(detail::make_error(error_reason::resource_limit,
-														  operation::validate));
-			}
-		}
-		if (sec == m_data.end())
-		{
-			detail::entries values;
-			values.try_emplace(name.value, std::move(text));
-			m_data.try_emplace(group.value, std::move(values));
+			// Binding the reference does not move yet: names may borrow value's bytes.
+			return store_value(group, name, std::forward<T>(value));
 		}
 		else
 		{
-			sec->second.insert_or_assign(name.value, std::move(text));
+			auto formatted = detail::value_text(std::forward<T>(value));
+			if (!formatted)
+			{
+				return std::unexpected(std::move(formatted.error()));
+			}
+			return store_value(group, name, std::move(*formatted));
 		}
-		return {};
 	}
 	[[nodiscard]] auto set_section(section group) -> result<void>
 	{
@@ -1616,6 +1715,7 @@ class ini_manager
 			return false;
 		}
 		sec->second.erase(entry);
+		--m_key_count;
 		return true;
 	}
 	[[nodiscard]] auto remove_section(section group) -> bool
@@ -1625,6 +1725,7 @@ class ini_manager
 		{
 			return false;
 		}
+		m_key_count -= entry->second.size();
 		m_data.erase(entry);
 		return true;
 	}
@@ -1710,11 +1811,16 @@ class ini_manager
 		{
 			return std::unexpected(std::move(text.error()));
 		}
-		detail::file_ops ops(path);
+		auto resolved = detail::absolute_path(path, operation::inspect);
+		if (!resolved)
+		{
+			return std::unexpected(std::move(resolved.error()));
+		}
+		detail::file_ops ops(std::move(*resolved));
 		auto outcome = detail::atomic_write(ops, *text);
 		if (!outcome)
 		{
-			outcome.error().path = path;
+			outcome.error().path = ops.target;
 		}
 		return outcome;
 	}

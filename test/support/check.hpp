@@ -1,9 +1,17 @@
 #ifndef INI_MANAGER_TEST_CHECK_HPP
 #define INI_MANAGER_TEST_CHECK_HPP
+#include <atomic>
 #include <boost/ut.hpp>
+#include <concepts>
+#include <filesystem>
 #include <fstream>
 #include <ini_manager/ini_manager.hpp>
+#include <iterator>
+#include <sstream>
 #include <stdexcept>
+#include <string>
+#include <string_view>
+#include <utility>
 
 namespace test
 {

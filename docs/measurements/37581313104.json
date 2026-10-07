@@ -1,0 +1,253 @@
+{
+  "complete": true,
+  "baseline": "824a2acd2886aa9e0ee3d8c390ac5e70b3fa18c6",
+  "current": "09fcd5efd909f62cfab9d1ec12e08597d43a3e80",
+  "compiler": "g++ (GCC) 16.2.1 20260810\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+  "valgrind": "valgrind-3.25.1",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.44",
+  "flags": [
+    "-std=c++26",
+    "-O3",
+    "-DNDEBUG"
+  ],
+  "timing_scope": "workload including setup; excludes process startup",
+  "allocation_scope": "whole process including setup and reporting",
+  "builds": {
+    "baseline": {
+      "compile_command": [
+        "/usr/sbin/g++",
+        "-std=c++26",
+        "-O3",
+        "-DNDEBUG",
+        "-I",
+        "/__w/ini_manager/ini_manager/build/benchmarks/baseline/include",
+        "/__w/ini_manager/ini_manager/test/benchmark/workloads.cpp",
+        "-o",
+        "/__w/ini_manager/ini_manager/build/benchmarks/workloads-baseline"
+      ],
+      "compile_ns": [
+        4966365491,
+        5027509264,
+        5064061361
+      ],
+      "median_compile_ns": 5027509264,
+      "executable_bytes": 159424,
+      "workloads": {
+        "set_strings": {
+          "iterations": 5000,
+          "elapsed_ns": [
+            14138391,
+            14218049,
+            14152967,
+            14124956,
+            14142338,
+            14104888
+          ],
+          "median_elapsed_ns": 14140364.5,
+          "checksum": 4096,
+          "allocations": 10005,
+          "frees": 10005,
+          "allocated_bytes": 41052129
+        },
+        "string_defaults": {
+          "iterations": 5000,
+          "elapsed_ns": [
+            920658,
+            899990,
+            883529,
+            890271,
+            934434,
+            892325
+          ],
+          "median_elapsed_ns": 896157.5,
+          "checksum": 20480000,
+          "allocations": 10002,
+          "frees": 10002,
+          "allocated_bytes": 41047824
+        },
+        "custom_reads": {
+          "iterations": 5000,
+          "elapsed_ns": [
+            7379230,
+            7381154,
+            7406972,
+            7415688,
+            7436958,
+            7408706
+          ],
+          "median_elapsed_ns": 7407839.0,
+          "checksum": 20480000,
+          "allocations": 5006,
+          "frees": 5006,
+          "allocated_bytes": 20571226
+        },
+        "insert_sections": {
+          "iterations": 3000,
+          "elapsed_ns": [
+            30124646,
+            29390146,
+            30238589,
+            29365099,
+            29805200,
+            30069683
+          ],
+          "median_elapsed_ns": 29937441.5,
+          "checksum": 3000,
+          "allocations": 6003,
+          "frees": 6003,
+          "allocated_bytes": 797824
+        },
+        "merge_documents": {
+          "iterations": 64,
+          "elapsed_ns": [
+            43398247,
+            43222920,
+            43069082,
+            43091665,
+            42860493,
+            42698039
+          ],
+          "median_elapsed_ns": 43080373.5,
+          "checksum": 101,
+          "allocations": 13936,
+          "frees": 13936,
+          "allocated_bytes": 94750872
+        },
+        "serialize_documents": {
+          "iterations": 128,
+          "elapsed_ns": [
+            119160540,
+            119277377,
+            119378426,
+            119745912,
+            119088966,
+            119306822
+          ],
+          "median_elapsed_ns": 119292099.5,
+          "checksum": 52504960,
+          "allocations": 2735,
+          "frees": 2735,
+          "allocated_bytes": 269016120
+        }
+      }
+    },
+    "current": {
+      "compile_command": [
+        "/usr/sbin/g++",
+        "-std=c++26",
+        "-O3",
+        "-DNDEBUG",
+        "-I",
+        "/__w/ini_manager/ini_manager/include",
+        "/__w/ini_manager/ini_manager/test/benchmark/workloads.cpp",
+        "-o",
+        "/__w/ini_manager/ini_manager/build/benchmarks/workloads-current"
+      ],
+      "compile_ns": [
+        6655319114,
+        6696619942,
+        6602285160
+      ],
+      "median_compile_ns": 6655319114,
+      "executable_bytes": 246624,
+      "workloads": {
+        "set_strings": {
+          "iterations": 5000,
+          "elapsed_ns": [
+            13762749,
+            13718126,
+            13649538,
+            13618610,
+            13633038,
+            13682158
+          ],
+          "median_elapsed_ns": 13665848.0,
+          "checksum": 4096,
+          "allocations": 5005,
+          "frees": 5005,
+          "allocated_bytes": 20567129
+        },
+        "string_defaults": {
+          "iterations": 5000,
+          "elapsed_ns": [
+            617402,
+            613414,
+            613725,
+            621419,
+            624726,
+            616851
+          ],
+          "median_elapsed_ns": 617126.5,
+          "checksum": 20480000,
+          "allocations": 5002,
+          "frees": 5002,
+          "allocated_bytes": 20562824
+        },
+        "custom_reads": {
+          "iterations": 5000,
+          "elapsed_ns": [
+            7124696,
+            7082186,
+            6990746,
+            6988451,
+            7002938,
+            6986167
+          ],
+          "median_elapsed_ns": 6996842.0,
+          "checksum": 20480000,
+          "allocations": 5,
+          "frees": 5,
+          "allocated_bytes": 82129
+        },
+        "insert_sections": {
+          "iterations": 3000,
+          "elapsed_ns": [
+            1640611,
+            1641954,
+            1656091,
+            1658034,
+            1631104,
+            1635642
+          ],
+          "median_elapsed_ns": 1641282.5,
+          "checksum": 3000,
+          "allocations": 6003,
+          "frees": 6003,
+          "allocated_bytes": 797824
+        },
+        "merge_documents": {
+          "iterations": 64,
+          "elapsed_ns": [
+            19510459,
+            19472519,
+            19359468,
+            19530767,
+            19393901,
+            19429848
+          ],
+          "median_elapsed_ns": 19451183.5,
+          "checksum": 101,
+          "allocations": 13324,
+          "frees": 13324,
+          "allocated_bytes": 27363380
+        },
+        "serialize_documents": {
+          "iterations": 128,
+          "elapsed_ns": [
+            102861795,
+            102733355,
+            103015182,
+            125737496,
+            103299743,
+            102653527
+          ],
+          "median_elapsed_ns": 102938488.5,
+          "checksum": 52504960,
+          "allocations": 1739,
+          "frees": 1739,
+          "allocated_bytes": 187155924
+        }
+      }
+    }
+  }
+}

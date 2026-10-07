@@ -1,4 +1,4 @@
-# Developing ini_manager 1.0.0
+# Developing ini_manager 1.1.0
 
 Use CMake 4.0+ and a supported C++26 toolchain from README. Shared presets live in
 `CMakePresets.json` (schema 10); `CMakeUserPresets.json` is ignored and reserved for
@@ -37,7 +37,8 @@ no existing file or link occupies that path. `tidy-check` uses the selected buil
 directory explicitly. Module scanning is disabled on project executables because
 the library is distributed as a header.
 
-Tests use a pinned Boost.UT revision fetched into the build tree. For offline builds configure
+Tests require Python 3 for tooling integration checks and use a pinned Boost.UT
+revision fetched into the build tree. For offline builds configure
 with `-DFETCHCONTENT_SOURCE_DIR_BOOST.UT=/path/to/boost.ut`. CTest labels `unit`,
 `integration`, `headers` and `package` allow focused runs. Package tests verify
 add_subdirectory, local FetchContent and installed find_package consumers,
@@ -79,7 +80,8 @@ cmake --build --preset=ci-coverage --target coverage
 ```
 
 `INI_MANAGER_ENABLE_SANITIZERS=ON` enables ASan/UBSan on project executables.
-The sanitizer preset explicitly selects `clang++`; use Clang 22.
+The sanitizer preset explicitly selects `clang++`; use the same supported LLVM
+toolchain as the Clang quality checks.
 `ENABLE_COVERAGE=ON` uses GCC
 coverage instrumentation and the `coverage` target requires lcov. Each preset has
 its own build directory. LeakSanitizer cannot run under ptrace; when necessary,
@@ -98,6 +100,36 @@ its own sanitizer instrumentation. The first input byte selects dialect options;
 remaining bytes form the document. Successful parses are serialized, reparsed and
 compared. Keep tracked seeds unchanged and write generated corpus inputs into the
 build tree.
+
+## Performance measurements
+
+`INI_MANAGER_BUILD_BENCHMARKS=ON` adds `ini_manager_benchmark` to developer
+builds, including compilation-database analysis. It uses only the public API and
+the standard library. The CI measurement job compares the same workload source
+against the review's fixed baseline and the current header:
+
+```sh
+python3 test/benchmark/compare.py --output build/benchmarks --compiler g++
+```
+
+This requires a full Git checkout, Python 3, a supported C++26 compiler and
+Valgrind. Run substantial measurements on a dedicated runner. The job records
+six alternating native timing samples per workload, whole-process allocation
+counts/bytes under Valgrind, and three compiler wall-time samples per header.
+Compile samples include linking and are sequential, so cache effects remain.
+Timings include scenario setup but exclude process startup; allocation counts
+include both. Reporting does not count C++ copy/move constructor calls and does
+not infer them from heap allocations. Checksums must agree, but performance
+thresholds do not gate shared runners. Inspect raw samples before claiming a
+speedup; these scenarios are not a general-purpose workload distribution.
+
+On Arch, Valgrind needs matching loader debug symbols. CI installs `debuginfod`,
+sets `DEBUGINFOD_URLS=https://debuginfod.archlinux.org`, fetches the loader's debug
+information and checks Valgrind on `/usr/bin/true` before measurements. See
+[Arch's debuginfod setup](https://wiki.archlinux.org/title/Debuginfod).
+The measurement driver preserves partial results with `complete: false`; only
+`complete: true` means every comparison and allocation measurement succeeded.
+Valgrind failures remain job failures and their logs are printed and uploaded.
 
 ## Documentation and packaging
 
